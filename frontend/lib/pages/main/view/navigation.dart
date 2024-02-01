@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:frontend/common/common.dart';
 import 'package:get/get.dart';
 
 import '../controller/navigation_controller.dart';
@@ -39,36 +41,34 @@ class Navigation extends StatelessWidget {
                   children: [
                     Expanded(
                         child: _bottomNavigationButton(
-                            index: 0,
-                            icon: [
-                              CupertinoIcons.person,
-                              CupertinoIcons.person_fill,
-                            ],
-                            text: "홈")),
+                      index: 0,
+                      icon: [CupertinoIcons.house, CupertinoIcons.house_fill],
+                    )),
                     Expanded(
                         child: _bottomNavigationButton(
-                            index: 1,
-                            icon: [
-                              CupertinoIcons.person,
-                              CupertinoIcons.person_fill,
-                            ],
-                            text: "퀘스트")),
+                      index: 1,
+                      icon: [
+                        FontAwesomeIcons.list,
+                        FontAwesomeIcons.list,
+                      ],
+                    )),
+                    Expanded(
+                      child: _bottomNavigationButton(
+                        index: 2,
+                        icon: [
+                          FontAwesomeIcons.addressBook,
+                          FontAwesomeIcons.solidAddressBook,
+                        ],
+                      ),
+                    ),
                     Expanded(
                         child: _bottomNavigationButton(
-                            index: 2,
-                            icon: [
-                              CupertinoIcons.person,
-                              CupertinoIcons.person_fill,
-                            ],
-                            text: "소셜")),
-                    Expanded(
-                        child: _bottomNavigationButton(
-                            index: 3,
-                            icon: [
-                              CupertinoIcons.person,
-                              CupertinoIcons.person_fill,
-                            ],
-                            text: "내정보")),
+                      index: 3,
+                      icon: [
+                        FontAwesomeIcons.user,
+                        FontAwesomeIcons.solidUser,
+                      ],
+                    )),
                   ],
                 ),
               ),
@@ -79,7 +79,7 @@ class Navigation extends StatelessWidget {
     );
   }
 
-  static Widget _bottomNavigationButton({required int index, required List<IconData> icon, required String text}) {
+  static Widget _bottomNavigationButton({required int index, required List<IconData> icon}) {
     final controller = NavigationController.instance;
 
     return InkWell(
@@ -95,15 +95,8 @@ class Navigation extends StatelessWidget {
               children: [
                 Icon(
                   icon[index == controller.pageIndex.value ? 1 : 0],
-                  color: index == controller.pageIndex.value ? const Color(0xFF33C26C) : const Color.fromARGB(255, 85, 85, 85),
+                  color: index == controller.pageIndex.value ? Color(Common.mainColor) : Color(Common.mainGray),
                   size: 30,
-                ),
-                const SizedBox(height: 2.0), // 아이콘과 텍스트 사이의 간격 조절
-                Text(
-                  text,
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      color: index == controller.pageIndex.value ? const Color(0xFF33C26C) : const Color.fromARGB(255, 85, 85, 85)), // 텍스트의 스타일 설정
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
-import 'package:frontend/flutter/packages/flutter/lib/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/navigation_controller.dart';
@@ -36,29 +37,36 @@ class Navigation extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Row(
                   children: [
-                    Expanded(child: _bottomNavigationButton(index: 0, icon: [], text: "홈")),
+                    Expanded(
+                        child: _bottomNavigationButton(
+                            index: 0,
+                            icon: [
+                              CupertinoIcons.person,
+                              CupertinoIcons.person_fill,
+                            ],
+                            text: "홈")),
                     Expanded(
                         child: _bottomNavigationButton(
                             index: 1,
                             icon: [
-                              // Iconsax.video_play,
-                              // Iconsax.video_play,
+                              CupertinoIcons.person,
+                              CupertinoIcons.person_fill,
                             ],
                             text: "퀘스트")),
                     Expanded(
                         child: _bottomNavigationButton(
                             index: 2,
                             icon: [
-                              // CupertinoIcons.person,
-                              // CupertinoIcons.person_fill,
+                              CupertinoIcons.person,
+                              CupertinoIcons.person_fill,
                             ],
                             text: "소셜")),
                     Expanded(
                         child: _bottomNavigationButton(
                             index: 3,
                             icon: [
-                              // CupertinoIcons.person,
-                              // CupertinoIcons.person_fill,
+                              CupertinoIcons.person,
+                              CupertinoIcons.person_fill,
                             ],
                             text: "내정보")),
                   ],
@@ -77,11 +85,7 @@ class Navigation extends StatelessWidget {
     return InkWell(
         splashColor: Colors.transparent,
         onTap: () {
-          if (index == 3 /*&& UserService.instance.isLogin() == false*/) {
-            //Get.toNamed(LoginPage.url);
-          } else {
-            controller.selectTab(index);
-          }
+          controller.selectTab(index);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

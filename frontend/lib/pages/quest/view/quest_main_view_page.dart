@@ -1,4 +1,7 @@
-import 'package:frontend/flutter/packages/flutter/lib/material.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../controller/quest_controller.dart';
 
 class QuestMainPage extends StatelessWidget {
   const QuestMainPage({super.key});
@@ -7,6 +10,7 @@ class QuestMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(QuestMainController());
     return const Scaffold(
       body: Center(
         child: Column(

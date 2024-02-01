@@ -1,4 +1,5 @@
-import 'package:frontend/flutter/packages/flutter/lib/material.dart';
+import 'package:flutter/material.dart';
+import 'package:frontend/pages/social/controller/social_main_controller.dart';
 
 class SocialMainPage extends StatelessWidget {
   const SocialMainPage({super.key});
@@ -7,6 +8,7 @@ class SocialMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = SocialMainController.instance;
     return const Scaffold(
       body: Center(
         child: Column(

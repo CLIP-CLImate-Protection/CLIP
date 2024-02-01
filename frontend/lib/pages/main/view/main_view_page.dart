@@ -1,4 +1,4 @@
-import 'package:frontend/flutter/packages/flutter/lib/material.dart';
+import 'package:flutter/material.dart';
 
 import '../controller/main_view_controller.dart';
 

@@ -11,7 +11,7 @@ class QuestMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(QuestMainController());
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/backend/UserService/user_service.dart';
 
-void main() => runApp(MyApp(debugShowCheckedModeBanner: false));
+// void main() => runApp(MyApp(debugShowCheckedModeBanner: false));
 
-class MyApp extends StatelessWidget {
-  final bool debugShowCheckedModeBanner;
+// class MyApp extends StatelessWidget {
+//   final bool debugShowCheckedModeBanner;
 
-  const MyApp({Key? key, this.debugShowCheckedModeBanner = true}) : super(key: key);
+//   const MyApp({Key? key, this.debugShowCheckedModeBanner = true})
+//       : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '로그인 페이지',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: LoginPage(),
-      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-    );
-  }
-}
+//   static const String url = '/login';
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: '로그인 페이지',
+//       theme: ThemeData(
+//         primarySwatch: Colors.green,
+//       ),
+//       home: LoginPage(),
+//       debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+//     );
+//   }
+// }
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
+  static const String url = '/login';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +99,9 @@ class LoginPage extends StatelessWidget {
               InkWell(
                 onTap: () {
                   // 구글 로그인 기능 추가
+                  googleSingIn();
+                  //로그인 성공적이면 main페이지로 이동하는 코드 추가
+                  //최초 로그인이면 회원정보 입력하는 페이지로 이동하는 코드 추가하기
                 },
                 child: Image.asset(
                   'assets/login.png',

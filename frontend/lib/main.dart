@@ -23,7 +23,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       canvasColor: Colors.white,
-      fontFamily: 'Kantumruy',
+      fontFamily: 'NotoSansKR',
     ),
     getPages: CustomRouter.routes,
   ));

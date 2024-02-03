@@ -92,52 +92,59 @@ Future<String> getUserInfo(
   return 'success';
 }
 
-Future<String> getUserGrassInfo(String uid, String date) async {
-  //입력 받은 정보를 해당하는 uid문서를 찾아서
-  //필드에 저장
+Future<Map<String, List<String>>> getUserGrassInfo(
+    String uid, String date) async {
   DocumentSnapshot documentSnapshot = await _firestore
       .collection('Users')
       .doc(uid)
       .collection('grass')
       .doc(date)
       .get();
+
   List<String> daily = documentSnapshot['daily'];
   print('daily: $daily');
+
   List<String> main = documentSnapshot['main'];
   print('main: $main');
-  return 'dffd';
+
+  Map<String, List<String>> grassInfo = {
+    'daily': daily,
+    'main': main,
+  };
+
+  return grassInfo;
 }
 
-Future<String> getUserGrassList(String uid, String month) async {
-  try {
-    DateTime monthDateTime = DateTime.parse('$month-01');
+// Future<String> getUserGrassList(String uid, String month) async {
+//   try {
+//     DateTime monthDateTime = DateTime.parse('$month-01');
 
-    //이 기간 동안 문서 다 가져와야함
-    DateTime startDate = monthDateTime;
-    DateTime endDate = monthDateTime.add(Duration(days: 31));
+//     //이 기간 동안 문서 다 가져와야함
+//     DateTime startDate = monthDateTime;
+//     DateTime endDate = monthDateTime.add(Duration(days: 31));
 
-    CollectionReference grassCollection =
-        _firestore.collection('Users').doc(uid).collection('grass');
-    QuerySnapshot querySnapshot = await grassCollection.get();
+//     CollectionReference grassCollection =
+//         _firestore.collection('Users').doc(uid).collection('grass');
+//     QuerySnapshot querySnapshot = await grassCollection.get();
 
-    for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-      String documentName = documentSnapshot.id;
-      print('Document Name: $documentName');
+//     for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+//       String documentName = documentSnapshot.id;
+//       print('Document Name: $documentName');
 
-      List<String> daily = documentSnapshot['daily'];
-      List<String> main = documentSnapshot['main'];
-      print('daily: $daily');
-      print('main: $main');
-    }
+//       List<String> daily = documentSnapshot['daily'];
+//       List<String> main = documentSnapshot['main'];
+//       print('daily: $daily');
+//       print('main: $main');
+//     }
 
-    return 'Successfully retrieved grass list for $month';
-  } catch (e) {
-    print('Error getting user grass list: $e');
-    return 'Error retrieving grass list';
-  }
-}
+//     return 'Successfully retrieved grass list for $month';
+//   } catch (e) {
+//     print('Error getting user grass list: $e');
+//     return 'Error retrieving grass list';
+//   }
+// }
 
-Future<int> getUserGrassList2(String uid, String date) async {
+Future<int> getUserGrassList(String uid, String date) async {
   List<String>? daily;
   List<String>? main;
   try {
@@ -165,5 +172,90 @@ Future<int> getUserGrassList2(String uid, String date) async {
   } catch (e) {
     print('Error getting user grass list: $e');
     return 0;
+  }
+}
+
+Future<int> getUserPoint(String uid) async {
+  try {
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection('Users').doc(uid).get();
+    int point = documentSnapshot['point'];
+    return point;
+  } catch (e) {
+    print('Error getting user point: $e');
+    return 0;
+  }
+}
+
+Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
+  try {
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection('Users').doc(uid).get();
+    List<String> friend = List<String>.from(documentSnapshot['friend']);
+    int level = documentSnapshot['level'];
+    String nickname = documentSnapshot['nickname'];
+    int point = documentSnapshot['point'];
+    int totalQuest = documentSnapshot['totalQuest'];
+    String profileUrl = documentSnapshot['profileUrl'];
+
+    Map<String, dynamic> userInfo = {
+      'friend': friend,
+      'level': level,
+      'nickname': nickname,
+      'point': point,
+      'totalQuest': totalQuest,
+      'profileUrl': profileUrl,
+    };
+
+    return userInfo;
+  } catch (e) {
+    print('Error getting user all info: $e');
+    return {};
+  }
+}
+
+Future<String> updateUserPoint(String uid, int point) async {
+  try {
+    await _firestore.collection('Users').doc(uid).update({'point': point});
+    return 'Successfully updated user point';
+  } catch (e) {
+    print('Error updating user point: $e');
+    return 'Error updating user point';
+  }
+}
+
+Future<String> updateUserLevel(String uid, int level) async {
+  try {
+    await _firestore.collection('Users').doc(uid).update({'level': level});
+    return 'Successfully updated user level';
+  } catch (e) {
+    print('Error updating user level: $e');
+    return 'Error updating user level';
+  }
+}
+
+Future<String> updateUserTotalQuest(String uid, int totalQuest) async {
+  try {
+    await _firestore
+        .collection('Users')
+        .doc(uid)
+        .update({'totalQuest': totalQuest});
+    return 'Successfully updated user total quest';
+  } catch (e) {
+    print('Error updating user total quest: $e');
+    return 'Error updating user total quest';
+  }
+}
+
+Future<String> updateUserProfileUrl(String uid, String profileUrl) async {
+  try {
+    await _firestore
+        .collection('Users')
+        .doc(uid)
+        .update({'profileUrl': profileUrl});
+    return 'Successfully updated user profile url';
+  } catch (e) {
+    print('Error updating user profile url: $e');
+    return 'Error updating user profile url';
   }
 }

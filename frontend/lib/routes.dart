@@ -1,4 +1,5 @@
 import 'package:frontend/backend/backend_page.dart';
+import 'package:frontend/pages/login/login.dart';
 import 'package:get/get.dart';
 
 import 'pages/dev_route/view/route_view_page.dart';
@@ -15,5 +16,6 @@ class CustomRouter {
     GetPage(name: SocialMainPage.url, page: () => const SocialMainPage()),
     GetPage(name: MyInfoPage.url, page: () => const MyInfoPage()),
     GetPage(name: BackendPage.url, page: () => const BackendPage()),
+    GetPage(name: LoginPage.url, page: () => const LoginPage()),
   ];
 }

@@ -15,7 +15,7 @@ class MainViewPage extends StatelessWidget {
     return Container(
       color: Color(Common.mainColor),
       width: Common.getWidth,
-      child: const Column(
+      child: Column(
         children: [
           Padding(
             padding: EdgeInsets.only(top: 20, bottom: 20),
@@ -27,7 +27,12 @@ class MainViewPage extends StatelessWidget {
                     SizedBox(
                       width: 20,
                     ),
-                    Text('CLIP', style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Kantumruy')),
+                    Text('CLIP',
+                        style: TextStyle(
+                            fontSize: 26,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Kantumruy')),
                   ],
                 ),
               ],

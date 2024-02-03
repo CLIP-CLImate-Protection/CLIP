@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,19 +22,9 @@ Future<String> googleSingIn() async {
   UserCredential authResult = await _auth.signInWithCredential(credential);
   User user = authResult.user!;
   print(user.uid);
-  // assert(!user.isAnonymous);
-  // assert(await user.getIdToken() != null);
-
-  // currentUser = await _auth.currentUser();
-  // assert(user.uid == currentUser.uid);
-
-  // setState(() {
-  //   email = user.email;
-  //   url = user.photoUrl;
-  //   name = user.displayName;
-  // });
 
   if (await userExistsInDB(user.uid)) {
+    print(1);
     return 'Google login successful: $user';
   } else {
     await createNewUserDocument(user.uid);
@@ -42,9 +34,11 @@ Future<String> googleSingIn() async {
 
 Future<bool> userExistsInDB(String uid) async {
   try {
+    print('DB check: $uid');
     CollectionReference usersCollection =
         FirebaseFirestore.instance.collection('Users');
     DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
+    print(documentSnapshot.exists);
     return documentSnapshot.exists;
   } catch (e) {
     print('Error checking user existence: $e');
@@ -54,9 +48,20 @@ Future<bool> userExistsInDB(String uid) async {
 
 Future<void> createNewUserDocument(String uid) async {
   try {
-    CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('Users');
-    await usersCollection.doc(uid);
+    print('Creating new user document: $uid');
+    // CollectionReference usersCollection =
+    //     FirebaseFirestore.instance.collection('Users');
+    // await usersCollection.doc(uid);
+
+    await FirebaseFirestore.instance.collection('Users').doc(uid).set({
+      'address': 'address',
+      'friend': [],
+      'level': 1,
+      'nickname': 'nickname',
+      'point': 0,
+      'totalQuest': 0,
+      'profileUrl': 'profileUrl'
+    });
   } catch (e) {
     print('Error creating new user document: $e');
   }
@@ -80,7 +85,6 @@ Future<String> getUserInfo(
   //입력 받은 정보를 해당하는 uid문서를 찾아서
   //필드에 저장
   await _firestore.collection('Users').doc(uid).set({
-    'email': email,
     'nickname': nickname,
     'address': address,
   });
@@ -133,24 +137,21 @@ Future<String> getUserGrassList(String uid, String month) async {
   }
 }
 
-Future<String> getUserGrassList2(String uid, String timestamp) async {
+Future<int> getUserGrassList2(String uid, String date) async {
   List<String>? daily;
   List<String>? main;
   try {
-    DateTime timestampDateTime = DateTime.parse(timestamp);
+    // DateTime timestampDateTime = DateTime.parse(date);
 
-    String month = timestampDateTime.month.toString().padLeft(2, '0');
-    String year = timestampDateTime.year.toString();
+    // String month = timestampDateTime.month.toString().padLeft(2, '0');
+    // String year = timestampDateTime.year.toString();
 
-    DateTime startDate = DateTime(int.parse(year), int.parse(month), 1);
-    DateTime endDate = DateTime(int.parse(year), int.parse(month) + 1, 1);
+    // DateTime startDate = DateTime(int.parse(year), int.parse(month), 1);
+    // DateTime endDate = DateTime(int.parse(year), int.parse(month) + 1, 1);
 
     CollectionReference grassCollection =
         _firestore.collection('Users').doc(uid).collection('grass');
-    QuerySnapshot querySnapshot = await grassCollection
-        .where('timestamp',
-            isGreaterThanOrEqualTo: startDate, isLessThan: endDate)
-        .get();
+    QuerySnapshot querySnapshot = await grassCollection.where('date').get();
 
     for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
       daily = List<String>.from(documentSnapshot['daily']);
@@ -160,9 +161,9 @@ Future<String> getUserGrassList2(String uid, String timestamp) async {
     int dailyCount = daily?.length ?? 0;
     int mainCount = main?.length ?? 0;
 
-    return 'Successfully retrieved grass list for $month-$year';
+    return dailyCount + mainCount;
   } catch (e) {
     print('Error getting user grass list: $e');
-    return 'Error retrieving grass list';
+    return 0;
   }
 }

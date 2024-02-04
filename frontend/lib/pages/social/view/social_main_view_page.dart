@@ -9,7 +9,7 @@ class SocialMainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = SocialMainController.instance;
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

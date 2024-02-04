@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/backend/UserService/user_service.dart';
 import 'package:get/get.dart';
 
 // void main() => runApp(MyApp(debugShowCheckedModeBanner: false));
@@ -98,19 +97,19 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               InkWell(
-                onTap: () async {
-                  // 구글 로그인 기능 추가
-                  googleSingIn();
-                  //로그인 성공적이면 main페이지로 이동하는 코드 추가
-                  //최초 로그인이면 회원정보 입력하는 페이지로 이동하는 코드 추가하기
-                  if (await googleSingIn() == 1) {
-                    Navigator.pushNamed(context, '/main');
-                  } else if (await googleSingIn() == 2) {
-                    Navigator.pushNamed(context, '/signup');
-                  } else {
-                    showSnackBar();
-                  }
-                },
+                // onTap: () async {
+                //   // 구글 로그인 기능 추가
+                //   googleSingIn();
+                //   //로그인 성공적이면 main페이지로 이동하는 코드 추가
+                //   //최초 로그인이면 회원정보 입력하는 페이지로 이동하는 코드 추가하기
+                //   if (await googleSingIn() == 1) {
+                //     Navigator.pushNamed(context, '/main');
+                //   } else if (await googleSingIn() == 2) {
+                //     Navigator.pushNamed(context, '/signup');
+                //   } else {
+                //     showSnackBar();
+                //   }
+                // },
                 child: Image.asset(
                   'assets/login.png',
                   width: 180,

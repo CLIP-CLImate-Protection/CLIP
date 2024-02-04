@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
+import 'package:get/get.dart';
 
 // void main() => runApp(MyApp(debugShowCheckedModeBanner: false));
 
@@ -32,7 +33,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -55,8 +56,8 @@ class LoginPage extends StatelessWidget {
                     width: 24,
                     height: 24,
                   ),
-                  SizedBox(width: 10),
-                  Text(
+                  const SizedBox(width: 10),
+                  const Text(
                     'CLIP',
                     style: TextStyle(
                       fontFamily: 'Kantumruy',
@@ -67,14 +68,14 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Color(0xFF6DAB7D).withOpacity(0.68), // 네모 칸 색
+                  color: const Color(0xFF6DAB7D).withOpacity(0.68), // 네모 칸 색
                   borderRadius: BorderRadius.circular(10), // 모서리 라운드 처리
                 ),
-                child: Text(
+                child: const Text(
                   '퀘스트 참여를 통해 환경을 지키는\n챌린지 앱입니다.',
                   style: TextStyle(
                     fontFamily: 'Kantumruy',
@@ -85,8 +86,8 @@ class LoginPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 '로그인 후 이용해주세요.',
                 style: TextStyle(
                   fontFamily: 'Kantumruy',
@@ -95,13 +96,20 @@ class LoginPage extends StatelessWidget {
                   fontWeight: FontWeight.normal,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               InkWell(
-                onTap: () {
+                onTap: () async {
                   // 구글 로그인 기능 추가
                   googleSingIn();
                   //로그인 성공적이면 main페이지로 이동하는 코드 추가
                   //최초 로그인이면 회원정보 입력하는 페이지로 이동하는 코드 추가하기
+                  if (await googleSingIn() == 1) {
+                    Navigator.pushNamed(context, '/main');
+                  } else if (await googleSingIn() == 2) {
+                    Navigator.pushNamed(context, '/signup');
+                  } else {
+                    showSnackBar();
+                  }
                 },
                 child: Image.asset(
                   'assets/login.png',
@@ -115,4 +123,14 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+}
+
+void showSnackBar() {
+  Get.snackbar(
+    "알림",
+    "구글 로그인에 실패했습니다.",
+    snackPosition: SnackPosition.TOP,
+    backgroundColor: const Color.fromARGB(71, 255, 255, 255),
+    colorText: Colors.black,
+  );
 }

@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/firebase_options.dart';
 import 'package:frontend/pages/main/controller/main_view_controller.dart';
 import 'package:frontend/pages/my_info/controller/info_controller.dart';
@@ -17,7 +16,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await dotenv.load(fileName: ".env");
+  //await dotenv.load(fileName: ".env");
   runApp(GetMaterialApp(
     title: 'CLIP',
     //initialRoute: Navigation.url,
@@ -25,7 +24,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       canvasColor: Colors.white,
-      fontFamily: 'Kantumruy',
+      fontFamily: 'NotoSansKR',
     ),
     getPages: CustomRouter.routes,
   ));

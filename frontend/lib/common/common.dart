@@ -8,5 +8,6 @@ class Common extends GetxService {
 
   static int mainColor = 0xFF278740; //메인 초록색
   static int mainGray = 0xFF888888; //메인 회색
-  static int subGray = 0xAEBDB2; //서브 흰색
+  static int subGray = 0xFFACB3AE; //서브 흰색
+  static int coinColor = 0xFFEDAF35; //코인 색깔
 }

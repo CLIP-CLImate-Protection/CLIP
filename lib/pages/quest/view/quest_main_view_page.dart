@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/common.dart';
+import 'package:frontend/fastAPI/models/Quest.dart';
 import 'package:frontend/pages/quest/view/component/quest_component.dart';
-import 'package:get/get.dart';
 
 import '../controller/quest_controller.dart';
 
@@ -12,7 +12,9 @@ class QuestMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(QuestMainController());
+    final Quest model;
+    final controller = QuestMainController.instance;
+    controller.getMainQuestList();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70.0,
@@ -34,11 +36,11 @@ class QuestMainPage extends StatelessWidget {
         width: Common.getWidth,
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(27.0),
+            padding: const EdgeInsets.all(27.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
+                const Row(
                   children: [
                     Text(
                       '오늘의 퀘스트',
@@ -53,14 +55,14 @@ class QuestMainPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                QuestComponent(),
-                SizedBox(
+                //QuestComponent(model: null,),
+                const SizedBox(
                   height: 40,
                 ),
-                Row(
+                const Row(
                   children: [
                     Text(
                       '메인 퀘스트',
@@ -75,14 +77,31 @@ class QuestMainPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                QuestComponent(),
-                SizedBox(
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    children: [
+                      for (int index = 0; index < controller.questList.length; index++)
+                        Column(
+                          children: [
+                            if (index == 0) const SizedBox(height: 10),
+                            QuestComponent(
+                              model: controller.questList[index],
+                            ),
+                            if (index != controller.questList.length - 1) const SizedBox(height: 20),
+                          ],
+                        )
+                    ],
+                  ),
+                ),
+
+                const SizedBox(
                   height: 40,
                 ),
-                Row(
+                const Row(
                   children: [
                     Text(
                       '이벤트 퀘스트',
@@ -97,10 +116,10 @@ class QuestMainPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                QuestComponent(),
+                // QuestComponent(),
               ],
             ),
           ),

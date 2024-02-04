@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
+/* void main() {
   runApp(MyApp());
 }
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       home: DailyQuestPage(),
     );
   }
-}
+} */
 
 class DailyQuestPage extends StatelessWidget {
   @override

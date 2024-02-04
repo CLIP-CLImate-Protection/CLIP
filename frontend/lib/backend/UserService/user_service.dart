@@ -6,7 +6,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-Future<bool> googleSingIn() async {
+Future<int> googleSingIn() async {
   User currentUser;
 
   final GoogleSignInAccount? account = await _googleSignIn.signIn();
@@ -23,12 +23,14 @@ Future<bool> googleSingIn() async {
 
   if (await userExistsInDB(user.uid)) {
     print(1);
-    return true;
+    //바로 메인으로 넘어가야함
+    return 1;
   } else {
     if (await createNewUserDocument(user.uid))
-      return true;
+      //닉네임, 주소 입력 페이지로 넘어가야함
+      return 2;
     else
-      return false;
+      return 3;
   }
 }
 
@@ -64,8 +66,8 @@ Future<bool> createNewUserDocument(String uid) async {
     });
     return true;
   } catch (e) {
-    return false;
     print('Error creating new user document: $e');
+    return false;
   }
 }
 

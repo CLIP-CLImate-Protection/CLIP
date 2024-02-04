@@ -135,3 +135,49 @@ Future<List<Map<String, dynamic>>> getTopQuestUsersWithSameAddress(
     return [];
   }
 }
+
+Future<List<Map<String, dynamic>>> searchUserByNickname(String keyword) async {
+  try {
+    QuerySnapshot querySnapshot = await _firestore
+        .collection('Users')
+        .where('nickname', isEqualTo: keyword)
+        .get();
+    List<Map<String, dynamic>> searchResult = [];
+    for (QueryDocumentSnapshot document in querySnapshot.docs) {
+      String uid = document.id;
+      String nickname = document['nickname'];
+      String profileUrl = document['profileUrl'];
+      int totalQuest = document['totalQuest'];
+
+      Map<String, dynamic> userData = {
+        'uid': uid,
+        'nickname': nickname,
+        'profileUrl': profileUrl,
+        'totalQuest': totalQuest,
+      };
+      searchResult.add(userData);
+    }
+    return searchResult;
+  } catch (e) {
+    print('Error searching user by nickname: $e');
+    return [];
+  }
+}
+
+Future<String> addFriend(String uid, String friendUid) async {
+  try {
+    DocumentReference userReference = _firestore.collection('Users').doc(uid);
+    DocumentSnapshot userSnapshot = await userReference.get();
+    List<dynamic> friends = userSnapshot['friend'];
+    if (friends.contains(friendUid)) {
+      return 'already friends';
+    } else {
+      friends.add(friendUid);
+      await userReference.update({'friend': friends});
+      return 'success';
+    }
+  } catch (e) {
+    print('Error adding friend: $e');
+    return 'fail';
+  }
+}

@@ -19,6 +19,7 @@ class MainViewPage extends StatelessWidget {
     return Container(
       color: Color(Common.mainColor),
       width: Common.getWidth,
+      height: Common.getHeight,
       child: Column(
         children: [
           Padding(
@@ -26,22 +27,25 @@ class MainViewPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: Common.getWidth * 0.1,
-                    ),
-                    const Text('CLIP', style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Kantumruy')),
-                  ],
+                Container(
+                  color: Color(Common.mainColor),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: Common.getWidth * 0.1,
+                      ),
+                      const Text('CLIP', style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Kantumruy')),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 50,
                 ),
                 Container(
                     //내 잔디 부분
-                    width: 368,
-                    height: 353,
+                    width: 375,
+                    height: 385,
                     decoration: ShapeDecoration(
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -59,7 +63,7 @@ class MainViewPage extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 20, left: 21, right: 21),
+                          padding: const EdgeInsets.only(top: 15, left: 21, right: 21),
                           child: Row(
                             children: [
                               const Text(
@@ -70,14 +74,13 @@ class MainViewPage extends StatelessWidget {
                                   fontSize: 24,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w600,
-                                  height: 0.04,
                                   letterSpacing: -0.41,
                                 ),
                               ),
                               const Spacer(),
                               Container(
                                 width: 98,
-                                height: 29,
+                                height: 31,
                                 padding: const EdgeInsets.only(left: 12, right: 12),
                                 clipBehavior: Clip.antiAlias,
                                 decoration: ShapeDecoration(
@@ -106,7 +109,7 @@ class MainViewPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(
-                                width: 5,
+                                width: 4,
                               ),
                               IconButton(
                                 icon: const Icon(FontAwesomeIcons.cartShopping),

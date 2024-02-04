@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/firebase_options.dart';
 import 'package:frontend/pages/main/controller/main_view_controller.dart';
 import 'package:frontend/pages/my_info/controller/info_controller.dart';

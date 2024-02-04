@@ -32,11 +32,7 @@ class QuestMainPage extends StatelessWidget {
       ),
       body: SizedBox(
         width: Common.getWidth,
-<<<<<<< HEAD
         child: SingleChildScrollView(
-=======
-        child:SingleChildScrollView(
->>>>>>> 9256a79c3c388bac9fe9c7703b3f34087d3a7745
           child: Padding(
             padding: EdgeInsets.all(27.0),
             child: Column(

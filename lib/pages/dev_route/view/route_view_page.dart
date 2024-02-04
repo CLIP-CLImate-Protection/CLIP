@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/backend/backend_page.dart';
+
 import 'package:frontend/pages/dev_route/controller/route_view_controller.dart';
 import 'package:frontend/pages/login/login.dart';
 import 'package:frontend/pages/main/view/shop_view_page.dart';
@@ -44,11 +44,11 @@ class RouteViewPage extends StatelessWidget {
                 Get.offAllNamed(MyInfoPage.url);
               },
               child: const Text('Go to MyInfo Page')),
-          ElevatedButton(
-              onPressed: () {
-                Get.offAllNamed(BackendPage.url);
-              },
-              child: const Text('Go to Backend Page')),
+          // ElevatedButton(
+          //     onPressed: () {
+          //       Get.offAllNamed(BackendPage.url);
+          //     },
+          //     child: const Text('Go to Backend Page')),
           ElevatedButton(
               onPressed: () {
                 Get.offAllNamed(ShopViewPage.url);

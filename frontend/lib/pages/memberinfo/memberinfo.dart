@@ -26,6 +26,7 @@ class MemberInfoPage extends StatelessWidget {
 } */
 
 class MemberInfoForm extends StatefulWidget {
+  static const String url = '/memberinfo';
   @override
   _MemberInfoFormState createState() => _MemberInfoFormState();
 }
@@ -107,7 +108,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: '닉네임을 입력하세요',
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                            hintStyle:
+                                TextStyle(color: Colors.white.withOpacity(0.5)),
                             border: InputBorder.none,
                           ),
                         ),
@@ -143,12 +145,14 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                               });
                             },
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start, // 텍스트 왼쪽 정렬
+                              mainAxisAlignment:
+                                  MainAxisAlignment.start, // 텍스트 왼쪽 정렬
                               children: [
                                 SizedBox(width: 10), // 왼쪽 여백 추가
                                 Text(
                                   '지역 선택하기',
-                                  style: TextStyle(color: Colors.white.withOpacity(0.5)),
+                                  style: TextStyle(
+                                      color: Colors.white.withOpacity(0.5)),
                                 ),
                               ],
                             ),
@@ -334,7 +338,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
         return Text('경기도 관련 내용');
       case '인천':
         return Text('인천 관련 내용');
-    // 나머지 시에 대한 내용 추가
+      // 나머지 시에 대한 내용 추가
       default:
         return Text('선택된 지역의 내용');
     }

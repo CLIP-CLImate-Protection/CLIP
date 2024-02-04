@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+/* void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -23,7 +23,7 @@ class MemberInfoPage extends StatelessWidget {
       body: MemberInfoForm(),
     );
   }
-}
+} */
 
 class MemberInfoForm extends StatefulWidget {
   @override

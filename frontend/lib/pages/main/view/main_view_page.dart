@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:frontend/pages/main/view/component/my_grass_component.dart';
 import 'package:frontend/pages/main/view/shop_view_page.dart';
 import 'package:get/get.dart';
 
@@ -118,7 +119,8 @@ class MainViewPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                        )
+                        ),
+                        const MyGrassComponent()
                       ],
                     ))
               ],

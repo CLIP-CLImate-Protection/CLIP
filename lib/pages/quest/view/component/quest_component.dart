@@ -3,12 +3,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/fastAPI/models/Quest.dart';
 import 'package:frontend/pages/quest/controller/quest_controller.dart';
+import 'package:get/get.dart';
 
 import '../../../../common/common.dart';
+import '../../../questdetails/imagequest/view/imagequest.dart';
 
 class QuestComponent extends StatelessWidget {
   final Quest model;
 
+  static const String url = '/quest';
   const QuestComponent({Key? key, required this.model}) : super(key: key);
 
   @override
@@ -17,8 +20,7 @@ class QuestComponent extends StatelessWidget {
 
     return InkWell(
         onTap: () async {
-          //await controller.getQuest();
-          //Get.toNamed(QuestEachPage.url, arguments: model);
+          Get.to(() => UploadImagePage());
         },
         child: SizedBox(
           width: 341,

@@ -32,5 +32,32 @@ class QuestMainController extends GetxController {
     questList.refresh();
   }
 
+  Future<void> getDailyQuestList() async {
+    dailyQuestList.value = getDailyQuestList() as List<Quest>;
+    dailyQuestList.refresh();
+  }
+
   RxList<Quest> questList = <Quest>[].obs;
+  RxList<Quest> dailyQuestList = <Quest>[].obs;
+
+  RxList<Quest> grassDoneQuestList = <Quest>[].obs;
+
+  Future<void> getGrassDoneQugestList() async {
+    List<Map<String, dynamic>> fakeJsonData = [
+      {"questName": "잔반 남기지 않기", "questquestDescription": "Oh my god! Where are we?", "reward": 10, "type": "main"},
+      {
+        "questName": "환경 관련 책/영상/다큐 등 보고 감상평 남기기",
+        "questquestDescription": "I have no idea, but we need to find water and shelter fast!",
+        "reward": 10,
+        "type": "daily"
+      },
+      {"questName": "환경 관련 포스팅하기", "questquestDescription": "But I can't see anything but sand here!", "reward": 10, "type": "event"},
+      {"questName": "친환경 인증제품 구매하기", "questDescription": "Oh my god! Where are we?", "reward": 10, "type": "main"},
+      {"questName": "친환경 비누 사용하기 ", "questDescription": "I have no idea, but we need to find water and shelter fast!", "reward": 10, "type": "event"},
+    ];
+
+    List<Quest> fakeTalkings = fakeJsonData.map((jsonData) => Quest.fromJson(jsonData)).toList();
+    grassDoneQuestList.value = fakeTalkings;
+    grassDoneQuestList.refresh();
+  }
 }

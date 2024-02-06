@@ -1,11 +1,9 @@
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/questdetails/imagequest/view/component/imagequest_component.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../../quest/view/quest_main_view_page.dart';
-import '../controller/imagequest_controller.dart';
+import '../controller/questdetails_controller.dart';
+import 'component/imagequest_component.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,6 +28,7 @@ class UploadImagePage extends StatefulWidget {
 
 class _UploadImagePageState extends State<UploadImagePage> {
   File? _image;
+  TextEditingController _nullController = TextEditingController(); //사용하지 않는 컨트롤런
 
   Future<void> _getImage() async {
     final pickedFile =
@@ -61,32 +60,13 @@ class _UploadImagePageState extends State<UploadImagePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Color(0xFFAEBDB2)),
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
-                  const SizedBox(width: 70), // 화살표와 '잔반 남기지 않기' 사이 간격 조정
-                  const Text(
-                    '잔반 남기지 않기',
-                    style: TextStyle(
-                      fontFamily: 'Istok Web',
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+              TitleBox('잔반 남기지 않기'),
               const SizedBox(height: 40),
               CommentBox(),
               const SizedBox(height: 30), // 추가된 네모칸과의 간격 조정
-              UploadBox(_getImage, _image),
+              UploadBox(_getImage, _image, '음식을 다 먹고 빈 그릇을 찍어\n업로드해주세요.', 'image', _nullController),
               const SizedBox(height: 30),
-              ExImageViewer(),
+              const ExImageViewer(),
               const SizedBox(height: 100),
               // 제출하기 버튼 추가
               SubmitButton()

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../controller/questdetails_controller.dart';
-import 'component/imagequest_component.dart';
+import 'component/questdetails_component.dart';
 
 void main() {
   runApp(MyApp());

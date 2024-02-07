@@ -21,7 +21,7 @@ class QuestComponent extends StatelessWidget {
 
     return InkWell(
         onTap: () async {
-          Get.to(() => UploadTextPage());
+          Get.to(() => UploadImagePage());
         },
         child: SizedBox(
           width: 341,

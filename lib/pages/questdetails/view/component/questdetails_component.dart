@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/questdetails/controller/questdetails_controller.dart';
 import 'package:get/get.dart';
 
 Widget TitleBox(String title){
@@ -47,9 +48,7 @@ Widget CommentBox(){
 }
 
 Widget UploadBox(_getImage, _image, String comment, String option, controller){
-  return GestureDetector(
-    onTap: _getImage,
-    child: Container(
+  return Container(
       width: 326,
       height: 312,
       margin: const EdgeInsets.only(top: 30), // 설명문구 네모칸 아래에 30만큼의 여백 추가
@@ -72,24 +71,7 @@ Widget UploadBox(_getImage, _image, String comment, String option, controller){
           ),
           const SizedBox(height: 20),
           option == 'image' ?
-            _image == null
-                ? Container(
-              width: 242,
-              height: 199,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF1F5F1),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.add,
-                  size: 40,
-                  color: Color(0xFF888888),
-                ),
-              ),
-            )
-                : Image.file(_image!)
-
+            const ImageUploader()
           : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -117,7 +99,6 @@ Widget UploadBox(_getImage, _image, String comment, String option, controller){
           )
         ],
       ),
-    ),
   );
 }
 

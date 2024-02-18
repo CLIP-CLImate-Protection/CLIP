@@ -81,6 +81,8 @@ Future<String> googleSignOut() async {
 Future<String> getUserInfo(String nickname, String uid, String address) async {
   //입력 받은 정보를 해당하는 uid문서를 찾아서
   //필드에 저장
+
+  print(' $uid getUserInfo');
   await _firestore.collection('Users').doc(uid).set({
     'nickname': nickname,
     'address': address,

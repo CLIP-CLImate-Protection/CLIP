@@ -13,15 +13,14 @@ class UserService extends GetxService {
   static UserService get instance => Get.find<UserService>();
 
   String uid = 'null';
+
   Future<UserService> init() async {
     const storage = FlutterSecureStorage();
     uid = await storage.read(key: 'uid') ?? 'null';
     return this;
   }
 
-  Future<int> googleSingIn() async {
-    User currentUser;
-
+  Future<int> googleSignIn() async {
     final GoogleSignInAccount? account = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await account!.authentication;
 
@@ -32,15 +31,16 @@ class UserService extends GetxService {
 
     UserCredential authResult = await _auth.signInWithCredential(credential);
     User user = authResult.user!;
-    print(user.uid);
+
     const storage = FlutterSecureStorage();
     if (await userExistsInDB(user.uid)) {
-      //바로 메인으로 넘어가야함
       return 1;
     } else {
       if (await createNewUserDocument(user.uid)) {
-        //닉네임, 주소 입력 페이지로 넘어가야함
         await storage.write(key: 'uid', value: user.uid);
+        await UserService.instance.init(); // Wait for initialization
+        print(await storage.read(key: 'uid') ?? "null"); // Print UID from storage
+        print('${UserService.instance.uid} 유저 서비스'); // Print UID from UserService
         return 2;
       } else {
         return 3;

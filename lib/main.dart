@@ -10,13 +10,13 @@ import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
 
 void main() async {
-  initController();
-  await initService();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   //await dotenv.load(fileName: ".env");
+  await initService();
+  initController();
   runApp(GetMaterialApp(
     title: 'CLIP',
     initialRoute: LoginPage.url,

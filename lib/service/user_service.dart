@@ -13,6 +13,7 @@ class UserService extends GetxService {
   static UserService get instance => Get.find<UserService>();
 
   String uid = 'null';
+  bool isLogin = false;
 
   Future<UserService> init() async {
     const storage = FlutterSecureStorage();
@@ -34,13 +35,13 @@ class UserService extends GetxService {
 
     const storage = FlutterSecureStorage();
     if (await userExistsInDB(user.uid)) {
+      isLogin = true;
       return 1;
     } else {
       if (await createNewUserDocument(user.uid)) {
         await storage.write(key: 'uid', value: user.uid);
         await UserService.instance.init(); // Wait for initialization
-        print(await storage.read(key: 'uid') ?? "null"); // Print UID from storage
-        print('${UserService.instance.uid} 유저 서비스'); // Print UID from UserService
+        isLogin = true;
         return 2;
       } else {
         return 3;

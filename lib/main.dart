@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/firebase_options.dart';
 import 'package:frontend/pages/login/view/login.dart';
 import 'package:frontend/pages/main/controller/main_view_controller.dart';
+import 'package:frontend/pages/main/view/navigation.dart';
 import 'package:frontend/pages/quest/controller/quest_controller.dart';
 import 'package:frontend/pages/social/controller/social_main_controller.dart';
 import 'package:frontend/routes.dart';
@@ -17,10 +18,12 @@ void main() async {
   //await dotenv.load(fileName: ".env");
   await initService();
   initController();
+  String route = initRoute();
   runApp(GetMaterialApp(
     title: 'CLIP',
-    initialRoute: LoginPage.url,
-    //initialRoute: RouteViewPage.url,
+
+    //initialRoute: route,
+    initialRoute: Navigation.url,
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       canvasColor: Colors.white,
@@ -39,4 +42,13 @@ void initController() {
 
 Future<void> initService() async {
   await Get.putAsync(() => UserService().init());
+}
+
+String initRoute() {
+  print('${UserService.instance.isLogin} 로그인 여부');
+  if (UserService.instance.isLogin) {
+    return Navigation.url;
+  } else {
+    return LoginPage.url;
+  }
 }

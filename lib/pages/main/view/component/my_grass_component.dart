@@ -3,10 +3,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/pages/main/view/component/grass_done_quest_component.dart';
 import 'package:frontend/pages/quest/controller/quest_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MyGrassComponent extends StatelessWidget {
-  const MyGrassComponent({super.key});
+  MyGrassComponent({super.key});
 
+  var now = DateTime.now();
+  String month = DateFormat('MMM').format(DateTime.now());
   //final MyGrass myGrass;
 
   //MyGrassComponent({this.myGrass});
@@ -22,15 +25,16 @@ class MyGrassComponent extends StatelessWidget {
             children: [
               IconButton(
                   onPressed: () {
+                    month = DateFormat('MMM').format(DateTime(now.month - 1));
                     //이전 달 잔디 보여줌
                   },
                   icon: const Icon(FontAwesomeIcons.caretLeft),
                   color: const Color(0xFFD9D9D9),
                   iconSize: 20),
-              const Text(
-                'Feb',
+              Text(
+                month,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color(0xFF707070),
                   fontSize: 16,
                   fontFamily: 'Inter',

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/common.dart';
-import 'package:frontend/fastAPI/models/Quest.dart';
 import 'package:frontend/pages/quest/view/component/quest_component.dart';
 
 import '../controller/quest_controller.dart';
@@ -12,10 +11,9 @@ class QuestMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Quest model;
     final controller = QuestMainController.instance;
     controller.getMainQuestList();
-    //controller.getDailyQuestList();
+    controller.getDailyQuestList();
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70.0,
@@ -114,7 +112,6 @@ class QuestMainPage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(
                   height: 40,
                 ),

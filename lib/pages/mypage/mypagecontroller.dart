@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 class MyPageController {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
     try {
       DocumentSnapshot documentSnapshot = await _firestore.collection('Users').doc(uid).get();

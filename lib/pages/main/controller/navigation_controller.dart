@@ -3,7 +3,6 @@ import 'package:frontend/pages/quest/view/quest_main_view_page.dart';
 import 'package:frontend/pages/social/view/social_main_view_page.dart';
 import 'package:get/get.dart';
 
-import '../../my_info/view/info_main_view_page.dart';
 import '../view/main_view_page.dart';
 
 class NavigationController extends GetxController {
@@ -33,6 +32,6 @@ class NavigationController extends GetxController {
     const MainViewPage(),
     const QuestMainPage(),
     const SocialMainPage(),
-    const MyInfoPage(),
+    const SocialMainPage(),
   ];
 }

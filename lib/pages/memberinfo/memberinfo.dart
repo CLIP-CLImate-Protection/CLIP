@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
 import 'package:frontend/service/user_service.dart';
+import 'package:get/get.dart';
 
 class MemberInfoForm extends StatefulWidget {
   static const String url = '/memberinfo';
@@ -139,9 +140,11 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                       onPressed: () {
                         String nickname = nicknameController.text; // 가입하기 버튼 클릭 시 동작
                         String address = addressController.text; // 사용자가 입력한 주소
-                        String uid = UserService.instance.uid; // 사용자 uid
-
-                        getUserInfo(nickname, uid, address); // 사용자 정보 저장 함수 호출
+                        // String uid = UserService.instance.uid; // 사용자 uid
+                        // print(uid);
+                        getUserInfo(nickname, UserService.instance.uid, address); // 사용자 정보 저장 함수 호출
+                        showSnackBar(); // 회원가입 성공 시 스낵바 출력
+                        Navigator.pushNamed(context, '/main'); // 메인 페이지로 이동
                       },
                       child: const Text(
                         '가입하기',
@@ -296,3 +299,12 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
 //     }
 //   }
 // }
+void showSnackBar() {
+  Get.snackbar(
+    "알림",
+    "회원가입에 성공했습니다.",
+    snackPosition: SnackPosition.TOP,
+    backgroundColor: const Color.fromARGB(71, 255, 255, 255),
+    colorText: Colors.black,
+  );
+}

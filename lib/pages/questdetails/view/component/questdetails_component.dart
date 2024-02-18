@@ -47,7 +47,6 @@ Widget CommentBox() {
   );
 }
 
-
 Widget UploadBox(getImage, image, String comment, String option, controller) {
 
   return Container(

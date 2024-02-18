@@ -60,7 +60,9 @@ class _MyPageState extends State<MyPage> {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage: _userInfo['profileUrl'] != null ? NetworkImage(_userInfo['profileUrl']) : null,
+                          backgroundImage: _userInfo['profileUrl'] != null
+                              ? NetworkImage(_userInfo['profileUrl'])
+                              : null,
                           child: _userInfo['profileUrl'] == null
                               ? Icon(
                                   Icons.person,
@@ -138,7 +140,7 @@ class _MyPageState extends State<MyPage> {
                         // '다음 랭킹까지 남은 게이지'를 눌렀을 때 처리할 내용 추가
                         // 이동할 페이지로 네비게이션하도록 설정
                       },
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(

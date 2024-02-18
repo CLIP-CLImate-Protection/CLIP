@@ -44,7 +44,9 @@ class FriendViewPage extends StatelessWidget {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage: model.profileImage != null ? NetworkImage(model.profileImage!) : null,
+                          backgroundImage: model.profileImage != null
+                              ? NetworkImage(model.profileImage!)
+                              : null,
                           child: model.profileImage == null
                               ? Icon(
                                   Icons.person,
@@ -77,7 +79,8 @@ class FriendViewPage extends StatelessWidget {
                                 Container(
                                   width: 100,
                                   height: 29,
-                                  padding: const EdgeInsets.only(left: 12, right: 12),
+                                  padding: const EdgeInsets.only(
+                                      left: 12, right: 12),
                                   clipBehavior: Clip.antiAlias,
                                   decoration: ShapeDecoration(
                                     color: const Color(0xFFFFF0D3),
@@ -87,7 +90,9 @@ class FriendViewPage extends StatelessWidget {
                                   ),
                                   child: Row(
                                     children: [
-                                      Icon(FontAwesomeIcons.coins, color: Color(Common.coinColor), size: 18),
+                                      Icon(FontAwesomeIcons.coins,
+                                          color: Color(Common.coinColor),
+                                          size: 18),
                                       const Spacer(),
                                       Text(
                                         '${model.point}',
@@ -167,9 +172,11 @@ class FriendViewPage extends StatelessWidget {
                       ),
                       InkWell(
                           onTap: () {
-                            showQuestAlertDialog(context, '잔디', '잔디를 클릭하면 해당 날짜의 퀘스트를 확인할 수 있습니다.');
+                            showQuestAlertDialog(context, '잔디',
+                                '잔디를 클릭하면 해당 날짜의 퀘스트를 확인할 수 있습니다.');
                           },
-                          child: Image.asset('assets/images/my_grass.png', width: 318, height: 238)),
+                          child: Image.asset('assets/images/my_grass.png',
+                              width: 318, height: 238)),
                       const SizedBox(height: 25),
                       Container(
                         width: 305,
@@ -180,7 +187,7 @@ class FriendViewPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
@@ -222,7 +229,10 @@ class FriendViewPage extends StatelessWidget {
                                 ),
                                 Text(
                                   '레벨',
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(Common.mainColor)),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(Common.mainColor)),
                                 ),
                                 Text(
                                   '${model.level}',
@@ -246,7 +256,10 @@ class FriendViewPage extends StatelessWidget {
                                 ),
                                 Text(
                                   '누적 랭킹',
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(Common.mainColor)),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(Common.mainColor)),
                                 ),
                                 Text(
                                   '${model.totalLank}',
@@ -270,7 +283,10 @@ class FriendViewPage extends StatelessWidget {
                                 ),
                                 Text(
                                   '주간 랭킹',
-                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(Common.mainColor)),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(Common.mainColor)),
                                 ),
                                 Text(
                                   '${model.weeklyLank}',
@@ -294,8 +310,11 @@ class FriendViewPage extends StatelessWidget {
                   side: MaterialStateProperty.all<BorderSide>(
                     BorderSide(color: Color(Common.mainColor), width: 2.0),
                   ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0))),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     const EdgeInsets.symmetric(horizontal: 145, vertical: 15),
                   ),
@@ -320,7 +339,8 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
       return AlertDialog(
         contentPadding: const EdgeInsets.all(10), // 알림창의 내용(padding) 크기 조절
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0), // 알림창의 모서리(rounded corners) 조절
+          borderRadius:
+              BorderRadius.circular(25.0), // 알림창의 모서리(rounded corners) 조절
         ),
 
         content: SizedBox(
@@ -333,7 +353,11 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('1월 15일', style: TextStyle(fontSize: 22, fontFamily: 'Inter', fontWeight: FontWeight.w600)),
+                    const Text('1월 15일',
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600)),
                     IconButton(
                       icon: const Icon(Icons.close),
                       color: Colors.grey,
@@ -348,7 +372,7 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
               const SizedBox(
                 height: 15,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
@@ -375,14 +399,18 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      for (int index = 0; index < controller.grassDoneQuestList.length; index++)
+                      for (int index = 0;
+                          index < controller.grassDoneQuestList.length;
+                          index++)
                         Column(
                           children: [
                             if (index == 0) const SizedBox(height: 5),
                             GrassDoneQuestComponent(
                               model: controller.grassDoneQuestList[index],
                             ),
-                            if (index != controller.grassDoneQuestList.length - 1) const SizedBox(height: 17),
+                            if (index !=
+                                controller.grassDoneQuestList.length - 1)
+                              const SizedBox(height: 17),
                           ],
                         ),
                       const SizedBox(

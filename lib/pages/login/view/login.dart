@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/login/controller/login_controller.dart';
+import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
 
 // void main() => runApp(MyApp(debugShowCheckedModeBanner: false));
@@ -104,7 +105,7 @@ class LoginPage extends StatelessWidget {
                   int result = await LoginController.instance.login();
                   //로그인 성공적이면 main페이지로 이동하는 코드 추가
                   //최초 로그인이면 회원정보 입력하는 페이지로 이동하는 코드 추가하기
-                  print(result);
+                  print('${UserService.instance.uid} 로그인 성공');
                   if (result == 1) {
                     Navigator.pushNamed(context, '/main');
                   } else if (result == 2) {

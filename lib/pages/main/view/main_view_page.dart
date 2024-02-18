@@ -55,7 +55,7 @@ class _MainViewPageState extends State<MainViewPage> {
                     ),
                     Container(
                       //내 잔디 부분
-                      width: 375,
+                      width: Common.getWidth * 0.95,
                       height: 385,
                       decoration: ShapeDecoration(
                         color: Colors.white,

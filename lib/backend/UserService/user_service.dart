@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,39 +6,38 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-Future<int> googleSingIn() async {
-  User currentUser;
+// Future<int> googleSingIn() async {
+//   User currentUser;
 
-  final GoogleSignInAccount? account = await _googleSignIn.signIn();
-  final GoogleSignInAuthentication googleAuth = await account!.authentication;
+//   final GoogleSignInAccount? account = await _googleSignIn.signIn();
+//   final GoogleSignInAuthentication googleAuth = await account!.authentication;
 
-  final AuthCredential credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
+//   final AuthCredential credential = GoogleAuthProvider.credential(
+//     accessToken: googleAuth.accessToken,
+//     idToken: googleAuth.idToken,
+//   );
 
-  UserCredential authResult = await _auth.signInWithCredential(credential);
-  User user = authResult.user!;
-  print(user.uid);
+//   UserCredential authResult = await _auth.signInWithCredential(credential);
+//   User user = authResult.user!;
+//   print(user.uid);
 
-  if (await userExistsInDB(user.uid)) {
-    print(1);
-    //바로 메인으로 넘어가야함
-    return 1;
-  } else {
-    if (await createNewUserDocument(user.uid))
-      //닉네임, 주소 입력 페이지로 넘어가야함
-      return 2;
-    else
-      return 3;
-  }
-}
+//   if (await userExistsInDB(user.uid)) {
+//     //바로 메인으로 넘어가야함
+//     return 1;
+//   } else {
+//     if (await createNewUserDocument(user.uid)) {
+//       //닉네임, 주소 입력 페이지로 넘어가야함
+//       return 2;
+//     } else {
+//       return 3;
+//     }
+//   }
+// }
 
 Future<bool> userExistsInDB(String uid) async {
   try {
     print('DB check: $uid');
-    CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('Users');
+    CollectionReference usersCollection = FirebaseFirestore.instance.collection('Users');
     DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
     print(documentSnapshot.exists);
     return documentSnapshot.exists;
@@ -56,15 +54,10 @@ Future<bool> createNewUserDocument(String uid) async {
     //     FirebaseFirestore.instance.collection('Users');
     // await usersCollection.doc(uid);
 
-    await FirebaseFirestore.instance.collection('Users').doc(uid).set({
-      'address': 'address',
-      'friend': [],
-      'level': 1,
-      'nickname': 'nickname',
-      'point': 0,
-      'totalQuest': 0,
-      'profileUrl': 'profileUrl'
-    });
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .set({'address': 'address', 'friend': [], 'level': 1, 'nickname': 'nickname', 'point': 0, 'totalQuest': 0, 'profileUrl': 'profileUrl'});
     return true;
   } catch (e) {
     print('Error creating new user document: $e');
@@ -85,8 +78,7 @@ Future<String> googleSignOut() async {
   return 'logout';
 }
 
-Future<String> getUserInfo(
-    String email, String nickname, String uid, String address) async {
+Future<String> getUserInfo(String nickname, String uid, String address) async {
   //입력 받은 정보를 해당하는 uid문서를 찾아서
   //필드에 저장
   await _firestore.collection('Users').doc(uid).set({
@@ -97,14 +89,8 @@ Future<String> getUserInfo(
   return 'success';
 }
 
-Future<Map<String, List<String>>> getUserGrassInfo(
-    String uid, String date) async {
-  DocumentSnapshot documentSnapshot = await _firestore
-      .collection('Users')
-      .doc(uid)
-      .collection('grass')
-      .doc(date)
-      .get();
+Future<Map<String, List<String>>> getUserGrassInfo(String uid, String date) async {
+  DocumentSnapshot documentSnapshot = await _firestore.collection('Users').doc(uid).collection('grass').doc(date).get();
 
   List<String> daily = documentSnapshot['daily'];
   print('daily: $daily');
@@ -161,8 +147,7 @@ Future<int> getUserGrassList(String uid, String date) async {
     // DateTime startDate = DateTime(int.parse(year), int.parse(month), 1);
     // DateTime endDate = DateTime(int.parse(year), int.parse(month) + 1, 1);
 
-    CollectionReference grassCollection =
-        _firestore.collection('Users').doc(uid).collection('grass');
+    CollectionReference grassCollection = _firestore.collection('Users').doc(uid).collection('grass');
     QuerySnapshot querySnapshot = await grassCollection.where('date').get();
 
     for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
@@ -182,8 +167,7 @@ Future<int> getUserGrassList(String uid, String date) async {
 
 Future<int> getUserPoint(String uid) async {
   try {
-    DocumentSnapshot documentSnapshot =
-        await _firestore.collection('Users').doc(uid).get();
+    DocumentSnapshot documentSnapshot = await _firestore.collection('Users').doc(uid).get();
     int point = documentSnapshot['point'];
     return point;
   } catch (e) {
@@ -194,8 +178,7 @@ Future<int> getUserPoint(String uid) async {
 
 Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
   try {
-    DocumentSnapshot documentSnapshot =
-        await _firestore.collection('Users').doc(uid).get();
+    DocumentSnapshot documentSnapshot = await _firestore.collection('Users').doc(uid).get();
     List<String> friend = List<String>.from(documentSnapshot['friend']);
     int level = documentSnapshot['level'];
     String nickname = documentSnapshot['nickname'];
@@ -241,10 +224,7 @@ Future<String> updateUserLevel(String uid, int level) async {
 
 Future<String> updateUserTotalQuest(String uid, int totalQuest) async {
   try {
-    await _firestore
-        .collection('Users')
-        .doc(uid)
-        .update({'totalQuest': totalQuest});
+    await _firestore.collection('Users').doc(uid).update({'totalQuest': totalQuest});
     return 'Successfully updated user total quest';
   } catch (e) {
     print('Error updating user total quest: $e');
@@ -254,10 +234,7 @@ Future<String> updateUserTotalQuest(String uid, int totalQuest) async {
 
 Future<String> updateUserProfileUrl(String uid, String profileUrl) async {
   try {
-    await _firestore
-        .collection('Users')
-        .doc(uid)
-        .update({'profileUrl': profileUrl});
+    await _firestore.collection('Users').doc(uid).update({'profileUrl': profileUrl});
     return 'Successfully updated user profile url';
   } catch (e) {
     print('Error updating user profile url: $e');

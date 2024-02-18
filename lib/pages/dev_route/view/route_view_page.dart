@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/dev_route/controller/route_view_controller.dart';
-import 'package:frontend/pages/login/login.dart';
+import 'package:frontend/pages/login/view/login.dart';
 import 'package:frontend/pages/main/view/shop_view_page.dart';
 import 'package:frontend/pages/quest/view/quest_main_view_page.dart';
 import 'package:frontend/pages/social/view/freind_view_page.dart';

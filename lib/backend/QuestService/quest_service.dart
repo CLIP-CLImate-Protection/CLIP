@@ -29,12 +29,9 @@ Future<Map<String, dynamic>> getQuestInfo(
     Map<String, dynamic> questInfo =
         questSnapshot.data() as Map<String, dynamic>;
 
-    // Check if the questInfo map is not null and contains the questName field
     if (questInfo != null && questInfo.containsKey(questName)) {
-      // Retrieve the value of questName field
       dynamic questNameValue = questInfo[questName];
 
-      // Optionally, you can create a new map with only the questName field
       Map<String, dynamic> result = {questName: questNameValue};
 
       return result;
@@ -57,13 +54,10 @@ Future<List<Map<String, dynamic>>> getDailyQuestList() async {
 
     List<Map<String, dynamic>> result = [];
 
-    // Convert the map entries to a list
     List<MapEntry<String, dynamic>> questEntries = questList.entries.toList();
 
-    // Shuffle the list to get a random order
     questEntries.shuffle();
 
-    // Take the first three entries (or less if there are fewer than three)
     List<MapEntry<String, dynamic>> selectedEntries =
         questEntries.take(3).toList();
 

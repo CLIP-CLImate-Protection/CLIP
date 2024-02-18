@@ -41,7 +41,7 @@ class QuestMainPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
                     Text(
                       '오늘의 퀘스트',
@@ -63,14 +63,17 @@ class QuestMainPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      for (int index = 0; index < controller.dailyQuestList.length; index++)
+                      for (int index = 0;
+                          index < controller.dailyQuestList.length;
+                          index++)
                         Column(
                           children: [
                             if (index == 0) const SizedBox(height: 10),
                             QuestComponent(
                               model: controller.dailyQuestList[index],
                             ),
-                            if (index != controller.dailyQuestList.length - 1) const SizedBox(height: 20),
+                            if (index != controller.dailyQuestList.length - 1)
+                              const SizedBox(height: 20),
                           ],
                         )
                     ],
@@ -79,7 +82,7 @@ class QuestMainPage extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                const Row(
+                Row(
                   children: [
                     Text(
                       '메인 퀘스트',
@@ -101,14 +104,17 @@ class QuestMainPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      for (int index = 0; index < controller.questList.length; index++)
+                      for (int index = 0;
+                          index < controller.questList.length;
+                          index++)
                         Column(
                           children: [
                             if (index == 0) const SizedBox(height: 10),
                             QuestComponent(
                               model: controller.questList[index],
                             ),
-                            if (index != controller.questList.length - 1) const SizedBox(height: 20),
+                            if (index != controller.questList.length - 1)
+                              const SizedBox(height: 20),
                           ],
                         )
                     ],
@@ -118,7 +124,7 @@ class QuestMainPage extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                const Row(
+                Row(
                   children: [
                     Text(
                       '이벤트 퀘스트',

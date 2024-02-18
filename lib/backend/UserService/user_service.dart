@@ -87,17 +87,15 @@ Future<String> googleSignOut() async {
 }
 
 Future<bool> getUserInfo(String nickname, String uid, String address) async {
-  //입력 받은 정보를 해당하는 uid문서를 찾아서
-  //필드에 저장
   try {
-    await _firestore.collection('Users').doc(uid).set({
+    await _firestore.collection('Users').doc(uid).update({
       'nickname': nickname,
       'address': address,
-      // 'profileUrl': profileUrl,
+      // Any other fields you want to update can be added here
     });
     return true;
   } catch (e) {
-    print('Error getting user info: $e');
+    print('Error updating user info: $e');
     return false;
   }
 }

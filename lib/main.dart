@@ -22,8 +22,8 @@ void main() async {
   runApp(GetMaterialApp(
     title: 'CLIP',
 
-    initialRoute: route,
-    //initialRoute: RouteViewPage.url,
+    //initialRoute: route,
+    initialRoute: Navigation.url,
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       canvasColor: Colors.white,

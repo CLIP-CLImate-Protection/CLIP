@@ -65,6 +65,8 @@ Future<bool> createNewUserDocument(String uid) async {
   }
 }
 
+// Future<bool> enterMemberInfo()
+
 Future<String> googleSignOut() async {
   await _auth.signOut();
   await _googleSignIn.signOut();
@@ -78,17 +80,18 @@ Future<String> googleSignOut() async {
   return 'logout';
 }
 
-Future<String> getUserInfo(String nickname, String uid, String address) async {
-  //입력 받은 정보를 해당하는 uid문서를 찾아서
-  //필드에 저장
-
-  print(' $uid getUserInfo');
-  await _firestore.collection('Users').doc(uid).set({
-    'nickname': nickname,
-    'address': address,
-  });
-
-  return 'success';
+Future<bool> getUserInfo(String nickname, String uid, String address) async {
+  try {
+    await _firestore.collection('Users').doc(uid).update({
+      'nickname': nickname,
+      'address': address,
+      // Any other fields you want to update can be added here
+    });
+    return true;
+  } catch (e) {
+    print('Error updating user info: $e');
+    return false;
+  }
 }
 
 Future<Map<String, List<String>>> getUserGrassInfo(String uid, String date) async {

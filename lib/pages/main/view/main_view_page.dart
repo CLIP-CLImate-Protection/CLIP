@@ -46,7 +46,12 @@ class _MainViewPageState extends State<MainViewPage> {
                           SizedBox(
                             width: Common.getWidth * 0.1,
                           ),
-                          const Text('CLIP', style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Kantumruy')),
+                          const Text('CLIP',
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Kantumruy')),
                         ],
                       ),
                     ),
@@ -74,7 +79,8 @@ class _MainViewPageState extends State<MainViewPage> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 15, left: 21, right: 21),
+                            padding: const EdgeInsets.only(
+                                top: 15, left: 21, right: 21),
                             child: Row(
                               children: [
                                 const Text(
@@ -92,7 +98,8 @@ class _MainViewPageState extends State<MainViewPage> {
                                 Container(
                                   width: 110,
                                   height: 31,
-                                  padding: const EdgeInsets.only(left: 12, right: 12),
+                                  padding: const EdgeInsets.only(
+                                      left: 12, right: 12),
                                   clipBehavior: Clip.antiAlias,
                                   decoration: ShapeDecoration(
                                     color: const Color(0xFFFFF0D3),
@@ -102,7 +109,9 @@ class _MainViewPageState extends State<MainViewPage> {
                                   ),
                                   child: Row(
                                     children: [
-                                      Icon(FontAwesomeIcons.coins, color: Color(Common.coinColor), size: 18),
+                                      Icon(FontAwesomeIcons.coins,
+                                          color: Color(Common.coinColor),
+                                          size: 18),
                                       const Spacer(),
                                       const Text(
                                         '1300',
@@ -120,7 +129,8 @@ class _MainViewPageState extends State<MainViewPage> {
                                   width: 4,
                                 ),
                                 IconButton(
-                                  icon: const Icon(FontAwesomeIcons.cartShopping),
+                                  icon:
+                                      const Icon(FontAwesomeIcons.cartShopping),
                                   color: Color(Common.subGray),
                                   iconSize: 25,
                                   padding: const EdgeInsets.all(0),
@@ -156,7 +166,7 @@ class _MainViewPageState extends State<MainViewPage> {
           ),
           child: Column(
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 23, top: 20.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,8 +199,12 @@ class _MainViewPageState extends State<MainViewPage> {
                       '누적랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '누적랭킹' ? FontWeight.bold : FontWeight.normal,
-                        color: _selectedRanking == '누적랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '누적랭킹'
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: _selectedRanking == '누적랭킹'
+                            ? Color(Common.mainColor)
+                            : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -204,8 +218,12 @@ class _MainViewPageState extends State<MainViewPage> {
                       '주간랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '주간랭킹' ? FontWeight.bold : FontWeight.normal,
-                        color: _selectedRanking == '주간랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '주간랭킹'
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: _selectedRanking == '주간랭킹'
+                            ? Color(Common.mainColor)
+                            : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -219,8 +237,12 @@ class _MainViewPageState extends State<MainViewPage> {
                       '지역랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '지역랭킹' ? FontWeight.bold : FontWeight.normal,
-                        color: _selectedRanking == '지역랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '지역랭킹'
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: _selectedRanking == '지역랭킹'
+                            ? Color(Common.mainColor)
+                            : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -252,12 +274,16 @@ class _MainViewPageState extends State<MainViewPage> {
                     // You can adjust the logic here based on your data structure
                     switch (_selectedRanking) {
                       case '주간랭킹':
-                        return RankComponent(model: controller2.friendList[index], index: index + 1);
+                        return RankComponent(
+                            model: controller2.friendList[index],
+                            index: index + 1);
                       case '지역랭킹':
                         // Implement logic for 지역랭킹
                         return const SizedBox(); // Placeholder
                       default:
-                        return RankComponent(model: controller2.friendList[index], index: index + 1);
+                        return RankComponent(
+                            model: controller2.friendList[index],
+                            index: index + 1);
                     }
                   },
                 ),
@@ -265,7 +291,8 @@ class _MainViewPageState extends State<MainViewPage> {
             ],
           ),
         ),
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         minHeight: 220,
         maxHeight: MediaQuery.of(context).size.height - 215,
       ),

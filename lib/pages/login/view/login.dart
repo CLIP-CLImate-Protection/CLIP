@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/backend/UserService/user_service.dart';
+import 'package:frontend/pages/login/controller/login_controller.dart';
 import 'package:get/get.dart';
 
 // void main() => runApp(MyApp(debugShowCheckedModeBanner: false));
@@ -31,6 +31,7 @@ class LoginPage extends StatelessWidget {
   static const String url = '/login';
   @override
   Widget build(BuildContext context) {
+    Get.put(LoginController());
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -100,13 +101,15 @@ class LoginPage extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   // 구글 로그인 기능 추가
-                  googleSingIn();
+                  int result = await LoginController.instance.login();
                   //로그인 성공적이면 main페이지로 이동하는 코드 추가
                   //최초 로그인이면 회원정보 입력하는 페이지로 이동하는 코드 추가하기
-                  if (await googleSingIn() == 1) {
+                  print(result);
+                  if (result == 1) {
                     Navigator.pushNamed(context, '/main');
-                  } else if (await googleSingIn() == 2) {
-                    Navigator.pushNamed(context, '/signup');
+                  } else if (result == 2) {
+                    print("회원가입 페이지로 이동");
+                    Get.toNamed('/memberinfo');
                   } else {
                     showSnackBar();
                   }

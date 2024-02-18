@@ -6,33 +6,33 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-Future<int> googleSingIn() async {
-  User currentUser;
+// Future<int> googleSingIn() async {
+//   User currentUser;
 
-  final GoogleSignInAccount? account = await _googleSignIn.signIn();
-  final GoogleSignInAuthentication googleAuth = await account!.authentication;
+//   final GoogleSignInAccount? account = await _googleSignIn.signIn();
+//   final GoogleSignInAuthentication googleAuth = await account!.authentication;
 
-  final AuthCredential credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
+//   final AuthCredential credential = GoogleAuthProvider.credential(
+//     accessToken: googleAuth.accessToken,
+//     idToken: googleAuth.idToken,
+//   );
 
-  UserCredential authResult = await _auth.signInWithCredential(credential);
-  User user = authResult.user!;
-  print(user.uid);
+//   UserCredential authResult = await _auth.signInWithCredential(credential);
+//   User user = authResult.user!;
+//   print(user.uid);
 
-  if (await userExistsInDB(user.uid)) {
-    print(1);
-    //바로 메인으로 넘어가야함
-    return 1;
-  } else {
-    if (await createNewUserDocument(user.uid))
-      //닉네임, 주소 입력 페이지로 넘어가야함
-      return 2;
-    else
-      return 3;
-  }
-}
+//   if (await userExistsInDB(user.uid)) {
+//     //바로 메인으로 넘어가야함
+//     return 1;
+//   } else {
+//     if (await createNewUserDocument(user.uid)) {
+//       //닉네임, 주소 입력 페이지로 넘어가야함
+//       return 2;
+//     } else {
+//       return 3;
+//     }
+//   }
+// }
 
 Future<bool> userExistsInDB(String uid) async {
   try {

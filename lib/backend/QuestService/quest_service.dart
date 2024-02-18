@@ -1,6 +1,3 @@
-import 'dart:html';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -29,7 +26,7 @@ Future<Map<String, dynamic>> getQuestInfo(
     Map<String, dynamic> questInfo =
         questSnapshot.data() as Map<String, dynamic>;
 
-    if (questInfo != null && questInfo.containsKey(questName)) {
+    if (questInfo.containsKey(questName)) {
       dynamic questNameValue = questInfo[questName];
 
       Map<String, dynamic> result = {questName: questNameValue};
@@ -72,7 +69,7 @@ Future<Map<String, dynamic>> getQuestInfo(
 //     return [];
 //   }
 // }
-Future<void> getDailyQuestList() async {
+Future<List<Map<String, dynamic>>> getDailyQuestList() async {
   try {
     DocumentSnapshot questSnapshot =
         await _firestore.collection('questList').doc('daily').get();
@@ -90,12 +87,20 @@ Future<void> getDailyQuestList() async {
 
     for (var entry in selectedEntries) {
       Map<String, dynamic> questInfo = {entry.key: entry.value};
+
       result.add(questInfo);
     }
-    print(result);
-    // return result;
+    //print(result);
+    // for (var item in result) {
+    //   print(item);
+    //   for (var key in item.keys) {
+    //     print(key);
+    //     print(item[key]);
+    //   }
+    // }
+    return result;
   } catch (e) {
     print('Error getting quest list: $e');
-    // return [];
+    return [];
   }
 }

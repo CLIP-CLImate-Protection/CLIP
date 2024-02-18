@@ -47,7 +47,11 @@ Widget CommentBox() {
   );
 }
 
+<<<<<<< HEAD
 Widget UploadBox(_getImage, _image, String comment, String option, controller) {
+=======
+Widget UploadBox(getImage, image, String comment, String option, controller) {
+>>>>>>> 1bd6c050e9914d46a22b915c916193863ee2d128
   return Container(
     width: 326,
     height: 312,

@@ -1,8 +1,17 @@
 import 'package:frontend/fastAPI/models/Quest.dart';
 import 'package:get/get.dart';
 
+import '../../../backend/QuestService/quest_service.dart';
+
 class QuestMainController extends GetxController {
   static QuestMainController get instance => Get.find<QuestMainController>();
+  @override
+  void onInit() {
+    super.onInit();
+    getMainQuestList();
+    getDailyQuestlist();
+    getGrassDoneQugestList();
+  }
 
   Future<void> getMainQuestList() async {
     List<Map<String, dynamic>> fakeJsonData = [
@@ -32,8 +41,15 @@ class QuestMainController extends GetxController {
     questList.refresh();
   }
 
-  Future<void> getDailyQuestList() async {
-    dailyQuestList.value = getDailyQuestList() as List<Quest>;
+  Future<void> getDailyQuestlist() async {
+    List<Map<String, dynamic>> jsonData = await getDailyQuestList();
+
+    List<Quest> quests = transformJson(jsonData);
+    // for (var quest in quests) {
+    //   print(quest.questName);
+    // }
+    //dailyQuestList.value = getDailyQuestList() as List<Quest>;
+    dailyQuestList.value = quests;
     dailyQuestList.refresh();
   }
 
@@ -59,5 +75,65 @@ class QuestMainController extends GetxController {
     List<Quest> fakeTalkings = fakeJsonData.map((jsonData) => Quest.fromJson(jsonData)).toList();
     grassDoneQuestList.value = fakeTalkings;
     grassDoneQuestList.refresh();
+  }
+
+  // List<Quest> transformJson(List<Map<String, dynamic>> jsonList) {
+  //   List<Quest> quests = [];
+  //   Quest quest = Quest();
+  //   for (var item in jsonList) {
+  //     for (var key in item.keys) {
+  //       print("=========");
+  //       //print(key);
+  //       quest.questName = key;
+  //       print(quest.questName);
+  //       for (var i in item.values) {
+  //         //print(i);
+  //         for (var j in i.entries) {
+  //           // print(j.key);
+  //           // print(j.value);
+  //           if (j.key == "description") {
+  //             quest.questDescription = j.value;}
+  //           else if(j.key == "point"){
+  //             quest.reward = j.value;
+  //           }
+  //           else if(j.key == "type"){
+  //             quest.type = j.value;
+  //           }
+  //           }
+
+  //         }
+  //       }
+  //     }
+  //     //var quest = Quest.fromJson(item);
+
+  //      quests.add(quest);
+  //   }
+
+  //   return quests;
+  // }
+
+  List<Quest> transformJson(List<Map<String, dynamic>> jsonList) {
+    List<Quest> quests = [];
+
+    for (var item in jsonList) {
+      for (var key in item.keys) {
+        var questData = item[key];
+        var quest = Quest(
+          questName: key,
+          questDescription: questData['description'],
+          reward: questData['point'],
+          type: questData['type'],
+        );
+        quests.add(quest);
+      }
+    }
+    for (var quest in quests) {
+      print("=========");
+      print(quest.questName);
+      print(quest.questDescription);
+      print(quest.reward);
+      print(quest.type);
+    }
+    return quests;
   }
 }

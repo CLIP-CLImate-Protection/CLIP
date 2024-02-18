@@ -18,10 +18,13 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 //   }
 // }
 
-Future<Map<String, dynamic>> getQuestInfo(String questName, String questType) async {
+Future<Map<String, dynamic>> getQuestInfo(
+    String questName, String questType) async {
   try {
-    DocumentSnapshot questSnapshot = await _firestore.collection('questList').doc(questType).get();
-    Map<String, dynamic> questInfo = questSnapshot.data() as Map<String, dynamic>;
+    DocumentSnapshot questSnapshot =
+        await _firestore.collection('questList').doc(questType).get();
+    Map<String, dynamic> questInfo =
+        questSnapshot.data() as Map<String, dynamic>;
 
     if (questInfo.containsKey(questName)) {
       dynamic questNameValue = questInfo[questName];
@@ -68,8 +71,10 @@ Future<Map<String, dynamic>> getQuestInfo(String questName, String questType) as
 // }
 Future<List<Map<String, dynamic>>> getDailyQuestList() async {
   try {
-    DocumentSnapshot questSnapshot = await _firestore.collection('questList').doc('daily').get();
-    Map<String, dynamic> questList = questSnapshot.data() as Map<String, dynamic>;
+    DocumentSnapshot questSnapshot =
+        await _firestore.collection('questList').doc('daily').get();
+    Map<String, dynamic> questList =
+        questSnapshot.data() as Map<String, dynamic>;
 
     List<Map<String, dynamic>> result = [];
 
@@ -77,7 +82,8 @@ Future<List<Map<String, dynamic>>> getDailyQuestList() async {
 
     questEntries.shuffle();
 
-    List<MapEntry<String, dynamic>> selectedEntries = questEntries.take(3).toList();
+    List<MapEntry<String, dynamic>> selectedEntries =
+        questEntries.take(3).toList();
 
     for (var entry in selectedEntries) {
       Map<String, dynamic> questInfo = {entry.key: entry.value};

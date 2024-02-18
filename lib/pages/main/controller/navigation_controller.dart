@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/mypage/mypageview.dart';
 import 'package:frontend/pages/quest/view/quest_main_view_page.dart';
 import 'package:frontend/pages/social/view/social_main_view_page.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,6 @@ class NavigationController extends GetxController {
     const MainViewPage(),
     const QuestMainPage(),
     const SocialMainPage(),
-    const SocialMainPage(),
+    const MyPage(),
   ];
 }

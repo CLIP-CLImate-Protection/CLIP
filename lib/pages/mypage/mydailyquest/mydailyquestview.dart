@@ -2,22 +2,16 @@ import 'package:flutter/material.dart';
 import 'mydailyquestcontroller.dart';
 
 
-class MyDailyQuestView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: DailyQuestPage(),
-    );
-  }
-}
+class MyDailyQuestView extends StatefulWidget {
+  const MyDailyQuestView({Key? key}) : super(key: key);
 
-class DailyQuestPage extends StatefulWidget {
+  static const String url = '/mydailyquest';
+
   @override
   _DailyQuestPageState createState() => _DailyQuestPageState();
 }
 
-class _DailyQuestPageState extends State<DailyQuestPage> {
+class _DailyQuestPageState extends State<MyDailyQuestView> {
   int completedQuestCount = 0;
   List<String> userCompletedQuests = [];
 

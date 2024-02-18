@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'mypagecontroller.dart'; // mypagecontroller.dart 파일을 import 합니다.
+import 'mypagecontroller.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);

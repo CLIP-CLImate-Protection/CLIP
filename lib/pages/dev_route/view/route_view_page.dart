@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/dev_route/controller/route_view_controller.dart';
 import 'package:frontend/pages/login/login.dart';
 import 'package:frontend/pages/main/view/shop_view_page.dart';
-import 'package:frontend/pages/my_info/view/info_main_view_page.dart';
 import 'package:frontend/pages/quest/view/quest_main_view_page.dart';
 import 'package:frontend/pages/social/view/freind_view_page.dart';
 import 'package:frontend/pages/social/view/social_main_view_page.dart';
@@ -39,11 +38,7 @@ class RouteViewPage extends StatelessWidget {
                 Get.offAllNamed(SocialMainPage.url);
               },
               child: const Text('Go to Social Page')),
-          ElevatedButton(
-              onPressed: () {
-                Get.offAllNamed(MyInfoPage.url);
-              },
-              child: const Text('Go to MyInfo Page')),
+          const Text('Go to MyInfo Page'),
           // ElevatedButton(
           //     onPressed: () {
           //       Get.offAllNamed(BackendPage.url);

@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
-class MyPageController {
+class MyPageController extends GetxController {
+  static MyPageController get instance => Get.find<MyPageController>();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
     try {

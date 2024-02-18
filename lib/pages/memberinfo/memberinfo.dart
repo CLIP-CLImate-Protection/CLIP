@@ -123,6 +123,7 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                             hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
                             border: InputBorder.none,
                           ),
+                          keyboardType: TextInputType.text,
                         ),
                       ),
                     ],

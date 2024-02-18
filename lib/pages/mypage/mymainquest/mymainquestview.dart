@@ -2,22 +2,18 @@ import 'package:flutter/material.dart';
 import 'mymainquestcontroller.dart';
 
 
-class MyMainQuestView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MainQuestPage(),
-    );
-  }
-}
+class MyMainQuestView extends StatefulWidget {
+  const MyMainQuestView({Key? key}) : super(key: key);
 
-class MainQuestPage extends StatefulWidget {
+  static const String url = '/m'; //url미정
   @override
   _MainQuestPageState createState() => _MainQuestPageState();
+
 }
 
-class _MainQuestPageState extends State<MainQuestPage> {
+
+
+class _MainQuestPageState extends State<MyMainQuestView> {
   Map<String, int> questExecutionCount = {};
 
   @override

@@ -5,23 +5,12 @@ import 'package:image_picker/image_picker.dart';
 
 import 'component/questdetails_component.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // 디버그 라벨 숨기기
-      home: Scaffold(
-        body: UploadTextPage(),
-      ),
-    );
-  }
-}
 
 class UploadTextPage extends StatefulWidget {
+  const UploadTextPage({Key? key}) : super(key: key);
+
+  static const String url = '/'; //url 미정
+
   @override
   _UploadTextPageState createState() => _UploadTextPageState();
 }

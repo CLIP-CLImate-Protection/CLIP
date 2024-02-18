@@ -45,7 +45,34 @@ Future<Map<String, dynamic>> getQuestInfo(
   }
 }
 
-Future<List<Map<String, dynamic>>> getDailyQuestList() async {
+// Future<List<Map<String, dynamic>>> getDailyQuestList() async {
+//   try {
+//     DocumentSnapshot questSnapshot =
+//         await _firestore.collection('questList').doc('daily').get();
+//     Map<String, dynamic> questList =
+//         questSnapshot.data() as Map<String, dynamic>;
+
+//     List<Map<String, dynamic>> result = [];
+
+//     List<MapEntry<String, dynamic>> questEntries = questList.entries.toList();
+
+//     questEntries.shuffle();
+
+//     List<MapEntry<String, dynamic>> selectedEntries =
+//         questEntries.take(3).toList();
+
+//     for (var entry in selectedEntries) {
+//       Map<String, dynamic> questInfo = {entry.key: entry.value};
+//       result.add(questInfo);
+//     }
+//     print(result);
+//     return result;
+//   } catch (e) {
+//     print('Error getting quest list: $e');
+//     return [];
+//   }
+// }
+Future<void> getDailyQuestList() async {
   try {
     DocumentSnapshot questSnapshot =
         await _firestore.collection('questList').doc('daily').get();
@@ -66,9 +93,9 @@ Future<List<Map<String, dynamic>>> getDailyQuestList() async {
       result.add(questInfo);
     }
     print(result);
-    return result;
+    // return result;
   } catch (e) {
     print('Error getting quest list: $e');
-    return [];
+    // return [];
   }
 }

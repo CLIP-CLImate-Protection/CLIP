@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -72,6 +71,8 @@ Future<bool> createNewUserDocument(String uid) async {
   }
 }
 
+// Future<bool> enterMemberInfo()
+
 Future<String> googleSignOut() async {
   await _auth.signOut();
   await _googleSignIn.signOut();
@@ -85,16 +86,20 @@ Future<String> googleSignOut() async {
   return 'logout';
 }
 
-Future<String> getUserInfo(
-    String email, String nickname, String uid, String address) async {
+Future<bool> getUserInfo(String nickname, String uid, String address) async {
   //입력 받은 정보를 해당하는 uid문서를 찾아서
   //필드에 저장
-  await _firestore.collection('Users').doc(uid).set({
-    'nickname': nickname,
-    'address': address,
-  });
-
-  return 'success';
+  try {
+    await _firestore.collection('Users').doc(uid).set({
+      'nickname': nickname,
+      'address': address,
+      // 'profileUrl': profileUrl,
+    });
+    return true;
+  } catch (e) {
+    print('Error getting user info: $e');
+    return false;
+  }
 }
 
 Future<Map<String, List<String>>> getUserGrassInfo(

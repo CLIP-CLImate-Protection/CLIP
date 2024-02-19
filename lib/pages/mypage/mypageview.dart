@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'controller/mypagecontroller.dart';
 import 'custompopup.dart';
+import 'lankinginfo.dart';
 import 'mydailyquest/mydailyquestview.dart';
 
 class MyPage extends StatelessWidget {
@@ -155,8 +156,7 @@ class MyPage extends StatelessWidget {
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () {
-                        // '다음 랭킹까지 남은 게이지'를 눌렀을 때 처리할 내용 추가
-                        // 이동할 페이지로 네비게이션하도록 설정
+                        Get.to(() => LankingInfo());
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.end,

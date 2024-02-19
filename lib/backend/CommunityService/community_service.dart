@@ -39,6 +39,22 @@ Future<List<Map<String, dynamic>>> getTopQuestUsers() async {
   }
 }
 
+Future<List<String>> getAllUserNicknameList() async {
+  try {
+    List<String> nicknameList = [];
+    _firestore.collection('Users').get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        nicknameList.add(doc['nickname']);
+      });
+    });
+    print(nicknameList);
+    return nicknameList;
+  } catch (e) {
+    print('Error getting all user nickname list: $e');
+    return [];
+  }
+}
+
 // Future<List<Map<String, dynamic>>> getTopQuestUsersInWeek() async {
 //   try {
 //     // Calculate the start and end dates for the week

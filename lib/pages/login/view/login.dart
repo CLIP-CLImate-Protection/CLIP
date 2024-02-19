@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/pages/login/controller/login_controller.dart';
 import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 // void main() => runApp(MyApp(debugShowCheckedModeBanner: false));
 
@@ -54,16 +55,16 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/logo.png', // 로고 이미지 경로
-                    width: 24,
-                    height: 24,
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
+                  // Image.asset(
+                  //   '', // 로고 이미지 경로
+                  //   width: 24,
+                  //   height: 24,
+                  // ),
+                  SizedBox(width: 10),
+                  Text(
                     'CLIP',
                     style: TextStyle(
                       fontFamily: 'Kantumruy',
@@ -106,7 +107,7 @@ class LoginPage extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   // 구글 로그인 기능 추가
-                  int result = await LoginController.instance.login();
+                  int result = await LoginController.instance.login(DateFormat('yyyy-mm-dd').format(DateTime.now()));
                   //로그인 성공적이면 main페이지로 이동하는 코드 추가
                   //최초 로그인이면 회원정보 입력하는 페이지로 이동하는 코드 추가하기
                   print('${UserService.instance.uid} 로그인 성공');

@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'controller/mypagecontroller.dart'; // mypagecontroller.dart 파일을 import 합니다.
 
-class MyPage extends StatefulWidget {
+class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
 
-  static const String url = '/mypage';
+  static String url = '/mypage';
 
-  @override
-  _MyPageState createState() => _MyPageState();
-}
-
-class _MyPageState extends State<MyPage> {
-  final MyPageController _controller = MyPageController();
-  final Map<String, dynamic> _userInfo = {};
+  //final MyPageController _controller = MyPageController();
 
   @override
   Widget build(BuildContext context) {
-    _controller.getMyInfo();
+    //_controller.getMyInfo();
+    print(DateFormat('yyyy-mm-dd').format(DateTime.now()).toString());
     return Scaffold(
       backgroundColor: const Color(0xFF278740),
       body: SingleChildScrollView(
@@ -53,8 +49,9 @@ class _MyPageState extends State<MyPage> {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage: _userInfo['profileUrl'] != null ? NetworkImage(_userInfo['profileUrl']) : null,
-                          child: _userInfo['profileUrl'] == null
+                          backgroundImage:
+                              MyPageController.instance.user.value.profileUrl != null ? NetworkImage(MyPageController.instance.user.value.profileUrl!) : null,
+                          child: MyPageController.instance.user.value.profileUrl == null
                               ? Icon(
                                   Icons.person,
                                   size: 60,
@@ -67,7 +64,7 @@ class _MyPageState extends State<MyPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              _userInfo['nickname'] ?? '',
+                              '${MyPageController.instance.user.value.nickname}',
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -75,20 +72,47 @@ class _MyPageState extends State<MyPage> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              '레벨 ${_userInfo['level'] ?? ''}',
+                              'Lv. ${levelToString(MyPageController.instance.user.value.level)} ',
                               style: const TextStyle(
                                 fontSize: 16,
                               ),
                             ),
                             const SizedBox(height: 5),
-                            const Text(
-                              '서울 서초구', // 백엔드 코드 확인 후 변경하기 기능명세서에서 못 찾음..
-                              style: TextStyle(
+                            Text(
+                              '${MyPageController.instance.user.value.address}', // 백엔드 코드 확인 후 변경하기 기능명세서에서 못 찾음..
+                              style: const TextStyle(
                                 fontSize: 16,
                               ),
                             ),
                           ],
                         ),
+                        // child: Column(
+                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                        //   children: [
+                        //     Text(
+                        //       '${_controller.user.value.nickname}',
+                        //       style: const TextStyle(
+                        //         fontSize: 20,
+                        //         fontWeight: FontWeight.bold,
+                        //       ),
+                        //     ),
+                        //     const SizedBox(height: 5),
+                        //     Text(
+                        //       'Lv. ${levelToString(_controller.user.value.level!)} ',
+                        //       style: const TextStyle(
+                        //         fontSize: 16,
+                        //       ),
+                        //     ),
+                        //     const SizedBox(height: 5),
+                        //     Text(
+                        //       '${_controller.user.value.address}', // 백엔드 코드 확인 후 변경하기 기능명세서에서 못 찾음..
+                        //       style: const TextStyle(
+                        //         fontSize: 16,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+
                         const Spacer(),
                         Container(
                           width: 99,
@@ -99,7 +123,7 @@ class _MyPageState extends State<MyPage> {
                           ),
                           child: Center(
                             child: Text(
-                              '포인트 ${_userInfo['point'] ?? ''}',
+                              '포인트 ${MyPageController.instance.user.value.point}',
                               style: const TextStyle(
                                 fontSize: 16,
                               ),
@@ -247,5 +271,20 @@ class _MyPageState extends State<MyPage> {
         ),
       ),
     );
+  }
+}
+
+String levelToString(int? level) {
+  switch (level) {
+    case 1:
+      return '씨앗';
+    case 2:
+      return '새싹';
+    case 3:
+      return '나무';
+    case 4:
+      return '숲';
+    default:
+      return 'false';
   }
 }

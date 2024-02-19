@@ -10,12 +10,15 @@ class MyGrassComponent extends StatelessWidget {
 
   var now = DateTime.now();
   String month = DateFormat('MMM').format(DateTime.now());
+  String date = DateFormat('yyyy-mm-dd').format(DateTime.now());
   //final MyGrass myGrass;
 
   //MyGrassComponent({this.myGrass});
 
   @override
   Widget build(BuildContext context) {
+    print(date);
+
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -56,11 +59,9 @@ class MyGrassComponent extends StatelessWidget {
           ),
           InkWell(
               onTap: () {
-                showQuestAlertDialog(
-                    context, '잔디', '잔디를 클릭하면 해당 날짜의 퀘스트를 확인할 수 있습니다.');
+                showQuestAlertDialog(context, '잔디', '잔디를 클릭하면 해당 날짜의 퀘스트를 확인할 수 있습니다.');
               },
-              child: Image.asset('assets/images/my_grass.png',
-                  width: 318, height: 238)),
+              child: Image.asset('assets/images/my_grass.png', width: 318, height: 238)),
         ],
       ),
     );
@@ -76,8 +77,7 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
       return AlertDialog(
         contentPadding: const EdgeInsets.all(10), // 알림창의 내용(padding) 크기 조절
         shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(25.0), // 알림창의 모서리(rounded corners) 조절
+          borderRadius: BorderRadius.circular(25.0), // 알림창의 모서리(rounded corners) 조절
         ),
 
         content: SizedBox(
@@ -90,11 +90,7 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('1월 15일',
-                        style: TextStyle(
-                            fontSize: 22,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600)),
+                    const Text('1월 15일', style: TextStyle(fontSize: 22, fontFamily: 'Inter', fontWeight: FontWeight.w600)),
                     IconButton(
                       icon: const Icon(Icons.close),
                       color: Colors.grey,
@@ -109,7 +105,7 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
               const SizedBox(
                 height: 15,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(
@@ -136,18 +132,14 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      for (int index = 0;
-                          index < controller.grassDoneQuestList.length;
-                          index++)
+                      for (int index = 0; index < controller.grassDoneQuestList.length; index++)
                         Column(
                           children: [
                             if (index == 0) const SizedBox(height: 5),
                             GrassDoneQuestComponent(
                               model: controller.grassDoneQuestList[index],
                             ),
-                            if (index !=
-                                controller.grassDoneQuestList.length - 1)
-                              const SizedBox(height: 17),
+                            if (index != controller.grassDoneQuestList.length - 1) const SizedBox(height: 17),
                           ],
                         ),
                       const SizedBox(

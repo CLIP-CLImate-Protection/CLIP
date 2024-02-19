@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'mypagecontroller.dart'; // mypagecontroller.dart 파일을 import 합니다.
+import 'controller/mypagecontroller.dart'; // mypagecontroller.dart 파일을 import 합니다.
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -13,18 +13,11 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   final MyPageController _controller = MyPageController();
-  Map<String, dynamic> _userInfo = {};
-
-  @override
-  Future<void> _getUserInfo() async {
-    Map<String, dynamic> userInfo = await _controller.getUserAllInfo('uid');
-    setState(() {
-      _userInfo = userInfo;
-    });
-  }
+  final Map<String, dynamic> _userInfo = {};
 
   @override
   Widget build(BuildContext context) {
+    _controller.getMyInfo();
     return Scaffold(
       backgroundColor: const Color(0xFF278740),
       body: SingleChildScrollView(
@@ -60,9 +53,7 @@ class _MyPageState extends State<MyPage> {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage: _userInfo['profileUrl'] != null
-                              ? NetworkImage(_userInfo['profileUrl'])
-                              : null,
+                          backgroundImage: _userInfo['profileUrl'] != null ? NetworkImage(_userInfo['profileUrl']) : null,
                           child: _userInfo['profileUrl'] == null
                               ? Icon(
                                   Icons.person,
@@ -140,7 +131,7 @@ class _MyPageState extends State<MyPage> {
                         // '다음 랭킹까지 남은 게이지'를 눌렀을 때 처리할 내용 추가
                         // 이동할 페이지로 네비게이션하도록 설정
                       },
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(

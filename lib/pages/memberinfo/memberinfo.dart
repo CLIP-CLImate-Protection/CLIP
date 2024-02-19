@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
 import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
@@ -143,6 +144,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                         // String uid = UserService.instance.uid; // 사용자 uid
                         // print(uid);
                         getUserInfo(nickname, UserService.instance.uid, address); // 사용자 정보 저장 함수 호출
+                        const storage = FlutterSecureStorage();
+                        storage.write(key: 'isLogin', value: 'true');
                         showSnackBar(); // 회원가입 성공 시 스낵바 출력
                         Navigator.pushNamed(context, '/main'); // 메인 페이지로 이동
                       },

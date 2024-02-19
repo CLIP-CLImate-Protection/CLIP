@@ -1,35 +1,35 @@
 class User {
-  String? userName;
+  String? nickname;
   String? level;
-  String? region;
+  String? address;
   int? point;
   int? totalLank;
   int? weeklyLank;
-  String? profileImage;
+  String? profileUrl;
   int? totalQuest;
 
-  User({this.userName, this.level, this.region, this.point, this.totalLank, this.weeklyLank, this.profileImage, this.totalQuest});
+  User({this.nickname, this.level, this.address, this.point, this.totalLank, this.weeklyLank, this.profileUrl, this.totalQuest});
 
   User.fromJson(Map<String, dynamic> json) {
-    userName = json['userName'];
+    nickname = json['nickname'];
     level = json['level'];
-    region = json['region'];
+    address = json['address'];
     point = json['point'];
     totalLank = json['totalLank'];
     weeklyLank = json['weeklyLank'];
-    profileImage = json['profileImage'];
+    profileUrl = json['profileUrl'];
     totalQuest = json['totalQuest'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['userName'] = userName;
+    data['nickname'] = nickname;
     data['level'] = level;
-    data['region'] = region;
+    data['address'] = address;
     data['point'] = point;
     data['totalLank'] = totalLank;
     data['weeklyLank'] = weeklyLank;
-    data['profileImage'] = profileImage;
+    data['profileUrl'] = profileUrl;
     data['totalQuest'] = totalQuest;
     return data;
   }

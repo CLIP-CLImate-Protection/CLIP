@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/pages/login/controller/login_controller.dart';
 import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
@@ -30,8 +31,11 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   static const String url = '/login';
+
   @override
   Widget build(BuildContext context) {
+    const storage = FlutterSecureStorage();
+
     Get.put(LoginController());
     return Scaffold(
       body: Container(

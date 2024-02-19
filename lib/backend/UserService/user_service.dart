@@ -190,6 +190,7 @@ Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
     int point = documentSnapshot['point'];
     int totalQuest = documentSnapshot['totalQuest'];
     String profileUrl = documentSnapshot['profileUrl'];
+    String address = documentSnapshot['address'];
 
     Map<String, dynamic> userInfo = {
       'friend': friend,
@@ -198,6 +199,7 @@ Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
       'point': point,
       'totalQuest': totalQuest,
       'profileUrl': profileUrl,
+      'address': address,
     };
 
     return userInfo;

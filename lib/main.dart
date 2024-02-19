@@ -4,6 +4,7 @@ import 'package:frontend/firebase_options.dart';
 import 'package:frontend/pages/login/view/login.dart';
 import 'package:frontend/pages/main/controller/main_view_controller.dart';
 import 'package:frontend/pages/main/view/navigation.dart';
+import 'package:frontend/pages/mypage/controller/mypagecontroller.dart';
 import 'package:frontend/pages/quest/controller/quest_controller.dart';
 import 'package:frontend/pages/social/controller/social_main_controller.dart';
 import 'package:frontend/routes.dart';
@@ -18,12 +19,11 @@ void main() async {
   //await dotenv.load(fileName: ".env");
   await initService();
   initController();
-  String route = initRoute();
+  // initRoute();
   runApp(GetMaterialApp(
     title: 'CLIP',
-
-    //initialRoute: route,
-    initialRoute: Navigation.url,
+    //initialRoute: Navigation.url,
+    initialRoute: LoginPage.url,
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       canvasColor: Colors.white,
@@ -37,7 +37,7 @@ void initController() {
   Get.put(MainViewController());
   Get.put(QuestMainController());
   Get.put(SocialMainController());
-  Get.put(SocialMainController());
+  Get.put(MyPageController());
 }
 
 Future<void> initService() async {

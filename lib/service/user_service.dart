@@ -35,13 +35,11 @@ class UserService extends GetxService {
 
     const storage = FlutterSecureStorage();
     if (await userExistsInDB(user.uid)) {
-      isLogin = true;
       return 1;
     } else {
       if (await createNewUserDocument(user.uid)) {
         await storage.write(key: 'uid', value: user.uid);
         await UserService.instance.init(); // Wait for initialization
-        isLogin = true;
         return 2;
       } else {
         return 3;

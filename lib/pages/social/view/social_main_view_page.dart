@@ -18,6 +18,7 @@ class _SocialViewPageState extends State<SocialMainPage> {
     final controller = SocialMainController.instance;
     controller.getFriendList();
     controller.getNicknameList();
+
     List<String> filteredList = [];
     //String value;
     return Scaffold(
@@ -83,15 +84,18 @@ class _SocialViewPageState extends State<SocialMainPage> {
                   width: 326,
                   height: 44,
                   decoration: ShapeDecoration(
-                    color: const Color(0xFFF5F1F1), // This is fine as it's a constant color
+                    color: const Color(
+                        0xFFF5F1F1), // This is fine as it's a constant color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(45),
                     ),
                   ),
                   child: SearchBar(
                     constraints: const BoxConstraints.expand(height: 44),
-                    backgroundColor: MaterialStateProperty.all(const Color(0xFFF5F1F1)), // Remove 'const'
-                    shadowColor: MaterialStateProperty.all(Colors.transparent), // Remove 'const'
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color(0xFFF5F1F1)), // Remove 'const'
+                    shadowColor: MaterialStateProperty.all(
+                        Colors.transparent), // Remove 'const'
                     trailing: const [
                       Icon(
                         Icons.person_search,
@@ -100,7 +104,11 @@ class _SocialViewPageState extends State<SocialMainPage> {
                     onChanged: (value) {
                       setState(
                         () {
-                          filteredList = controller.nicknameList.where((element) => element.toLowerCase().contains(value.toLowerCase())).toList();
+                          filteredList = controller.nicknameList
+                              .where((element) => element
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()))
+                              .toList();
                           filteredList.map((e) => null).toList().isEmpty
                               ? const Text('검색 결과가 없습니다.')
                               : Expanded(
@@ -144,7 +152,9 @@ class _SocialViewPageState extends State<SocialMainPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
-                    for (int index = 0; index < controller.friendList.length; index++)
+                    for (int index = 0;
+                        index < controller.friendList.length;
+                        index++)
                       Column(
                         children: [
                           if (index == 0) const SizedBox(height: 10),

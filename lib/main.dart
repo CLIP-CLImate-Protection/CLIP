@@ -21,8 +21,6 @@ void main() async {
   String route = initRoute();
   runApp(GetMaterialApp(
     title: 'CLIP',
-
-    //initialRoute: route,
     initialRoute: Navigation.url,
     debugShowCheckedModeBanner: false,
     theme: ThemeData(

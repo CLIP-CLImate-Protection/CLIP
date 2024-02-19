@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/questdetails/controller/questdetails_controller.dart';
 import 'package:get/get.dart';
 
-Widget TitleBox(String title) {
+Widget TitleBox(String title){
   return Row(
     children: [
       IconButton(
@@ -25,7 +25,8 @@ Widget TitleBox(String title) {
   );
 }
 
-Widget CommentBox() {
+
+Widget CommentBox(){
   return Container(
     width: 326,
     height: 95,
@@ -47,11 +48,11 @@ Widget CommentBox() {
   );
 }
 
-Widget UploadBox(getImage, image, String comment, String option, controller) {
 
+Widget UploadBox(_getImage, _image, String comment, String option, controller){
   return Container(
     width: 326,
-    height: 312,
+    height: 500,
     margin: const EdgeInsets.only(top: 30), // 설명문구 네모칸 아래에 30만큼의 여백 추가
     decoration: BoxDecoration(
       color: Colors.white, // 흰색 배경
@@ -71,36 +72,38 @@ Widget UploadBox(getImage, image, String comment, String option, controller) {
           ),
         ),
         const SizedBox(height: 20),
-        option == 'image'
-            ? const ImageUploader()
+        option == 'image' ?
+        const ImageUploader()
             : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 20),
-                  Container(
-                    width: 300,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF1F5F1), // 회색 배경
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: TextField(
-                      controller: controller,
-                      maxLength: 200,
-                      maxLines: null,
-                      decoration: const InputDecoration(
-                        hintText: '환경과 관련된 책/영상/다큐 등의 감상문을 입력하세요 (최대 200자)',
-                        contentPadding: EdgeInsets.all(15),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                ],
-              )
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            Container(
+              width: 300,
+              height: 200,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF1F5F1), // 회색 배경
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: TextField(
+                controller: controller,
+                maxLength: 200,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  hintText:
+                  '환경과 관련된 책/영상/다큐 등의 감상문을 입력하세요 (최대 200자)',
+                  contentPadding: EdgeInsets.all(15),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ],
+        )
       ],
     ),
   );
 }
+
 
 Widget SubmitButton() {
   return SizedBox(
@@ -111,7 +114,7 @@ Widget SubmitButton() {
         // 제출하기 버튼 누를 때 수행할 동작 추가
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFFAE474), // 버튼 배경색
+        primary: const Color(0xFFFAE474), // 버튼 배경색
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20), // 버튼을 라운드 처리
         ),

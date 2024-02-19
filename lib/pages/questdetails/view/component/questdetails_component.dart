@@ -25,6 +25,7 @@ Widget TitleBox(String title){
   );
 }
 
+
 Widget CommentBox(){
   return Container(
     width: 326,
@@ -47,10 +48,11 @@ Widget CommentBox(){
   );
 }
 
+
 Widget UploadBox(_getImage, _image, String comment, String option, controller){
   return Container(
       width: 326,
-      height: 312,
+      height: 500,
       margin: const EdgeInsets.only(top: 30), // 설명문구 네모칸 아래에 30만큼의 여백 추가
       decoration: BoxDecoration(
         color: Colors.white, // 흰색 배경
@@ -101,6 +103,7 @@ Widget UploadBox(_getImage, _image, String comment, String option, controller){
       ),
   );
 }
+
 
 Widget SubmitButton() {
   return SizedBox(

@@ -20,8 +20,8 @@ void main() async {
   //await dotenv.load(fileName: ".env");
   runApp(GetMaterialApp(
     title: 'CLIP',
-    //initialRoute: Navigation.url,
-    initialRoute: RouteViewPage.url,
+    initialRoute: Navigation.url,
+    //initialRoute: RouteViewPage.url,
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
       canvasColor: Colors.white,

@@ -1,10 +1,11 @@
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
+
+// 클릭하면 예시 사진을 보여주는 함수
 class ExImageViewer extends StatefulWidget {
   const ExImageViewer({Key? key}) : super(key: key);
 
@@ -13,7 +14,6 @@ class ExImageViewer extends StatefulWidget {
 }
 
 class _ExImageViewerState extends State<ExImageViewer> {
-
   bool _isImageVisible = false;
 
   @override
@@ -51,8 +51,9 @@ class _ExImageViewerState extends State<ExImageViewer> {
   }
 }
 
-Future<void> sendDataToFastapi(File imageFile) async {
-  //print("sendDataToFastapi: " + url);
+
+// 업로드한 이미지를 fastapi 서버로 전송하여 추론한 결과를 받는 함수
+Future<dynamic> sendDataToFastapi(File imageFile) async {
   final apiUrl = Uri.parse('http://localhost:8000/detect');
 
   var request = http.MultipartRequest('POST', apiUrl);
@@ -66,36 +67,22 @@ Future<void> sendDataToFastapi(File imageFile) async {
   var response = await request.send();
   if (response.statusCode == 200) {
     print('Image uploaded successfully!');
+    var responseBody = await response.stream.bytesToString();
+    var jsonData = json.decode(responseBody);
+    var detectedObjects = jsonData['detected_objects'];
+    print('Detected Objects:');
+    for (var object in detectedObjects) {
+      print(object);
+    }
+    print("fastapi");
+    return detectedObjects;
   } else {
     print('Failed to upload image. Error: ${response.reasonPhrase}');
   }
 }
 
-Future<void> uploadImageToFirebaseStorage(File imageFile) async {
-  try {
-    // Firebase 스토리지 레퍼런스 생성
-    Reference storageReference = FirebaseStorage.instance.ref().child('images/${DateTime.now().toString()}');
 
-    // 이미지 업로드
-    UploadTask uploadTask = storageReference.putFile(imageFile);
-
-    // 업로드 진행 상태 모니터링
-    uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
-      print('Upload Progress: ${(snapshot.bytesTransferred / snapshot.totalBytes) * 100} %');
-    }, onError: (e) {
-      print('Error during uploading: $e');
-    });
-
-    // 업로드 완료 후 다운로드 URL 반환
-    String imageUrl = await (await uploadTask).ref.getDownloadURL();
-    print('Uploaded Image URL: $imageUrl');
-    //sendDataToFastapi(imageUrl);
-
-  } catch (e) {
-    print('Error uploading image to Firebase Storage: $e');
-  }
-}
-
+// 이미지를 업로드하는 함수
 class ImageUploader extends StatefulWidget {
   const ImageUploader({Key? key}) : super(key: key);
 
@@ -106,11 +93,12 @@ class ImageUploader extends StatefulWidget {
 class _ImageUploaderState extends State<ImageUploader> {
   XFile? _image;
   final ImagePicker picker = ImagePicker();
-  List? _outputs;
+  Future<List<dynamic>>? objects; // 변수 선언
 
-  //이미지를 가져오는 함수
-  Future getImage(ImageSource imageSource) async {
+//이미지를 가져오는 함수
+  Future<List<dynamic>> getImage(ImageSource imageSource) async {
     final XFile? pickedFile = await picker.pickImage(source: imageSource);
+
     if (pickedFile != null) {
       setState(() {
         _image = pickedFile;
@@ -118,22 +106,30 @@ class _ImageUploaderState extends State<ImageUploader> {
 
       File imageFile = File(pickedFile.path);
       //await uploadImageToFirebaseStorage(imageFile);
-      await sendDataToFastapi(imageFile);
+      List<dynamic> objects = await sendDataToFastapi(imageFile);
+      print("after return");
+      print(objects.runtimeType);
+
+      return objects;
+    } else {
+      throw Exception('Failed to pick image'); // 이미지를 선택하지 못한 경우 예외 발생
     }
-
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: 242,
-        height: 199,
-        decoration: BoxDecoration(
-          color: const Color(0xFFF1F5F1),
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: InkWell(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 242,
+          height: 199,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF1F5F1),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: InkWell(
             child: Center(
               child: _image == null
                   ? const Icon(
@@ -146,10 +142,58 @@ class _ImageUploaderState extends State<ImageUploader> {
                 //fit: BoxFit.cover,
               ),
             ),
-            onTap: () async{
-              getImage(ImageSource.gallery);
-            }
-        )
+            onTap: () async {
+              setState(() {
+                objects = getImage(ImageSource.gallery);
+              });
+            },
+          ),
+        ),
+        SizedBox(height: 10,),
+        Container(
+          height: 50,
+          child: FutureBuilder<List<dynamic>>(
+            future: objects,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator(); // 데이터 로딩 중이면 로딩 스피너 표시
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}'); // 에러가 발생한 경우 에러 메시지 출력
+              } else {
+                // 데이터가 준비되면 출력
+                print('비동기');
+                print(snapshot.data);
+                if (snapshot.data != null && snapshot.data!.isNotEmpty) {
+                  final item = snapshot.data![0];
+                  return Column(
+                    children: snapshot.data!.map((item) {
+                      // 각 요소를 Text 위젯으로 변환하여 출력합니다.
+                      return Text(
+                        item.toString(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  return Text(' '); // 혹은 다른 적절한 처리
+                }
+                /*ListView.builder(
+                  itemCount: snapshot.data!.length ?? 0, // 데이터가 null이거나 비어있는 경우를 고려하여 itemCount를 설정합니다.
+                  itemBuilder: (context, index) {
+                    final item = snapshot.data![index]; // index에 해당하는 데이터 항목을 가져옵니다.
+                    return Text('hi', style: const TextStyle(
+                        color: Colors.black
+                    ),); // 가져온 데이터를 텍스트로 표시합니다.
+                  },
+                );*/
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
+
 }

@@ -152,31 +152,37 @@ Future<List<Map<String, dynamic>>> getTopQuestUsersWithSameAddress(
   }
 }
 
-Future<List<Map<String, dynamic>>> searchUserByNickname(String keyword) async {
+Future<Map<String, dynamic>> searchUserByNickname(String keyword) async {
   try {
     QuerySnapshot querySnapshot = await _firestore
         .collection('Users')
         .where('nickname', isEqualTo: keyword)
         .get();
-    List<Map<String, dynamic>> searchResult = [];
+    Map<String, dynamic> searchResult = {};
     for (QueryDocumentSnapshot document in querySnapshot.docs) {
       String uid = document.id;
       String nickname = document['nickname'];
       String profileUrl = document['profileUrl'];
       int totalQuest = document['totalQuest'];
+      String address = document['address'];
+      int level = document['level'];
+      int point = document['point'];
 
       Map<String, dynamic> userData = {
         'uid': uid,
         'nickname': nickname,
         'profileUrl': profileUrl,
         'totalQuest': totalQuest,
+        'address': address,
+        'level': level,
+        'point': point,
       };
-      searchResult.add(userData);
+      searchResult = userData;
     }
     return searchResult;
   } catch (e) {
     print('Error searching user by nickname: $e');
-    return [];
+    return {};
   }
 }
 

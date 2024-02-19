@@ -77,41 +77,6 @@ class QuestMainController extends GetxController {
     grassDoneQuestList.refresh();
   }
 
-  // List<Quest> transformJson(List<Map<String, dynamic>> jsonList) {
-  //   List<Quest> quests = [];
-  //   Quest quest = Quest();
-  //   for (var item in jsonList) {
-  //     for (var key in item.keys) {
-  //       print("=========");
-  //       //print(key);
-  //       quest.questName = key;
-  //       print(quest.questName);
-  //       for (var i in item.values) {
-  //         //print(i);
-  //         for (var j in i.entries) {
-  //           // print(j.key);
-  //           // print(j.value);
-  //           if (j.key == "description") {
-  //             quest.questDescription = j.value;}
-  //           else if(j.key == "point"){
-  //             quest.reward = j.value;
-  //           }
-  //           else if(j.key == "type"){
-  //             quest.type = j.value;
-  //           }
-  //           }
-
-  //         }
-  //       }
-  //     }
-  //     //var quest = Quest.fromJson(item);
-
-  //      quests.add(quest);
-  //   }
-
-  //   return quests;
-  // }
-
   List<Quest> transformJson(List<Map<String, dynamic>> jsonList) {
     List<Quest> quests = [];
 

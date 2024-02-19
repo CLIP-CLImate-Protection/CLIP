@@ -27,8 +27,8 @@ class RankComponent extends StatelessWidget {
             CircleAvatar(
               radius: 20,
               backgroundColor: Colors.grey[300],
-              backgroundImage: model.profileImage != null ? NetworkImage(model.profileImage!) : null,
-              child: model.profileImage == null
+              backgroundImage: model.profileUrl != null ? NetworkImage(model.profileUrl!) : null,
+              child: model.profileUrl == null
                   ? Icon(
                       Icons.person,
                       size: 32,
@@ -42,7 +42,7 @@ class RankComponent extends StatelessWidget {
             SizedBox(
               width: 50,
               child: Text(
-                '${model.userName}',
+                '${model.nickname}',
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,

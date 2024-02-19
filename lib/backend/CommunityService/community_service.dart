@@ -1,18 +1,12 @@
-import 'dart:html';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 Future<List<Map<String, dynamic>>> getTopQuestUsers() async {
   try {
-    QuerySnapshot querySnapshot = await _firestore
-        .collection('Users')
-        .orderBy('totalQuest', descending: true)
-        .limit(5)
-        .get();
+    QuerySnapshot querySnapshot = await _firestore.collection('Users').orderBy('totalQuest', descending: true).limit(5).get();
 
     List<Map<String, dynamic>> topQuestUsers = [];
 
@@ -43,9 +37,9 @@ Future<List<String>> getAllUserNicknameList() async {
   try {
     List<String> nicknameList = [];
     _firestore.collection('Users').get().then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         nicknameList.add(doc['nickname']);
-      });
+      }
     });
     print(nicknameList);
     return nicknameList;
@@ -113,19 +107,13 @@ Future<List<String>> getAllUserNicknameList() async {
 //   }
 //   }
 
-Future<List<Map<String, dynamic>>> getTopQuestUsersWithSameAddress(
-    String uid) async {
+Future<List<Map<String, dynamic>>> getTopQuestUsersWithSameAddress(String uid) async {
   try {
-    DocumentSnapshot userSnapshot =
-        await _firestore.collection('Users').doc(uid).get();
+    DocumentSnapshot userSnapshot = await _firestore.collection('Users').doc(uid).get();
     String userAddress = userSnapshot['address'];
 
-    QuerySnapshot querySnapshot = await _firestore
-        .collection('Users')
-        .where('address', isEqualTo: userAddress)
-        .orderBy('totalQuest', descending: true)
-        .limit(5)
-        .get();
+    QuerySnapshot querySnapshot =
+        await _firestore.collection('Users').where('address', isEqualTo: userAddress).orderBy('totalQuest', descending: true).limit(5).get();
 
     List<Map<String, dynamic>> topQuestUsersWithSameAddress = [];
 
@@ -154,10 +142,7 @@ Future<List<Map<String, dynamic>>> getTopQuestUsersWithSameAddress(
 
 Future<Map<String, dynamic>> searchUserByNickname(String keyword) async {
   try {
-    QuerySnapshot querySnapshot = await _firestore
-        .collection('Users')
-        .where('nickname', isEqualTo: keyword)
-        .get();
+    QuerySnapshot querySnapshot = await _firestore.collection('Users').where('nickname', isEqualTo: keyword).get();
     Map<String, dynamic> searchResult = {};
     for (QueryDocumentSnapshot document in querySnapshot.docs) {
       String uid = document.id;

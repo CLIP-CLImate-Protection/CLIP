@@ -21,7 +21,8 @@ class NavigationController extends GetxController {
       //MyInfoViewController.instance.getInfoList();
     } else if (index == 3) {
       //마이페이지
-      //MyInfoViewController.instance.getInfoList();
+      // MyPageController.instance.getMyInfo();
+      print('마이페이지 실행');
     }
     pageIndex.value = index;
     update();
@@ -33,6 +34,6 @@ class NavigationController extends GetxController {
     const MainViewPage(),
     const QuestMainPage(),
     const SocialMainPage(),
-    const MyPage(),
+    MyPage(),
   ];
 }

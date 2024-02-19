@@ -1,36 +1,41 @@
 class User {
-  String? userName;
-  String? level;
-  String? region;
+  String? nickname;
+  int? level;
+  String? address;
   int? point;
   int? totalLank;
   int? weeklyLank;
-  String? profileImage;
+  String? profileUrl;
   int? totalQuest;
+  List<String>? friend;
 
-  User({this.userName, this.level, this.region, this.point, this.totalLank, this.weeklyLank, this.profileImage, this.totalQuest});
+  User({this.nickname, this.level, this.address, this.point, this.totalLank, this.weeklyLank, this.profileUrl, this.totalQuest, this.friend});
 
   User.fromJson(Map<String, dynamic> json) {
-    userName = json['userName'];
-    level = json['level'];
-    region = json['region'];
     point = json['point'];
+    level = json['level'];
+    address = json['address'];
+    nickname = json['nickname'];
     totalLank = json['totalLank'];
     weeklyLank = json['weeklyLank'];
-    profileImage = json['profileImage'];
+    profileUrl = json['profileUrl'];
     totalQuest = json['totalQuest'];
+    if (json['friend'] != null) {
+      friend = List<String>.from(json['friend']);
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['userName'] = userName;
+    data['nickname'] = nickname;
     data['level'] = level;
-    data['region'] = region;
+    data['address'] = address;
     data['point'] = point;
     data['totalLank'] = totalLank;
     data['weeklyLank'] = weeklyLank;
-    data['profileImage'] = profileImage;
+    data['profileUrl'] = profileUrl;
     data['totalQuest'] = totalQuest;
+    data['friend'] = friend;
     return data;
   }
 }

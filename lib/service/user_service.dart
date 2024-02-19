@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
+import 'package:frontend/pages/mypage/controller/mypagecontroller.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -21,7 +22,7 @@ class UserService extends GetxService {
     return this;
   }
 
-  Future<int> googleSignIn() async {
+  Future<int> googleSignIn(String date) async {
     final GoogleSignInAccount? account = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth = await account!.authentication;
 
@@ -35,17 +36,23 @@ class UserService extends GetxService {
 
     const storage = FlutterSecureStorage();
     if (await userExistsInDB(user.uid)) {
-      isLogin = true;
+      await storage.write(key: 'uid', value: user.uid);
+      await UserService.instance.init();
+      reloadData();
       return 1;
     } else {
-      if (await createNewUserDocument(user.uid)) {
+      if (await createNewUserDocument(user.uid, date)) {
         await storage.write(key: 'uid', value: user.uid);
         await UserService.instance.init(); // Wait for initialization
-        isLogin = true;
+
         return 2;
       } else {
         return 3;
       }
     }
   }
+}
+
+void reloadData() {
+  MyPageController.instance.getMyInfo();
 }

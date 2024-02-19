@@ -23,6 +23,6 @@ class CustomRouter {
     GetPage(name: ShopViewPage.url, page: () => const ShopViewPage()),
     GetPage(name: MemberInfoForm.url, page: () => const MemberInfoForm()),
     GetPage(name: FriendViewPage.url, page: () => FriendViewPage(model: User())),
-    GetPage(name: MyPage.url, page: () => const MyPage()),
+    GetPage(name: MyPage.url, page: () => MyPage()),
   ];
 }

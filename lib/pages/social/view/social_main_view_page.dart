@@ -3,15 +3,23 @@ import 'package:frontend/common/common.dart';
 import 'package:frontend/pages/social/controller/social_main_controller.dart';
 import 'package:frontend/pages/social/view/component/friend_component.dart';
 
-class SocialMainPage extends StatelessWidget {
+class SocialMainPage extends StatefulWidget {
   const SocialMainPage({super.key});
 
   static const String url = '/social/main';
 
   @override
+  _SocialViewPageState createState() => _SocialViewPageState();
+}
+
+class _SocialViewPageState extends State<SocialMainPage> {
+  @override
   Widget build(BuildContext context) {
     final controller = SocialMainController.instance;
     controller.getFriendList();
+    controller.getNicknameList();
+    List<String> filteredList = [];
+    //String value;
     return Scaffold(
       backgroundColor: Color(Common.mainColor),
       // appBar: AppBar(
@@ -75,19 +83,45 @@ class SocialMainPage extends StatelessWidget {
                   width: 326,
                   height: 44,
                   decoration: ShapeDecoration(
-                    color: const Color(0xFFF5F1F1),
+                    color: const Color(0xFFF5F1F1), // This is fine as it's a constant color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(45),
                     ),
                   ),
-                  child: const SearchBar(
-                    backgroundColor: MaterialStatePropertyAll(Color(0xFFF5F1F1)),
-                    shadowColor: MaterialStatePropertyAll(Colors.transparent),
-                    trailing: [
+                  child: SearchBar(
+                    constraints: const BoxConstraints.expand(height: 44),
+                    backgroundColor: MaterialStateProperty.all(const Color(0xFFF5F1F1)), // Remove 'const'
+                    shadowColor: MaterialStateProperty.all(Colors.transparent), // Remove 'const'
+                    trailing: const [
                       Icon(
                         Icons.person_search,
                       )
                     ],
+                    onChanged: (value) {
+                      setState(
+                        () {
+                          filteredList = controller.nicknameList.where((element) => element.toLowerCase().contains(value.toLowerCase())).toList();
+                          filteredList.map((e) => null).toList().isEmpty
+                              ? const Text('검색 결과가 없습니다.')
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: filteredList.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        title: Text(filteredList[index]),
+                                        onTap: () {
+                                          //Get.to(() => FriendViewPage(model: model));
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                        },
+                      );
+                      print('검색 $value');
+                      print('nicknameList: ${controller.nicknameList}');
+                      print(filteredList.length);
+                    },
                   ),
                 ),
               ]),
@@ -95,35 +129,33 @@ class SocialMainPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: Container(
-                width: 368,
-                decoration: const ShapeDecoration(
-                  color: Color(0xFFF5F1F1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
+            Container(
+              width: 368,
+              decoration: const ShapeDecoration(
+                color: Color(0xFFF5F1F1),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    children: [
-                      for (int index = 0; index < controller.friendList.length; index++)
-                        Column(
-                          children: [
-                            if (index == 0) const SizedBox(height: 10),
-                            FriendComponent(
-                              model: controller.friendList[index],
-                            ),
-                            //if (index != controller.friendList.length - 1) const SizedBox(height: 10),
-                            Divider(color: Color(Common.subGray), thickness: 0.5),
-                          ],
-                        )
-                    ],
-                  ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  children: [
+                    for (int index = 0; index < controller.friendList.length; index++)
+                      Column(
+                        children: [
+                          if (index == 0) const SizedBox(height: 10),
+                          FriendComponent(
+                            model: controller.friendList[index],
+                          ),
+                          //if (index != controller.friendList.length - 1) const SizedBox(height: 10),
+                          Divider(color: Color(Common.subGray), thickness: 0.5),
+                        ],
+                      )
+                  ],
                 ),
               ),
             )

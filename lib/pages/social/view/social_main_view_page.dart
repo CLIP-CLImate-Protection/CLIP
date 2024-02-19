@@ -12,13 +12,14 @@ class SocialMainPage extends StatefulWidget {
   _SocialViewPageState createState() => _SocialViewPageState();
 }
 
+List<String> filteredList = [];
+
 class _SocialViewPageState extends State<SocialMainPage> {
   @override
   Widget build(BuildContext context) {
     final controller = SocialMainController.instance;
     controller.getFriendList();
     controller.getNicknameList();
-    List<String> filteredList = [];
     //String value;
     return Scaffold(
       backgroundColor: Color(Common.mainColor),
@@ -100,27 +101,15 @@ class _SocialViewPageState extends State<SocialMainPage> {
                     onChanged: (value) {
                       setState(
                         () {
-                          filteredList = controller.nicknameList.where((element) => element.toLowerCase().contains(value.toLowerCase())).toList();
-                          filteredList.map((e) => null).toList().isEmpty
-                              ? const Text('검색 결과가 없습니다.')
-                              : Expanded(
-                                  child: ListView.builder(
-                                    itemCount: filteredList.length,
-                                    itemBuilder: (context, index) {
-                                      return ListTile(
-                                        title: Text(filteredList[index]),
-                                        onTap: () {
-                                          //Get.to(() => FriendViewPage(model: model));
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
+                          filteredList =
+                              controller.nicknameList.where((element) => (element.toLowerCase().contains(value.toLowerCase())) && (value.isNotEmpty)).toList();
+                          //print('검색된 친구 리스트 $filteredList');
                         },
                       );
                       print('검색 $value');
-                      print('nicknameList: ${controller.nicknameList}');
-                      print(filteredList.length);
+                      //print('nicknameList: ${controller.nicknameList}');
+                      print('검색된 갯수: ${filteredList.length}');
+                      print('검색된 친구 리스트 $filteredList');
                     },
                   ),
                 ),
@@ -129,6 +118,60 @@ class _SocialViewPageState extends State<SocialMainPage> {
             const SizedBox(
               height: 20,
             ),
+            // Container(
+            //   width: 368,
+            //   decoration: const ShapeDecoration(
+            //     color: Color(0xFFF5F1F1),
+            //     shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.only(
+            //         topLeft: Radius.circular(30),
+            //         topRight: Radius.circular(30),
+            //       ),
+            //     ),
+            //   ),
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 10),
+            //     child: Column(
+            //       children: [
+            //         // if (filteredList.isNotEmpty)
+            //         //   Expanded(
+            //         //     child: ListView.builder(
+            //         //       itemCount: filteredList.length,
+            //         //       itemBuilder: (context, index) {
+            //         //         return ListTile(
+            //         //           title: Text(filteredList[index]),
+            //         //           onTap: () {
+            //         //             //Get.to(() => FriendViewPage(model: model));
+            //         //           },
+            //         //         );
+            //         //       },
+            //         //     ),
+            //         //   ),
+            //         if (filteredList.isEmpty)
+            //           Expanded(
+            //             child: ListView.builder(
+            //               itemCount: controller.friendList.length,
+            //               itemBuilder: (context, index) {
+            //                 return Column(
+            //                   children: [
+            //                     if (index == 0) const SizedBox(height: 10),
+            //                     FriendComponent(
+            //                       model: controller.friendList[index],
+            //                     ),
+            //                     Divider(
+            //                       color: Color(Common.subGray),
+            //                       thickness: 0.5,
+            //                     ),
+            //                   ],
+            //                 );
+            //               },
+            //             ),
+            //           ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            if (filteredList.isNotEmpty) SearchFriendList(),
             Container(
               width: 368,
               decoration: const ShapeDecoration(
@@ -161,6 +204,31 @@ class _SocialViewPageState extends State<SocialMainPage> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+Widget SearchFriendList() {
+  print('검색된 친구 리스트 $filteredList');
+
+  if (filteredList.isEmpty) {
+    return Container(
+      child: const Text('검색된 결과가 없습니다.'),
+    );
+  } else {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: filteredList.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(filteredList[index]),
+            onTap: () {
+              print("검색된 친구 탭");
+              //Get.to(() => FriendViewPage(model: model));
+            },
+          );
+        },
       ),
     );
   }

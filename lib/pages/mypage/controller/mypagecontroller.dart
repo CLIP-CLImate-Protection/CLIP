@@ -9,7 +9,6 @@ class MyPageController extends GetxController {
   Future<void> getMyInfo() async {
     print(UserService.instance.uid);
     Map<String, dynamic> jsonData = await getUserAllInfo(UserService.instance.uid);
-    await Future.delayed(const Duration(seconds: 1));
     User userData = User.fromJson(jsonData);
 
     user.value = userData;

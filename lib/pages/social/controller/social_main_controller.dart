@@ -1,3 +1,4 @@
+import 'package:frontend/backend/CommunityService/community_service.dart';
 import 'package:frontend/fastAPI/models/User.dart';
 import 'package:get/get.dart';
 
@@ -5,6 +6,14 @@ class SocialMainController extends GetxController {
   static SocialMainController get instance => Get.find<SocialMainController>();
 
   RxList<User> friendList = <User>[].obs;
+
+  RxList<String> nicknameList = <String>[].obs;
+
+  Future<void> getNicknameList() async {
+    List<String> getNicknameList = await getAllUserNicknameList();
+    nicknameList.value = getNicknameList;
+    nicknameList.refresh();
+  }
 
   Future<void> getFriendList() async {
     List<Map<String, dynamic>> fakeJsonData = [

@@ -17,8 +17,8 @@ class _SocialViewPageState extends State<SocialMainPage> {
   Widget build(BuildContext context) {
     final controller = SocialMainController.instance;
     controller.getFriendList();
-
-    List<String> filteredList;
+    controller.getNicknameList();
+    List<String> filteredList = [];
     //String value;
     return Scaffold(
       backgroundColor: Color(Common.mainColor),
@@ -89,6 +89,7 @@ class _SocialViewPageState extends State<SocialMainPage> {
                     ),
                   ),
                   child: SearchBar(
+                    constraints: const BoxConstraints.expand(height: 44),
                     backgroundColor: MaterialStateProperty.all(const Color(0xFFF5F1F1)), // Remove 'const'
                     shadowColor: MaterialStateProperty.all(Colors.transparent), // Remove 'const'
                     trailing: const [
@@ -97,11 +98,29 @@ class _SocialViewPageState extends State<SocialMainPage> {
                       )
                     ],
                     onChanged: (value) {
-                      setState(() {
-                        String inputText;
-                        inputText = value;
-                        print('Input Text = $inputText');
-                      });
+                      setState(
+                        () {
+                          filteredList = controller.nicknameList.where((element) => element.toLowerCase().contains(value.toLowerCase())).toList();
+                          filteredList.map((e) => null).toList().isEmpty
+                              ? const Text('검색 결과가 없습니다.')
+                              : Expanded(
+                                  child: ListView.builder(
+                                    itemCount: filteredList.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        title: Text(filteredList[index]),
+                                        onTap: () {
+                                          //print('친구 추가');
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                        },
+                      );
+                      print('검색 $value');
+                      print('nicknameList: ${controller.nicknameList}');
+                      print(filteredList.length);
                     },
                   ),
                 ),

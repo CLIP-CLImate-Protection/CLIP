@@ -6,7 +6,9 @@ import 'package:frontend/pages/quest/controller/quest_controller.dart';
 import 'package:frontend/pages/questdetails/view/imagequest.dart';
 import 'package:get/get.dart';
 
+import '../../../../backend/QuestService/quest_service.dart';
 import '../../../../common/common.dart';
+import '../../../questdetails/view/textquest.dart';
 
 class QuestComponent extends StatelessWidget {
   final Quest model;
@@ -20,7 +22,11 @@ class QuestComponent extends StatelessWidget {
 
     return InkWell(
       onTap: () async {
-        Get.to(() => UploadImagePage());
+        if (model.type == 'text') {
+          Get.to(() => UploadTextPage());
+        } else if (model.type == 'image') {
+          Get.to(() => UploadImagePage());
+        }
       },
       child: Container(
         width: Common.getWidth * 0.87,

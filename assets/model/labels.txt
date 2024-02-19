@@ -1,0 +1,26 @@
+BoullionSpoon
+Chicken
+Entreeplate
+EvilBowl
+LargeBowl
+SaladBowl
+SmallPlate
+SoupBowl
+Tumblr
+banana
+black beans
+cup
+fork
+grilled chicken breast
+knife
+label
+milk
+orange juice
+pizza
+plastic-bottles
+potato
+salad
+spaghetti
+spoon
+tumblr
+white rice

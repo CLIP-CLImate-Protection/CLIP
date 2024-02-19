@@ -110,7 +110,7 @@ class _SocialViewPageState extends State<SocialMainPage> {
                                       return ListTile(
                                         title: Text(filteredList[index]),
                                         onTap: () {
-                                          //print('친구 추가');
+                                          //Get.to(() => FriendViewPage(model: model));
                                         },
                                       );
                                     },

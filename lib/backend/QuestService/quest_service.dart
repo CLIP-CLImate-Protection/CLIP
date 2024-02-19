@@ -1,6 +1,3 @@
-import 'dart:html';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -29,12 +26,9 @@ Future<Map<String, dynamic>> getQuestInfo(
     Map<String, dynamic> questInfo =
         questSnapshot.data() as Map<String, dynamic>;
 
-    // Check if the questInfo map is not null and contains the questName field
-    if (questInfo != null && questInfo.containsKey(questName)) {
-      // Retrieve the value of questName field
+    if (questInfo.containsKey(questName)) {
       dynamic questNameValue = questInfo[questName];
 
-      // Optionally, you can create a new map with only the questName field
       Map<String, dynamic> result = {questName: questNameValue};
 
       return result;
@@ -48,6 +42,33 @@ Future<Map<String, dynamic>> getQuestInfo(
   }
 }
 
+// Future<List<Map<String, dynamic>>> getDailyQuestList() async {
+//   try {
+//     DocumentSnapshot questSnapshot =
+//         await _firestore.collection('questList').doc('daily').get();
+//     Map<String, dynamic> questList =
+//         questSnapshot.data() as Map<String, dynamic>;
+
+//     List<Map<String, dynamic>> result = [];
+
+//     List<MapEntry<String, dynamic>> questEntries = questList.entries.toList();
+
+//     questEntries.shuffle();
+
+//     List<MapEntry<String, dynamic>> selectedEntries =
+//         questEntries.take(3).toList();
+
+//     for (var entry in selectedEntries) {
+//       Map<String, dynamic> questInfo = {entry.key: entry.value};
+//       result.add(questInfo);
+//     }w
+//     print(result);
+//     return result;
+//   } catch (e) {
+//     print('Error getting quest list: $e');
+//     return [];
+//   }
+// }
 Future<List<Map<String, dynamic>>> getDailyQuestList() async {
   try {
     DocumentSnapshot questSnapshot =
@@ -57,21 +78,26 @@ Future<List<Map<String, dynamic>>> getDailyQuestList() async {
 
     List<Map<String, dynamic>> result = [];
 
-    // Convert the map entries to a list
     List<MapEntry<String, dynamic>> questEntries = questList.entries.toList();
 
-    // Shuffle the list to get a random order
     questEntries.shuffle();
 
-    // Take the first three entries (or less if there are fewer than three)
     List<MapEntry<String, dynamic>> selectedEntries =
         questEntries.take(3).toList();
 
     for (var entry in selectedEntries) {
       Map<String, dynamic> questInfo = {entry.key: entry.value};
+
       result.add(questInfo);
     }
-    print(result);
+    //print(result);
+    // for (var item in result) {
+    //   print(item);
+    //   for (var key in item.keys) {
+    //     print(key);
+    //     print(item[key]);
+    //   }
+    // }
     return result;
   } catch (e) {
     print('Error getting quest list: $e');

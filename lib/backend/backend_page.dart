@@ -1,18 +1,20 @@
-// import 'package:flutter/material.dart';
-// // import '../../backend/backend_page_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:frontend/backend/QuestService/quest_service.dart';
+import 'package:frontend/backend/backend_page_controller.dart';
+// import '../../backend/backend_page_controller.dart';
 
-// class BackendPage extends StatelessWidget {
-//   const BackendPage({super.key});
+class BackendPage extends StatelessWidget {
+  const BackendPage({super.key});
 
-//   static const String url = '/backend';
+  static const String url = '/backend';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = BackendPageController.instance;
+  @override
+  Widget build(BuildContext context) {
+    final controller = BackendPageController.instance;
 
-//     return const Scaffold(
-//         body: Center(
-//       child: Text('BackendPage'),
-//     ));
-//   }
-// }
+    return const Scaffold(
+        body: Center(
+      child: Text('BackendPage'),
+    ));
+  }
+}

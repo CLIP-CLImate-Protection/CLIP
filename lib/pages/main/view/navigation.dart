@@ -23,7 +23,7 @@ class Navigation extends StatelessWidget {
   }
 
   static Widget homeNavigationBar() {
-    final controller = NavigationController.instance;
+    //final controller = NavigationController.instance;
     return Title(
       //title: PageTitle.main,
       color: Colors.white,

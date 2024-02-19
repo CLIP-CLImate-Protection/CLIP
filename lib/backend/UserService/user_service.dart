@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,33 +6,33 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-Future<int> googleSingIn() async {
-  User currentUser;
+// Future<int> googleSingIn() async {
+//   User currentUser;
 
-  final GoogleSignInAccount? account = await _googleSignIn.signIn();
-  final GoogleSignInAuthentication googleAuth = await account!.authentication;
+//   final GoogleSignInAccount? account = await _googleSignIn.signIn();
+//   final GoogleSignInAuthentication googleAuth = await account!.authentication;
 
-  final AuthCredential credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
+//   final AuthCredential credential = GoogleAuthProvider.credential(
+//     accessToken: googleAuth.accessToken,
+//     idToken: googleAuth.idToken,
+//   );
 
-  UserCredential authResult = await _auth.signInWithCredential(credential);
-  User user = authResult.user!;
-  print(user.uid);
+//   UserCredential authResult = await _auth.signInWithCredential(credential);
+//   User user = authResult.user!;
+//   print(user.uid);
 
-  if (await userExistsInDB(user.uid)) {
-    print(1);
-    //바로 메인으로 넘어가야함
-    return 1;
-  } else {
-    if (await createNewUserDocument(user.uid))
-      //닉네임, 주소 입력 페이지로 넘어가야함
-      return 2;
-    else
-      return 3;
-  }
-}
+//   if (await userExistsInDB(user.uid)) {
+//     //바로 메인으로 넘어가야함
+//     return 1;
+//   } else {
+//     if (await createNewUserDocument(user.uid)) {
+//       //닉네임, 주소 입력 페이지로 넘어가야함
+//       return 2;
+//     } else {
+//       return 3;
+//     }
+//   }
+// }
 
 Future<bool> userExistsInDB(String uid) async {
   try {
@@ -65,12 +64,20 @@ Future<bool> createNewUserDocument(String uid) async {
       'totalQuest': 0,
       'profileUrl': 'profileUrl'
     });
+
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(uid)
+        .collection('grass')
+        .get();
     return true;
   } catch (e) {
     print('Error creating new user document: $e');
     return false;
   }
 }
+
+// Future<bool> enterMemberInfo()
 
 Future<String> googleSignOut() async {
   await _auth.signOut();
@@ -85,16 +92,18 @@ Future<String> googleSignOut() async {
   return 'logout';
 }
 
-Future<String> getUserInfo(
-    String email, String nickname, String uid, String address) async {
-  //입력 받은 정보를 해당하는 uid문서를 찾아서
-  //필드에 저장
-  await _firestore.collection('Users').doc(uid).set({
-    'nickname': nickname,
-    'address': address,
-  });
-
-  return 'success';
+Future<bool> getUserInfo(String nickname, String uid, String address) async {
+  try {
+    await _firestore.collection('Users').doc(uid).update({
+      'nickname': nickname,
+      'address': address,
+      // Any other fields you want to update can be added here
+    });
+    return true;
+  } catch (e) {
+    print('Error updating user info: $e');
+    return false;
+  }
 }
 
 Future<Map<String, List<String>>> getUserGrassInfo(
@@ -262,5 +271,61 @@ Future<String> updateUserProfileUrl(String uid, String profileUrl) async {
   } catch (e) {
     print('Error updating user profile url: $e');
     return 'Error updating user profile url';
+  }
+}
+
+Future<String> updateUserGrass(
+    String uid, String date, String type, String name) async {
+  try {
+    DocumentReference documentReference =
+        _firestore.collection('Users').doc(uid).collection('grass').doc(date);
+    DocumentSnapshot documentSnapshot = await documentReference.get();
+
+    if (documentSnapshot.exists) {
+      Map<String, dynamic> data =
+          documentSnapshot.data() as Map<String, dynamic>;
+      if (data.containsKey(type)) {
+        await documentReference.update({
+          type: FieldValue.arrayUnion([name])
+        });
+      }
+    } else {
+      await documentReference.set({
+        'cover': 0,
+        type: [name]
+      });
+    }
+    return 'Successfully updated user grass';
+  } catch (e) {
+    print('Error updating user grass: $e');
+    return 'Error updating user grass';
+  }
+}
+
+Future<List<Map<String, dynamic>>> getUserQuestList(
+    String uid, String date) async {
+  try {
+    DocumentSnapshot questSnapshot = await _firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('grass')
+        .doc(date)
+        .get();
+    Map<String, dynamic> questList =
+        questSnapshot.data() as Map<String, dynamic>;
+
+    List<Map<String, dynamic>> result = [];
+
+    List<MapEntry<String, dynamic>> questEntries = questList.entries.toList();
+
+    for (var entry in questEntries) {
+      Map<String, dynamic> questInfo = {entry.key: entry.value};
+      result.add(questInfo);
+    }
+    print(result);
+    return result;
+  } catch (e) {
+    print('Error getting quest list: $e');
+    return [];
   }
 }

@@ -149,7 +149,7 @@ class _ImageUploaderState extends State<ImageUploader> {
             },
           ),
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         Container(
           height: 50,
           child: FutureBuilder<List<dynamic>>(
@@ -161,8 +161,6 @@ class _ImageUploaderState extends State<ImageUploader> {
                 return Text('Error: ${snapshot.error}'); // 에러가 발생한 경우 에러 메시지 출력
               } else {
                 // 데이터가 준비되면 출력
-                print('비동기');
-                print(snapshot.data);
                 if (snapshot.data != null && snapshot.data!.isNotEmpty) {
                   final item = snapshot.data![0];
                   return Column(
@@ -179,15 +177,6 @@ class _ImageUploaderState extends State<ImageUploader> {
                 } else {
                   return Text(' '); // 혹은 다른 적절한 처리
                 }
-                /*ListView.builder(
-                  itemCount: snapshot.data!.length ?? 0, // 데이터가 null이거나 비어있는 경우를 고려하여 itemCount를 설정합니다.
-                  itemBuilder: (context, index) {
-                    final item = snapshot.data![index]; // index에 해당하는 데이터 항목을 가져옵니다.
-                    return Text('hi', style: const TextStyle(
-                        color: Colors.black
-                    ),); // 가져온 데이터를 텍스트로 표시합니다.
-                  },
-                );*/
               }
             },
           ),

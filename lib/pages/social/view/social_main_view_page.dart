@@ -20,7 +20,9 @@ final controller = SocialMainController.instance;
 class _SocialViewPageState extends State<SocialMainPage> {
   @override
   Widget build(BuildContext context) {
-    controller.initFriend();
+    //controller.initFriend();
+    controller.initFriendList();
+    controller.getFriendList();
     //String value;
     return Scaffold(
       backgroundColor: Color(Common.mainColor),
@@ -45,12 +47,12 @@ class _SocialViewPageState extends State<SocialMainPage> {
                 ),
               ),
               child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
+                const Padding(
+                  padding: EdgeInsets.all(20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         '친구',
                         style: TextStyle(
                           color: Colors.black,
@@ -60,27 +62,27 @@ class _SocialViewPageState extends State<SocialMainPage> {
                           letterSpacing: -0.41,
                         ),
                       ),
-                      Container(
-                          width: 98,
-                          height: 29,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFF5F1F1),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(45),
-                            ),
-                          ),
-                          child: Center(
-                            child: Text(
-                              '${controller.friendList.length} 명',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'Inter',
-                                //fontWeight: FontWeight.w800,
-                                letterSpacing: -0.41,
-                              ),
-                            ),
-                          )),
+                      // Container(
+                      //     width: 98,
+                      //     height: 29,
+                      //     decoration: ShapeDecoration(
+                      //       color: const Color(0xFFF5F1F1),
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(45),
+                      //       ),
+                      //     ),
+                      //     child: Center(
+                      //       child: Text(
+                      //         '${controller.friendList.length} 명',
+                      //         style: const TextStyle(
+                      //           color: Colors.black,
+                      //           fontSize: 16,
+                      //           fontFamily: 'Inter',
+                      //           //fontWeight: FontWeight.w800,
+                      //           letterSpacing: -0.41,
+                      //         ),
+                      //       ),
+                      //     )),
                     ],
                   ),
                 ),
@@ -168,7 +170,7 @@ class _SocialViewPageState extends State<SocialMainPage> {
 }
 
 Widget SearchFriendList() {
-  if (filteredList.isEmpty) {
+  if (filteredList == null) {
     print('검색결과 없음');
     return Container(
       child: const Text('검색된 결과가 없습니다.'),

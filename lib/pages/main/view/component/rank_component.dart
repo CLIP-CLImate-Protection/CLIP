@@ -40,7 +40,7 @@ class RankComponent extends StatelessWidget {
               width: 20,
             ),
             SizedBox(
-              width: 50,
+              width: Common.getWidth * 0.3,
               child: Text(
                 '${model.nickname}',
                 style: const TextStyle(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/common/common.dart';
 import 'package:frontend/fastAPI/models/User.dart';
+import 'package:frontend/pages/main/controller/navigation_controller.dart';
+import 'package:frontend/pages/main/view/navigation.dart';
 import 'package:frontend/pages/social/controller/social_main_controller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -291,7 +293,7 @@ class FriendViewPage extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              Obx(() => controller.friendList.contains(model.nickname)
+              Obx(() => controller.friendList.contains(model)
                   ? TextButton(
                       onPressed: () async {
                         //친구 삭제 함수
@@ -315,6 +317,10 @@ class FriendViewPage extends StatelessWidget {
                       onPressed: () async {
                         String uid = await controller.getUidFromNickname(model.nickname);
                         controller.addFriendToUser(uid);
+                        Get.offAllNamed(Navigation.url);
+
+                        final Controller = NavigationController.instance;
+                        Controller.selectTab(2);
                       },
                       style: ButtonStyle(
                         side: MaterialStateProperty.all<BorderSide>(

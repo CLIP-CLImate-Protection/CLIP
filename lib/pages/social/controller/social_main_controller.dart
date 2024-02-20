@@ -10,7 +10,8 @@ class SocialMainController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getFriendList();
+    // getFriendList();
+    //initFriendList();
     getNicknameList();
   }
 
@@ -21,6 +22,11 @@ class SocialMainController extends GetxController {
   void initFriend() {
     friend.value = User();
     friend.refresh();
+  }
+
+  void initFriendList() {
+    friendList.value = [];
+    friendList.refresh();
   }
 
   Future<void> getNicknameList() async {
@@ -55,9 +61,9 @@ class SocialMainController extends GetxController {
   }
 
   Future<void> getFriendList() async {
+    //initFriendList();
     print(UserService.instance.uid);
-    Map<String, dynamic> jsondata =
-        await getUserAllInfo(UserService.instance.uid);
+    Map<String, dynamic> jsondata = await getUserAllInfo(UserService.instance.uid);
     for (var fuid in jsondata['friend']) {
       print('친구 uid $fuid');
       friendData = await getUserAllInfo(fuid);

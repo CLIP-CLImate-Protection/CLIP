@@ -18,14 +18,26 @@ class SocialMainController extends GetxController {
 
   RxList<String> nicknameList = <String>[].obs;
 
+  void initFriend() {
+    friend.value = User();
+    friend.refresh();
+  }
+
   Future<void> getNicknameList() async {
     List<String> getNicknameList = await getAllUserNicknameList();
     nicknameList.value = getNicknameList;
     nicknameList.refresh();
   }
 
+  Future<String> getUidFromNickname(String? nickname) async {
+    Map<String, dynamic> jsonData = await searchUserByNickname(nickname!);
+    String uid = jsonData['uid'];
+    print('uid: $uid ');
+    return uid;
+  }
+
   Future<void> getFriendInfo(String nickname) async {
-    friend.value = User();
+    //friend.value = User();
     print('닉네임 $nickname');
     Map<String, dynamic> jsonData = await searchUserByNickname(nickname);
     User userData = User.fromJson(jsonData);

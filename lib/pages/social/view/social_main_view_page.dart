@@ -20,6 +20,7 @@ final controller = SocialMainController.instance;
 class _SocialViewPageState extends State<SocialMainPage> {
   @override
   Widget build(BuildContext context) {
+    controller.initFriend();
     //String value;
     return Scaffold(
       backgroundColor: Color(Common.mainColor),
@@ -123,37 +124,41 @@ class _SocialViewPageState extends State<SocialMainPage> {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
-              child: Container(
-                width: 368,
-                decoration: const ShapeDecoration(
-                  color: Color(0xFFF5F1F1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    children: [
-                      for (int index = 0; index < controller.friendList.length; index++)
-                        Column(
-                          children: [
-                            if (index == 0) const SizedBox(height: 10),
-                            FriendComponent(
-                              model: controller.friendList[index],
+            Obx(
+              () => controller.friendList.isEmpty
+                  ? const CircularProgressIndicator(color: Color(0xFF33C26C))
+                  : Expanded(
+                      child: Container(
+                        width: 368,
+                        decoration: const ShapeDecoration(
+                          color: Color(0xFFF5F1F1),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
                             ),
-                            //if (index != controller.friendList.length - 1) const SizedBox(height: 10),
-                            Divider(color: Color(Common.subGray), thickness: 0.5),
-                          ],
-                        )
-                    ],
-                  ),
-                ),
-              ),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            children: [
+                              for (int index = 0; index < controller.friendList.length; index++)
+                                Column(
+                                  children: [
+                                    if (index == 0) const SizedBox(height: 10),
+                                    FriendComponent(
+                                      model: controller.friendList[index],
+                                    ),
+                                    //if (index != controller.friendList.length - 1) const SizedBox(height: 10),
+                                    Divider(color: Color(Common.subGray), thickness: 0.5),
+                                  ],
+                                )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
             )
           ],
         ),

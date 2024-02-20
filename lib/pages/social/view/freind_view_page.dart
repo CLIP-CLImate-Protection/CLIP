@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/common/common.dart';
 import 'package:frontend/fastAPI/models/User.dart';
+import 'package:frontend/pages/social/controller/social_main_controller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +17,8 @@ class FriendViewPage extends StatelessWidget {
 
   var now = DateTime.now();
   String month = DateFormat('MMM').format(DateTime.now());
+
+  final controller = SocialMainController.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -288,25 +291,46 @@ class FriendViewPage extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              TextButton(
-                onPressed: () {
-                  //controller.addFriendToUser(controller.friend.uid);
-                },
-                style: ButtonStyle(
-                  side: MaterialStateProperty.all<BorderSide>(
-                    BorderSide(color: Color(Common.mainColor), width: 2.0),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    const EdgeInsets.symmetric(horizontal: 145, vertical: 15),
-                  ),
-                ),
-                child: const Text(
-                  '친구 추가',
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
-              ),
+              Obx(() => controller.friendList.contains(model.nickname)
+                  ? TextButton(
+                      onPressed: () async {
+                        //친구 삭제 함수
+                      },
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          BorderSide(color: Color(Common.mainColor), width: 2.0),
+                        ),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.symmetric(horizontal: 145, vertical: 15),
+                        ),
+                      ),
+                      child: const Text(
+                        '친구 삭제',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      ),
+                    )
+                  : TextButton(
+                      onPressed: () async {
+                        String uid = await controller.getUidFromNickname(model.nickname);
+                        controller.addFriendToUser(uid);
+                      },
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          BorderSide(color: Color(Common.mainColor), width: 2.0),
+                        ),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0))),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.symmetric(horizontal: 145, vertical: 15),
+                        ),
+                      ),
+                      child: const Text(
+                        '친구 추가',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      ),
+                    )),
             ],
           ),
         ));

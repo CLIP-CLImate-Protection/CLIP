@@ -1,15 +1,7 @@
-import 'dart:html';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
-import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-
 
 String currentUserUID = '';
 String currentUserAddress = '';
@@ -177,7 +169,6 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
                 ],
               ),

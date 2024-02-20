@@ -31,8 +31,8 @@ class FriendComponent extends StatelessWidget {
               CircleAvatar(
                 radius: 20,
                 backgroundColor: Colors.grey[300],
-                backgroundImage: model.profileUrl != null ? NetworkImage(model.profileUrl!) : null,
-                child: model.profileUrl == null
+                backgroundImage: model.profileUrl != 'profileUrl' ? NetworkImage(model.profileUrl!) : null,
+                child: model.profileUrl == 'profileUrl'
                     ? Icon(
                         Icons.person,
                         size: 32,

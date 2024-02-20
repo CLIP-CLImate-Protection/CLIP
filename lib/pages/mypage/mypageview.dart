@@ -53,9 +53,10 @@ class MyPage extends StatelessWidget {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage:
-                              MyPageController.instance.user.value.profileUrl != null ? NetworkImage(MyPageController.instance.user.value.profileUrl!) : null,
-                          child: MyPageController.instance.user.value.profileUrl == null
+                          backgroundImage: MyPageController.instance.user.value.profileUrl != 'profileUrl'
+                              ? NetworkImage(MyPageController.instance.user.value.profileUrl!)
+                              : null,
+                          child: MyPageController.instance.user.value.profileUrl == 'profileUrl'
                               ? Icon(
                                   Icons.person,
                                   size: 60,

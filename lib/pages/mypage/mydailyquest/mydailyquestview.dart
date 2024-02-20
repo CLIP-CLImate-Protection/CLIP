@@ -30,6 +30,7 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = MyDailyQuestController.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -119,22 +120,28 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                           margin:
                               EdgeInsets.only(left: 30, right: 30, bottom: 10),
                           elevation: 5,
-                          child: Container(
-                            width: 310,
-                            height: 49,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                userCompletedQuests[
-                                    index], // 유저가 완료한 퀘스트 이름(임의)
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  fontFamily: 'Istok Web',
-                                  color: Colors.black,
+                          child: InkWell(
+                            onTap: () {
+                              controller
+                                  .getDateQuestList(userCompletedQuests[index]);
+                            },
+                            child: Container(
+                              width: 310,
+                              height: 49,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  userCompletedQuests[
+                                      index], // 유저가 완료한 퀘스트 이름(임의)
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Istok Web',
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),

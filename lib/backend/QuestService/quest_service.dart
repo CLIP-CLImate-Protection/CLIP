@@ -28,8 +28,12 @@ Future<Map<String, dynamic>> getQuestInfo(
 
     if (questInfo.containsKey(questName)) {
       dynamic questNameValue = questInfo[questName];
+      dynamic questTypeValue = questType;
 
-      Map<String, dynamic> result = {questName: questNameValue};
+      Map<String, dynamic> result = {
+        'questName': questNameValue,
+        'questType': questTypeValue,
+      };
 
       return result;
     } else {

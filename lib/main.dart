@@ -44,11 +44,11 @@ Future<void> initService() async {
   await Get.putAsync(() => UserService().init());
 }
 
-String initRoute() {
-  print('${UserService.instance.isLogin} 로그인 여부');
-  if (UserService.instance.isLogin) {
-    return Navigation.url;
-  } else {
-    return LoginPage.url;
-  }
-}
+// String initRoute() {
+//   print('${UserService.instance.isLogin} 로그인 여부');
+//   if (UserService.instance.isLogin) {
+//     return Navigation.url;
+//   } else {
+//     return LoginPage.url;
+//   }
+// }

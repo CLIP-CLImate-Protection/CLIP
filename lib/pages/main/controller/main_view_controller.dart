@@ -1,5 +1,6 @@
 import 'package:frontend/backend/CommunityService/community_service.dart';
 import 'package:frontend/fastAPI/models/User.dart';
+import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
 
 class MainViewController extends GetxController {
@@ -9,6 +10,7 @@ class MainViewController extends GetxController {
   void onInit() {
     super.onInit();
     getRankList();
+    // reloadData();
   }
 
   RxList<User> rankList = <User>[].obs;

@@ -112,7 +112,7 @@ class FriendViewPage extends StatelessWidget {
                               height: 7,
                             ),
                             Text(
-                              '${model.level}',
+                              'Lv. ${levelToString(model.level)}',
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -430,4 +430,19 @@ void showQuestAlertDialog(BuildContext context, String title, String content) {
       );
     },
   );
+}
+
+String levelToString(int? level) {
+  switch (level) {
+    case 1:
+      return '씨앗';
+    case 2:
+      return '새싹';
+    case 3:
+      return '나무';
+    case 4:
+      return '숲';
+    default:
+      return 'false';
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/pages/main/controller/main_view_controller.dart';
@@ -7,10 +9,8 @@ import 'package:frontend/pages/main/view/shop_view_page.dart';
 import 'package:frontend/pages/mypage/controller/mypagecontroller.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'dart:math';
 
 import '../../../common/common.dart';
-import '../../social/controller/social_main_controller.dart';
 
 class MainViewPage extends StatefulWidget {
   const MainViewPage({Key? key}) : super(key: key);
@@ -50,12 +50,7 @@ class _MainViewPageState extends State<MainViewPage> {
                           SizedBox(
                             width: 20,
                           ),
-                          Text('CLIP',
-                              style: TextStyle(
-                                  fontSize: 26,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Kantumruy')),
+                          Text('CLIP', style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Kantumruy')),
                         ],
                       ),
                     ),
@@ -83,8 +78,7 @@ class _MainViewPageState extends State<MainViewPage> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15, left: 21, right: 21),
+                            padding: const EdgeInsets.only(top: 15, left: 21, right: 21),
                             child: Row(
                               children: [
                                 const Text(
@@ -102,8 +96,7 @@ class _MainViewPageState extends State<MainViewPage> {
                                 Container(
                                   width: 110,
                                   height: 31,
-                                  padding: const EdgeInsets.only(
-                                      left: 12, right: 12),
+                                  padding: const EdgeInsets.only(left: 12, right: 12),
                                   clipBehavior: Clip.antiAlias,
                                   decoration: ShapeDecoration(
                                     color: const Color(0xFFFFF0D3),
@@ -113,13 +106,11 @@ class _MainViewPageState extends State<MainViewPage> {
                                   ),
                                   child: Row(
                                     children: [
-                                      Icon(FontAwesomeIcons.coins,
-                                          color: Color(Common.coinColor),
-                                          size: 18),
+                                      Icon(FontAwesomeIcons.coins, color: Color(Common.coinColor), size: 18),
                                       const Spacer(),
                                       Text(
                                         ' ${MyPageController.instance.user.value.point}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'Inter',
                                           fontWeight: FontWeight.w400,
@@ -133,8 +124,7 @@ class _MainViewPageState extends State<MainViewPage> {
                                   width: 4,
                                 ),
                                 IconButton(
-                                  icon:
-                                      const Icon(FontAwesomeIcons.cartShopping),
+                                  icon: const Icon(FontAwesomeIcons.cartShopping),
                                   color: Color(Common.subGray),
                                   iconSize: 25,
                                   padding: const EdgeInsets.all(0),
@@ -203,12 +193,8 @@ class _MainViewPageState extends State<MainViewPage> {
                       '누적랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '누적랭킹'
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: _selectedRanking == '누적랭킹'
-                            ? Color(Common.mainColor)
-                            : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '누적랭킹' ? FontWeight.bold : FontWeight.normal,
+                        color: _selectedRanking == '누적랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -222,12 +208,8 @@ class _MainViewPageState extends State<MainViewPage> {
                       '주간랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '주간랭킹'
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: _selectedRanking == '주간랭킹'
-                            ? Color(Common.mainColor)
-                            : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '주간랭킹' ? FontWeight.bold : FontWeight.normal,
+                        color: _selectedRanking == '주간랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -241,12 +223,8 @@ class _MainViewPageState extends State<MainViewPage> {
                       '지역랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '지역랭킹'
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                        color: _selectedRanking == '지역랭킹'
-                            ? Color(Common.mainColor)
-                            : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '지역랭킹' ? FontWeight.bold : FontWeight.normal,
+                        color: _selectedRanking == '지역랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -297,8 +275,7 @@ class _MainViewPageState extends State<MainViewPage> {
             ],
           ),
         ),
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         minHeight: 220,
         maxHeight: MediaQuery.of(context).size.height - 215,
       ),

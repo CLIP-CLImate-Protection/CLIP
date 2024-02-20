@@ -24,13 +24,9 @@ class _SocialViewPageState extends State<SocialMainPage> {
     controller.initFriendList();
     controller.getFriendList();
     //String value;
-    return Scaffold(
-      backgroundColor: Color(Common.mainColor),
-      // appBar: AppBar(
-      //   backgroundColor: Color(Common.mainColor),
-      //   shadowColor: Colors.transparent,
-      // ),
-      body: Center(
+    return Container(
+      color: Color(Common.mainColor),
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -62,27 +58,6 @@ class _SocialViewPageState extends State<SocialMainPage> {
                           letterSpacing: -0.41,
                         ),
                       ),
-                      // Container(
-                      //     width: 98,
-                      //     height: 29,
-                      //     decoration: ShapeDecoration(
-                      //       color: const Color(0xFFF5F1F1),
-                      //       shape: RoundedRectangleBorder(
-                      //         borderRadius: BorderRadius.circular(45),
-                      //       ),
-                      //     ),
-                      //     child: Center(
-                      //       child: Text(
-                      //         '${controller.friendList.length} 명',
-                      //         style: const TextStyle(
-                      //           color: Colors.black,
-                      //           fontSize: 16,
-                      //           fontFamily: 'Inter',
-                      //           //fontWeight: FontWeight.w800,
-                      //           letterSpacing: -0.41,
-                      //         ),
-                      //       ),
-                      //     )),
                     ],
                   ),
                 ),
@@ -110,13 +85,8 @@ class _SocialViewPageState extends State<SocialMainPage> {
                         () {
                           filteredList =
                               controller.nicknameList.where((element) => (element.toLowerCase().contains(value.toLowerCase())) && (value.isNotEmpty)).toList();
-                          //print('검색된 친구 리스트 $filteredList');
                         },
                       );
-                      print('검색 $value');
-                      //print('nicknameList: ${controller.nicknameList}');
-                      print('검색된 갯수: ${filteredList.length}');
-                      print('검색된 친구 리스트 $filteredList');
                     },
                   ),
                 ),
@@ -126,11 +96,11 @@ class _SocialViewPageState extends State<SocialMainPage> {
             const SizedBox(
               height: 20,
             ),
-            Obx(
-              () => controller.friendList.isEmpty
-                  ? const CircularProgressIndicator(color: Color(0xFF33C26C))
-                  : Expanded(
-                      child: Container(
+            Expanded(
+              child: Obx(
+                () => controller.friendList.isEmpty
+                    ? const CircularProgressIndicator(color: Color(0xFF33C26C))
+                    : Container(
                         width: 368,
                         decoration: const ShapeDecoration(
                           color: Color(0xFFF5F1F1),
@@ -160,7 +130,7 @@ class _SocialViewPageState extends State<SocialMainPage> {
                           ),
                         ),
                       ),
-                    ),
+              ),
             )
           ],
         ),

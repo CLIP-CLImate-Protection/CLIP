@@ -6,7 +6,6 @@ import 'package:frontend/pages/quest/controller/quest_controller.dart';
 import 'package:frontend/pages/questdetails/view/imagequest.dart';
 import 'package:get/get.dart';
 
-import '../../../../backend/QuestService/quest_service.dart';
 import '../../../../common/common.dart';
 import '../../../questdetails/view/textquest.dart';
 
@@ -23,9 +22,12 @@ class QuestComponent extends StatelessWidget {
     return InkWell(
       onTap: () async {
         if (model.type == 'text') {
-          Get.to(() => UploadTextPage());
+          print("텍스트 퀘스트 페이지 이동");
+          Get.to(() => UploadTextPage(model: model));
         } else if (model.type == 'image') {
-          Get.to(() => UploadImagePage());
+          print("이미지 퀘스트 페이지 이동");
+          //controller.quest.value = model;
+          Get.to(() => UploadImagePage(model: model));
         }
       },
       child: Container(

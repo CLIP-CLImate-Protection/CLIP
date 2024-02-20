@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:frontend/fastAPI/models/Quest.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'component/questdetails_component.dart';
 
-
 class UploadTextPage extends StatefulWidget {
-  const UploadTextPage({Key? key}) : super(key: key);
+  final Quest model;
+  const UploadTextPage({Key? key, required this.model}) : super(key: key);
 
   static const String url = '/'; //url 미정
 
@@ -17,11 +18,10 @@ class UploadTextPage extends StatefulWidget {
 
 class _UploadTextPageState extends State<UploadTextPage> {
   File? _image;
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   Future<void> _getImage() async {
-    final pickedFile =
-    await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
@@ -55,9 +55,9 @@ class _UploadTextPageState extends State<UploadTextPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-              TitleBox('환경 관련 책/영상/다큐'),
+              TitleBox(widget.model.questName!),
               const SizedBox(height: 40),
-              CommentBox(),
+              CommentBox(widget.model.questDescription!),
               const SizedBox(height: 5), // 추가된 네모칸과의 간격 조
               UploadBox(_getImage, _image, '환경과 관련된 책/영상/다큐 등의 감상문을 입력하세요 (최대 200자)', 'text', _descriptionController),
               const SizedBox(height: 20),

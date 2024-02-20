@@ -25,7 +25,8 @@ Widget TitleBox(String title) {
   );
 }
 
-Widget CommentBox() {
+Widget CommentBox(String? description) {
+  print('description: $description');
   return Container(
     width: 326,
     height: 95,
@@ -34,10 +35,10 @@ Widget CommentBox() {
       color: const Color(0xFFA4D1B1),
       borderRadius: BorderRadius.circular(15),
     ),
-    child: const Text(
-      '설명 문구를 입력하세요',
+    child: Text(
+      description!,
       textAlign: TextAlign.center, // 설명 문구 가운데 정렬
-      style: TextStyle(
+      style: const TextStyle(
         fontFamily: 'Istok Web',
         fontSize: 16,
         fontWeight: FontWeight.bold,
@@ -47,7 +48,7 @@ Widget CommentBox() {
   );
 }
 
-Widget UploadBox(_getImage, _image, String comment, String option, controller) {
+Widget UploadBox(getImage, image, String comment, String option, controller) {
   return Container(
     width: 326,
     height: 500,

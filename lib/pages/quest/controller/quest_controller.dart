@@ -13,18 +13,54 @@ class QuestMainController extends GetxController {
     getGrassDoneQugestList();
   }
 
+  Rx<Quest> quest = Quest().obs;
+
+  // Future<Quest> getQuest(String questName, String questType) async {
+  //   Map<String, dynamic> jsonData = await getQuestInfo(questName, questType);
+
+  //   print("퀘스트 정보json: $jsonData");
+  //   // var quest = Quest(
+  //   //   questName: jsonData['name'],
+  //   //   questDescription: questData['description'],
+  //   //   reward: questData['point'],
+  //   //   type: questData['type'],
+  //   // );
+  //   Quest quest = Quest.fromJson(jsonData);
+  //   return quest;
+  // }
+
   Future<void> getMainQuestList() async {
     List<Map<String, dynamic>> fakeJsonData = [
-      {"questName": "잔반 남기지 않기", "questquestDescription": "Oh my god! Where are we?", "reward": 10, "type": "main"},
-      {"questName": "환경 관련 책/영상/다큐 등 보고 감상평 남기기", "questquestDescription": "I have no idea, but we need to find water and shelter fast!", "reward": 10},
-      {"questName": "환경 관련 포스팅하기", "questquestDescription": "But I can't see anything but sand here!", "reward": 10},
-      {"questName": "전기차 타기", "questquestDescription": "Let's start walking in that direction. Maybe we'll find something.", "reward": 10},
+      {"questName": "잔반 남기지 않기", "questquestDescription": "음식물 쓰레기를 줄이면, 기후위기를 막을 수 있어요!", "reward": 10, "type": "image", "questType": "main"},
+      {
+        "questName": "환경 관련 책/영상/다큐 등 보고 감상평 남기기",
+        "questquestDescription": "I have no idea, but we need to find water and shelter fast!",
+        "reward": 10,
+        "type": "text",
+        "questType": "main"
+      },
+      {"questName": "환경 관련 포스팅하기", "questquestDescription": "But I can't see anything but sand here!", "reward": 10, "questType": "main", "type": "text"},
+      {
+        "questName": "전기차 타기",
+        "questquestDescription": "Let's start walking in that direction. Maybe we'll find something.",
+        "reward": 10,
+        "questType": "main",
+        "type": "image"
+      },
       {
         "questName": "라벨 떼고 분리수거",
         "questDescription": "Oh my god! Where are we?Oh my god! Where are we?Oh my god! Where are we?Oh my god! Where are we?",
-        "reward": 10
+        "reward": 10,
+        "questType": "main",
+        "type": "image"
       },
-      {"questName": "물티슈대신 손수건, 행주 사용하기", "questDescription": "I have no idea, but we need to find water and shelter fast!", "reward": 10},
+      {
+        "questName": "물티슈대신 손수건, 행주 사용하기",
+        "questDescription": "I have no idea, but we need to find water and shelter fast!",
+        "reward": 10,
+        "questType": "main",
+        "type": "check"
+      },
       {"questName": "친환경 인증제품 구매하기", "questDescription": "Oh my god! Where are we?", "reward": 10},
       {"questName": "친환경 비누 사용하기 ", "questDescription": "I have no idea, but we need to find water and shelter fast!", "reward": 10},
       {"questName": "충전식 건전지 사용하기", "questDescription": "Oh my god! Where are we?", "reward": 10},
@@ -92,13 +128,13 @@ class QuestMainController extends GetxController {
         quests.add(quest);
       }
     }
-    for (var quest in quests) {
-      print("=========");
-      print(quest.questName);
-      print(quest.questDescription);
-      print(quest.reward);
-      print(quest.type);
-    }
+    // for (var quest in quests) {
+    //   print("=========");
+    //   print(quest.questName);
+    //   print(quest.questDescription);
+    //   print(quest.reward);
+    //   print(quest.type);
+    // }
     return quests;
   }
 }

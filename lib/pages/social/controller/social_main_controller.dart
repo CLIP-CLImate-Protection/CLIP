@@ -10,7 +10,8 @@ class SocialMainController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getFriendList();
+    // getFriendList();
+    //initFriendList();
     getNicknameList();
   }
 
@@ -18,14 +19,31 @@ class SocialMainController extends GetxController {
 
   RxList<String> nicknameList = <String>[].obs;
 
+  void initFriend() {
+    friend.value = User();
+    friend.refresh();
+  }
+
+  void initFriendList() {
+    friendList.value = [];
+    friendList.refresh();
+  }
+
   Future<void> getNicknameList() async {
     List<String> getNicknameList = await getAllUserNicknameList();
     nicknameList.value = getNicknameList;
     nicknameList.refresh();
   }
 
+  Future<String> getUidFromNickname(String? nickname) async {
+    Map<String, dynamic> jsonData = await searchUserByNickname(nickname!);
+    String uid = jsonData['uid'];
+    print('uid: $uid ');
+    return uid;
+  }
+
   Future<void> getFriendInfo(String nickname) async {
-    friend.value = User();
+    //friend.value = User();
     print('닉네임 $nickname');
     Map<String, dynamic> jsonData = await searchUserByNickname(nickname);
     User userData = User.fromJson(jsonData);
@@ -43,9 +61,9 @@ class SocialMainController extends GetxController {
   }
 
   Future<void> getFriendList() async {
+    //initFriendList();
     print(UserService.instance.uid);
-    Map<String, dynamic> jsondata =
-        await getUserAllInfo(UserService.instance.uid);
+    Map<String, dynamic> jsondata = await getUserAllInfo(UserService.instance.uid);
     for (var fuid in jsondata['friend']) {
       print('친구 uid $fuid');
       friendData = await getUserAllInfo(fuid);

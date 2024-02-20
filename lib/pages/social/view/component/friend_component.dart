@@ -55,7 +55,10 @@ class FriendComponent extends StatelessWidget {
               const SizedBox(
                 width: 15,
               ),
-              Text('${model.level}'),
+              Text(
+                'Lv. ${levelToString(model.level)}',
+                style: const TextStyle(color: Colors.black, fontSize: 12, fontFamily: 'Istok Web', letterSpacing: -0.41),
+              ),
               const Spacer(),
               TextButton(
                 onPressed: () {
@@ -91,5 +94,20 @@ class FriendComponent extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String levelToString(int? level) {
+  switch (level) {
+    case 1:
+      return '씨앗';
+    case 2:
+      return '새싹';
+    case 3:
+      return '나무';
+    case 4:
+      return '숲';
+    default:
+      return 'false';
   }
 }

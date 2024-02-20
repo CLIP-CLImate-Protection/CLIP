@@ -9,7 +9,6 @@ class MainViewController extends GetxController {
   void onInit() {
     super.onInit();
     getRankList();
-    //reloadData();
   }
 
   RxList<User> rankList = <User>[].obs;

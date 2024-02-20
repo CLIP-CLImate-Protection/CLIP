@@ -28,6 +28,9 @@ class _MainViewPageState extends State<MainViewPage> {
   Widget build(BuildContext context) {
     //final controller2 = SocialMainController.instance;
     final controller = MainViewController.instance;
+    final mycontroller = MyPageController.instance;
+    mycontroller.getMyInfo();
+
     controller.getRankList();
     return Scaffold(
       body: SlidingUpPanel(
@@ -109,7 +112,7 @@ class _MainViewPageState extends State<MainViewPage> {
                                       Icon(FontAwesomeIcons.coins, color: Color(Common.coinColor), size: 18),
                                       const Spacer(),
                                       Text(
-                                        ' ${MyPageController.instance.user.value.point}',
+                                        ' ${mycontroller.user.value.point}',
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontFamily: 'Inter',

@@ -6,9 +6,16 @@ import 'package:get/get.dart';
 class MyPageController extends GetxController {
   static MyPageController get instance => Get.find<MyPageController>();
 
+  @override
+  void onInit() {
+    super.onInit();
+    getMyInfo();
+  }
+
   Future<void> getMyInfo() async {
     print(UserService.instance.uid);
-    Map<String, dynamic> jsonData = await getUserAllInfo(UserService.instance.uid);
+    Map<String, dynamic> jsonData =
+        await getUserAllInfo(UserService.instance.uid);
     User userData = User.fromJson(jsonData);
 
     user.value = userData;

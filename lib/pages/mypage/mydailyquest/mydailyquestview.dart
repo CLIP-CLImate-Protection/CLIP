@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'mydailyquestcontroller.dart';
 
-
 class MyDailyQuestView extends StatefulWidget {
   const MyDailyQuestView({Key? key}) : super(key: key);
 
@@ -22,15 +21,16 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
   }
 
   Future<void> _updateCompletedQuests() async {
-    List<String> quests = await MyDailyQuestController().getUserCompletedQuests();
+    List<String> quests = await MyDailyQuestController().getQuestDateList();
     setState(() {
       completedQuestCount = quests.length;
       userCompletedQuests = quests;
     });
-  }  // 백엔드 구현 전 임의로 설정
+  } // 백엔드 구현 전 임의로 설정
 
   @override
   Widget build(BuildContext context) {
+    final controller = MyDailyQuestController.instance;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -39,7 +39,7 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
           children: [
             SizedBox(width: 33),
             Text(
-              '일일 퀘스트 내역',
+              '퀘스트 내역',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
@@ -114,25 +114,34 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
-                      children: List.generate(userCompletedQuests.length, (index) {
+                      children:
+                          List.generate(userCompletedQuests.length, (index) {
                         return Card(
-                          margin: EdgeInsets.only(left: 30, right: 30, bottom: 10),
+                          margin:
+                              EdgeInsets.only(left: 30, right: 30, bottom: 10),
                           elevation: 5,
-                          child: Container(
-                            width: 310,
-                            height: 49,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                userCompletedQuests[index], // 유저가 완료한 퀘스트 이름(임의)
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  fontFamily: 'Istok Web',
-                                  color: Colors.black,
+                          child: InkWell(
+                            onTap: () {
+                              controller
+                                  .getDateQuestList(userCompletedQuests[index]);
+                            },
+                            child: Container(
+                              width: 310,
+                              height: 49,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  userCompletedQuests[
+                                      index], // 유저가 완료한 퀘스트 이름(임의)
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Istok Web',
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             ),

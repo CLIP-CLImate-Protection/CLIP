@@ -335,10 +335,32 @@ Future<List<Map<String, dynamic>>> getUserQuestList(
     List<MapEntry<String, dynamic>> questEntries = questList.entries.toList();
 
     for (var entry in questEntries) {
-      Map<String, dynamic> questInfo = {entry.key: entry.value};
+      if (entry.key == 'main' || entry.key == 'daily') {
+        Map<String, dynamic> questInfo = {entry.key: entry.value};
+        result.add(questInfo);
+      }
+    }
+    print('특정 날짜에 유저한 퀘스트 내역');
+    print(result);
+    return result;
+  } catch (e) {
+    print('Error getting quest list: $e');
+    return [];
+  }
+}
+
+Future<List<Map<String, dynamic>>> getUserQuestData(String uid) async {
+  try {
+    QuerySnapshot questSnapshot =
+        await _firestore.collection('Users').doc(uid).collection('grass').get();
+    List<Map<String, dynamic>> result = [];
+    for (var doc in questSnapshot.docs) {
+      Map<String, dynamic> questInfo = {
+        'date': doc.id,
+      };
       result.add(questInfo);
     }
-    print(result);
+
     return result;
   } catch (e) {
     print('Error getting quest list: $e');

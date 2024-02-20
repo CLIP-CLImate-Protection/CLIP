@@ -33,7 +33,7 @@ class CustomPopup extends StatelessWidget {
                     Navigator.pop(context, false);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
+                    backgroundColor: Colors.transparent,
                     side: BorderSide(width: 2, color: Color(0xFF278740)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -51,7 +51,7 @@ class CustomPopup extends StatelessWidget {
                     Navigator.pop(context, true);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF278740),
+                    backgroundColor: Color(0xFF278740),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -67,4 +67,3 @@ class CustomPopup extends StatelessWidget {
     );
   }
 }
-

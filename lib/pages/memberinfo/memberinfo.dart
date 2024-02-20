@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,7 +7,6 @@ import 'package:frontend/backend/UserService/user_service.dart';
 import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 String currentUserUID = '';
 String currentUserAddress = '';
@@ -103,7 +100,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: '닉네임을 입력하세요',
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                            hintStyle:
+                                TextStyle(color: Colors.white.withOpacity(0.5)),
                             border: InputBorder.none,
                           ),
                         ),
@@ -132,7 +130,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: '서울시는 구까지, 그 외는 시까지 입력하세요',
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                            hintStyle:
+                                TextStyle(color: Colors.white.withOpacity(0.5)),
                             border: InputBorder.none,
                           ),
                           keyboardType: TextInputType.text,
@@ -153,7 +152,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                         String nickname = nicknameController.text;
                         String address = addressController.text;
 
-                        bool isSuccess = await createNewUserDocument(currentUserUID, nickname);
+                        bool isSuccess = await createNewUserDocument(
+                            currentUserUID, nickname);
                         //bool isSuccess = await createNewUserDocument(currentUserUID, profileUrl, nickname, address);
                         //백엔드 메서드 인자 4개로 바꿀 수 있는지 확인, 이미지 url 받는 거 구현하기.
 
@@ -177,7 +177,6 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
                 ],
               ),

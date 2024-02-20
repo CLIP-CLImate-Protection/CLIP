@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/pages/main/controller/main_view_controller.dart';
+import 'package:frontend/pages/main/view/component/google_map.dart';
 import 'package:frontend/pages/main/view/component/my_grass_component.dart';
 import 'package:frontend/pages/main/view/component/rank_component.dart';
 import 'package:frontend/pages/main/view/shop_view_page.dart';
@@ -30,7 +31,7 @@ class _MainViewPageState extends State<MainViewPage> {
     final controller = MainViewController.instance;
     final mycontroller = MyPageController.instance;
     mycontroller.getMyInfo();
-
+    bool isHomeScreenShown = false;
     controller.getRankList();
     return Scaffold(
       body: SlidingUpPanel(
@@ -53,7 +54,12 @@ class _MainViewPageState extends State<MainViewPage> {
                           SizedBox(
                             width: 20,
                           ),
-                          Text('CLIP', style: TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold, fontFamily: 'Kantumruy')),
+                          Text('CLIP',
+                              style: TextStyle(
+                                  fontSize: 26,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Kantumruy')),
                         ],
                       ),
                     ),
@@ -81,7 +87,8 @@ class _MainViewPageState extends State<MainViewPage> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 15, left: 21, right: 21),
+                            padding: const EdgeInsets.only(
+                                top: 15, left: 21, right: 21),
                             child: Row(
                               children: [
                                 const Text(
@@ -99,7 +106,8 @@ class _MainViewPageState extends State<MainViewPage> {
                                 Container(
                                   width: 110,
                                   height: 31,
-                                  padding: const EdgeInsets.only(left: 12, right: 12),
+                                  padding: const EdgeInsets.only(
+                                      left: 12, right: 12),
                                   clipBehavior: Clip.antiAlias,
                                   decoration: ShapeDecoration(
                                     color: const Color(0xFFFFF0D3),
@@ -109,7 +117,9 @@ class _MainViewPageState extends State<MainViewPage> {
                                   ),
                                   child: Row(
                                     children: [
-                                      Icon(FontAwesomeIcons.coins, color: Color(Common.coinColor), size: 18),
+                                      Icon(FontAwesomeIcons.coins,
+                                          color: Color(Common.coinColor),
+                                          size: 18),
                                       const Spacer(),
                                       Text(
                                         ' ${mycontroller.user.value.point}',
@@ -127,7 +137,8 @@ class _MainViewPageState extends State<MainViewPage> {
                                   width: 4,
                                 ),
                                 IconButton(
-                                  icon: const Icon(FontAwesomeIcons.cartShopping),
+                                  icon:
+                                      const Icon(FontAwesomeIcons.cartShopping),
                                   color: Color(Common.subGray),
                                   iconSize: 25,
                                   padding: const EdgeInsets.all(0),
@@ -196,8 +207,12 @@ class _MainViewPageState extends State<MainViewPage> {
                       '누적랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '누적랭킹' ? FontWeight.bold : FontWeight.normal,
-                        color: _selectedRanking == '누적랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '누적랭킹'
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: _selectedRanking == '누적랭킹'
+                            ? Color(Common.mainColor)
+                            : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -211,8 +226,12 @@ class _MainViewPageState extends State<MainViewPage> {
                       '주간랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '주간랭킹' ? FontWeight.bold : FontWeight.normal,
-                        color: _selectedRanking == '주간랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '주간랭킹'
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: _selectedRanking == '주간랭킹'
+                            ? Color(Common.mainColor)
+                            : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -226,8 +245,12 @@ class _MainViewPageState extends State<MainViewPage> {
                       '지역랭킹',
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: _selectedRanking == '지역랭킹' ? FontWeight.bold : FontWeight.normal,
-                        color: _selectedRanking == '지역랭킹' ? Color(Common.mainColor) : Color(Common.subGray),
+                        fontWeight: _selectedRanking == '지역랭킹'
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: _selectedRanking == '지역랭킹'
+                            ? Color(Common.mainColor)
+                            : Color(Common.subGray),
                       ),
                     ),
                   ),
@@ -251,6 +274,31 @@ class _MainViewPageState extends State<MainViewPage> {
               //     ],
               //   ),
               // ),
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemCount: min(5, controller.rankList.length),
+              //     itemBuilder: (context, index) {
+              //       // Display RankComponents based on the selected ranking
+              //       // You can adjust the logic here based on your data structure
+              //       switch (_selectedRanking) {
+              //         case '주간랭킹':
+              //           return RankComponent(
+              //             model: controller.rankList[index],
+              //             index: index + 1,
+              //           );
+              //         case '지역랭킹':
+              //           // Implement logic for 지역랭킹
+              //           return const HomeScreen(); // Placeholder
+              //         default:
+              //           return RankComponent(
+              //             model: controller.rankList[index],
+              //             index: index + 1,
+              //           );
+              //       }
+              //     },
+              //   ),
+              // ),
+
               Expanded(
                 child: ListView.builder(
                   itemCount: min(5, controller.rankList.length),
@@ -264,8 +312,13 @@ class _MainViewPageState extends State<MainViewPage> {
                           index: index + 1,
                         );
                       case '지역랭킹':
-                        // Implement logic for 지역랭킹
-                        return const SizedBox(); // Placeholder
+                        // Show HomeScreen only once
+                        if (!isHomeScreenShown) {
+                          isHomeScreenShown = true;
+                          return HomeScreen();
+                        }
+                        // For subsequent items, return an empty SizedBox
+                        return SizedBox();
                       default:
                         return RankComponent(
                           model: controller.rankList[index],
@@ -278,7 +331,8 @@ class _MainViewPageState extends State<MainViewPage> {
             ],
           ),
         ),
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
         minHeight: 220,
         maxHeight: MediaQuery.of(context).size.height - 215,
       ),

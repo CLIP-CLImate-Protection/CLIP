@@ -50,6 +50,8 @@ dependencies:
   image: ^4.1.7
   firebase_storage: ^11.6.0
   flutter_secure_storage: ^5.0.2
+  google_maps_flutter: ^2.2.5
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:

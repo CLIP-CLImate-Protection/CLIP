@@ -24,6 +24,7 @@ class _SocialViewPageState extends State<SocialMainPage> {
     controller.initFriendList();
     controller.getFriendList();
     //String value;
+    // filteredList = [];
     return Container(
       color: Color(Common.mainColor),
       child: Center(

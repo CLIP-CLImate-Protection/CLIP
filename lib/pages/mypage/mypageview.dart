@@ -12,11 +12,11 @@ class MyPage extends StatelessWidget {
 
   static String url = '/mypage';
 
-  //final MyPageController _controller = MyPageController();
-
   @override
   Widget build(BuildContext context) {
-    //_controller.getMyInfo();
+    final MyPageController _controller = MyPageController();
+    _controller.getQuestDateList();
+
     print(DateFormat('yyyy-mm-dd').format(DateTime.now()).toString());
     return Scaffold(
       backgroundColor: const Color(0xFF278740),
@@ -53,16 +53,21 @@ class MyPage extends StatelessWidget {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage: MyPageController.instance.user.value.profileUrl != 'profileUrl'
-                              ? NetworkImage(MyPageController.instance.user.value.profileUrl!)
-                              : null,
-                          child: MyPageController.instance.user.value.profileUrl == 'profileUrl'
-                              ? Icon(
-                                  Icons.person,
-                                  size: 60,
-                                  color: Colors.grey[600],
-                                )
-                              : null,
+                          backgroundImage:
+                              MyPageController.instance.user.value.profileUrl !=
+                                      'profileUrl'
+                                  ? NetworkImage(MyPageController
+                                      .instance.user.value.profileUrl!)
+                                  : null,
+                          child:
+                              MyPageController.instance.user.value.profileUrl ==
+                                      'profileUrl'
+                                  ? Icon(
+                                      Icons.person,
+                                      size: 60,
+                                      color: Colors.grey[600],
+                                    )
+                                  : null,
                         ),
                         const SizedBox(width: 20),
                         Column(
@@ -207,7 +212,6 @@ class MyPage extends StatelessWidget {
                           },
                         );
                       },
-
                       child: const Center(
                         child: Text(
                           '로그아웃',

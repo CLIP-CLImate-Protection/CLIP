@@ -345,3 +345,22 @@ Future<List<Map<String, dynamic>>> getUserQuestList(
     return [];
   }
 }
+
+Future<List<Map<String, dynamic>>> getUserQuestData(String uid) async {
+  try {
+    QuerySnapshot questSnapshot =
+        await _firestore.collection('Users').doc(uid).collection('grass').get();
+    List<Map<String, dynamic>> result = [];
+    for (var doc in questSnapshot.docs) {
+      Map<String, dynamic> questInfo = {
+        'date': doc.id,
+      };
+      result.add(questInfo);
+    }
+
+    return result;
+  } catch (e) {
+    print('Error getting quest list: $e');
+    return [];
+  }
+}

@@ -31,18 +31,12 @@ class QuestMainController extends GetxController {
 
   Future<void> getMainQuestList() async {
     List<Map<String, dynamic>> fakeJsonData = [
-      {"questName": "잔반 남기지 않기", "questquestDescription": "음식물 쓰레기를 줄이면, 기후위기를 막을 수 있어요!", "reward": 10, "type": "image", "questType": "main"},
-      {
-        "questName": "환경 관련 책/영상/다큐 등 보고 감상평 남기기",
-        "questquestDescription": "I have no idea, but we need to find water and shelter fast!",
-        "reward": 10,
-        "type": "text",
-        "questType": "main"
-      },
-      {"questName": "환경 관련 포스팅하기", "questquestDescription": "But I can't see anything but sand here!", "reward": 10, "questType": "main", "type": "text"},
+      {"questName": "잔반 남기지 않기", "questDescription": "음식물 쓰레기를 줄이면, 기후위기를 막을 수 있어요!", "reward": 10, "type": "image", "questType": "main"},
+      {"questName": "환경 관련 책/영상/다큐 등 보고 감상평 남기기", "questDescription": "환경을 지킬 수 있는 새로운 정보를 얻어봐요!", "reward": 10, "type": "text", "questType": "main"},
+      {"questName": "환경 관련 포스팅하기", "questDescription": "환경 포스팅을 통해 친구들에게 홍보해봐요!", "reward": 10, "questType": "main", "type": "text"},
       {
         "questName": "전기차 타기",
-        "questquestDescription": "Let's start walking in that direction. Maybe we'll find something.",
+        "questDescription": "Let's start walking in that direction. Maybe we'll find something.",
         "reward": 10,
         "questType": "main",
         "type": "image"

@@ -27,6 +27,7 @@ class QuestComponent extends StatelessWidget {
         } else if (model.type == 'image') {
           print("이미지 퀘스트 페이지 이동");
           //controller.quest.value = model;
+          print("모델 : ${model.questName}");
           Get.to(() => UploadImagePage(model: model));
         }
       },

@@ -44,8 +44,8 @@ class FriendViewPage extends StatelessWidget {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage: model.profileUrl != null ? NetworkImage(model.profileUrl!) : null,
-                          child: model.profileUrl == null
+                          backgroundImage: model.profileUrl != 'profileUrl' ? NetworkImage(model.profileUrl!) : null,
+                          child: model.profileUrl == 'profileUrl'
                               ? Icon(
                                   Icons.person,
                                   size: 60,
@@ -289,7 +289,9 @@ class FriendViewPage extends StatelessWidget {
                 height: 15,
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  //controller.addFriendToUser(controller.friend.uid);
+                },
                 style: ButtonStyle(
                   side: MaterialStateProperty.all<BorderSide>(
                     BorderSide(color: Color(Common.mainColor), width: 2.0),

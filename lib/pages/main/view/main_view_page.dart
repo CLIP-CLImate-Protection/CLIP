@@ -24,7 +24,6 @@ class _MainViewPageState extends State<MainViewPage> {
   @override
   Widget build(BuildContext context) {
     final controller2 = SocialMainController.instance;
-    controller2.getFriendList();
     return Scaffold(
       body: SlidingUpPanel(
         body: Container(

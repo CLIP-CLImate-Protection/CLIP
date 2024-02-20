@@ -7,6 +7,13 @@ import 'package:get/get.dart';
 class SocialMainController extends GetxController {
   static SocialMainController get instance => Get.find<SocialMainController>();
 
+  @override
+  void onInit() {
+    super.onInit();
+    getFriendList();
+    getNicknameList();
+  }
+
   RxList<User> friendList = <User>[].obs;
 
   RxList<String> nicknameList = <String>[].obs;
@@ -18,28 +25,42 @@ class SocialMainController extends GetxController {
   }
 
   Future<void> getFriendInfo(String nickname) async {
-    //print(UserService.instance.uid);
+    friend.value = User();
+    print('닉네임 $nickname');
     Map<String, dynamic> jsonData = await searchUserByNickname(nickname);
     User userData = User.fromJson(jsonData);
-    print(userData);
+    print('userData: ${userData.nickname}');
     friend.value = userData;
-
     friend.refresh();
   }
 
   Rx<User> friend = User().obs;
+  Map<String, dynamic> friendData = {};
+
+  Future<void> addFriendToUser(String friendUid) async {
+    String result = await addFriend(UserService.instance.uid, friendUid);
+    print(result);
+  }
 
   Future<void> getFriendList() async {
     print(UserService.instance.uid);
-    Map<String, dynamic> jsonData =
-        await getUserAllInfo(UserService.instance.uid);
-    for (var fuid in jsonData['friend']) {
-      print('친구 uid ${fuid}');
-      Map<String, dynamic> friendData = await getUserAllInfo(fuid);
-      User friend = User.fromJson(friendData);
-      friendList.add(friend);
-      print(friendList);
+    Map<String, dynamic> jsondata = await getUserAllInfo(UserService.instance.uid);
+    for (var fuid in jsondata['friend']) {
+      print('친구 uid $fuid');
+      friendData = await getUserAllInfo(fuid);
+      print('친구 정보 $friendData ');
+      //User friend = User.fromJson(friendData);
+      // if (friendList.contains(friend) == false) {
+      //   print('친구 추가 ');
+      //   friendList.add(friend);
+      // }
+      // print(friendList);
+      friendList.add(User.fromJson(friendData));
     }
+
+    // List<User> friendlist=
+    // friendList.value = friendlist;
+    friendList.refresh();
     // List<Map<String, dynamic>> fakeJsonData = [
     //   {
     //     "nickname": "김미소",
@@ -73,6 +94,5 @@ class SocialMainController extends GetxController {
     // List<User> fakeTalkings =
     //     fakeJsonData.map((jsonData) => User.fromJson(jsonData)).toList();
     //friendList.value = fakeTalkings;
-    friendList.refresh();
   }
 }

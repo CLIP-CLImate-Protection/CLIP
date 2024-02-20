@@ -44,17 +44,13 @@ class SocialMainController extends GetxController {
 
   Future<void> getFriendList() async {
     print(UserService.instance.uid);
-    Map<String, dynamic> jsondata = await getUserAllInfo(UserService.instance.uid);
+    Map<String, dynamic> jsondata =
+        await getUserAllInfo(UserService.instance.uid);
     for (var fuid in jsondata['friend']) {
       print('친구 uid $fuid');
       friendData = await getUserAllInfo(fuid);
       print('친구 정보 $friendData ');
-      //User friend = User.fromJson(friendData);
-      // if (friendList.contains(friend) == false) {
-      //   print('친구 추가 ');
-      //   friendList.add(friend);
-      // }
-      // print(friendList);
+
       friendList.add(User.fromJson(friendData));
     }
 

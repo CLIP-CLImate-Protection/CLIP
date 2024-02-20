@@ -83,6 +83,7 @@ flutter:
     - assets/images/small_tree.png
     - assets/images/my_grass.png
     - assets/login.png
+    - assets/lankinginfo.png
     #- assets/.env
     - assets/exbowl.png
 

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import 'controller/mypagecontroller.dart'; // mypagecontroller.dart 파일을 import 합니다.
+import 'controller/mypagecontroller.dart';
+import 'custompopup.dart';
+import 'lankinginfo.dart';
+import 'mydailyquest/mydailyquestview.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -153,8 +157,7 @@ class MyPage extends StatelessWidget {
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () {
-                        // '다음 랭킹까지 남은 게이지'를 눌렀을 때 처리할 내용 추가
-                        // 이동할 페이지로 네비게이션하도록 설정
+                        Get.to(() => LankingInfo());
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -180,12 +183,11 @@ class MyPage extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          // '메인 퀘스트 내역'을 눌렀을 때 처리할 내용 추가
-                          // 이동할 페이지로 네비게이션하도록 설정
+                          Get.to(() => MyDailyQuestView());
                         },
                         child: const Center(
                           child: Text(
-                            '메인 퀘스트 내역',
+                            '퀘스트 내역',
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
@@ -195,37 +197,17 @@ class MyPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Container(
-                      width: 340,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          // '일일 퀘스트 내역'을 눌렀을 때 처리할 내용 추가
-                          // 이동할 페이지로 네비게이션하도록 설정
-                        },
-                        child: const Center(
-                          child: Text(
-                            '일일 퀘스트 내역',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 110), // 10 크기의 간격 추가
+                    const SizedBox(height: 110),
                     GestureDetector(
                       onTap: () {
-                        // '로그아웃'을 눌렀을 때 처리할 내용 추가
-                        // 로그아웃 기능 구현
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CustomPopup();
+                          },
+                        );
                       },
+
                       child: const Center(
                         child: Text(
                           '로그아웃',
@@ -238,7 +220,7 @@ class MyPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 5), // 10 크기의 간격 추가
+                    const SizedBox(height: 5),
                     Container(
                       width: 347,
                       height: 48,

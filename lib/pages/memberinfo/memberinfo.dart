@@ -1,13 +1,24 @@
+import 'dart:html';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
 import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+
+String currentUserUID = '';
+String currentUserAddress = '';
 
 class MemberInfoForm extends StatefulWidget {
   static const String url = '/memberinfo';
 
-  const MemberInfoForm({super.key});
+  const MemberInfoForm({Key? key}) : super(key: key);
+
   @override
   _MemberInfoFormState createState() => _MemberInfoFormState();
 }
@@ -28,10 +39,10 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF278740), // 그라데이션 시작 색
-                  Color(0xFF7EB78D), // 그라데이션 종료 색
+                  Color(0xFF278740),
+                  Color(0xFF7EB78D),
                 ],
-                stops: [0.5, 1.0], // 그라데이션 위치
+                stops: [0.5, 1.0],
               ),
             ),
           ),
@@ -61,7 +72,7 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                         color: Colors.grey,
                       ),
                       onPressed: () {
-                        // 이미지 추가 기능 구현
+                        //이미지 받기
                       },
                     ),
                   ),
@@ -84,9 +95,9 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                         height: 49,
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10), // 모서리 둥글게 처리
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 20), // 패딩 설정
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: TextField(
                           controller: nicknameController,
                           style: const TextStyle(color: Colors.white),
@@ -113,9 +124,9 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                         height: 49,
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(10), // 모서리 둥글게 처리
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 20), // 패딩 설정
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: TextField(
                           controller: addressController,
                           style: const TextStyle(color: Colors.white),
@@ -129,7 +140,7 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                       ),
                     ],
                   ),
-                  const Spacer(), // 화면 가운데 정렬을 위해 추가
+                  const Spacer(),
                   Container(
                     width: 341,
                     height: 68,
@@ -138,16 +149,22 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        String nickname = nicknameController.text; // 가입하기 버튼 클릭 시 동작
-                        String address = addressController.text; // 사용자가 입력한 주소
-                        // String uid = UserService.instance.uid; // 사용자 uid
-                        // print(uid);
-                        getUserInfo(nickname, UserService.instance.uid, address); // 사용자 정보 저장 함수 호출
-                        const storage = FlutterSecureStorage();
-                        storage.write(key: 'isLogin', value: 'true');
-                        showSnackBar(); // 회원가입 성공 시 스낵바 출력
-                        Navigator.pushNamed(context, '/main'); // 메인 페이지로 이동
+                      onPressed: () async {
+                        String nickname = nicknameController.text;
+                        String address = addressController.text;
+
+                        bool isSuccess = await createNewUserDocument(currentUserUID, nickname);
+                        //bool isSuccess = await createNewUserDocument(currentUserUID, profileUrl, nickname, address);
+                        //백엔드 메서드 인자 4개로 바꿀 수 있는지 확인, 이미지 url 받는 거 구현하기.
+
+                        if (isSuccess) {
+                          const storage = FlutterSecureStorage();
+                          storage.write(key: 'isLogin', value: 'true');
+                          showSnackBar();
+                          Navigator.pushNamed(context, '/main');
+                        } else {
+                          // 회원가입 실패 시 처리
+                        }
                       },
                       child: const Text(
                         '가입하기',
@@ -160,6 +177,7 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 20),
                 ],
               ),
@@ -180,3 +198,34 @@ void showSnackBar() {
     colorText: Colors.black,
   );
 }
+
+// Future<bool> createNewUserDocument(String uid, String profileUrl, String nickname, String address) async {
+//   try {
+//     print('Creating new user document: $uid');
+//
+//     await FirebaseFirestore.instance
+//         .collection('Users')
+//         .doc(uid)
+//         .set({
+//       'address': address,
+//       'friend': [],
+//       'level': 1,
+//       'nickname': nickname,
+//       'point': 0,
+//       'totalQuest': 0,
+//       'profileUrl': profileUrl
+//     });
+//
+//     String currentDate = DateTime.now().toString();
+//     FirebaseFirestore.instance.collection('Users').doc(uid).collection('grass').doc(currentDate).set({
+//       'cover': 0,
+//       'daily': [],
+//       'main': [],
+//     });
+//     return true;
+//   } catch (e) {
+//     print('Error creating new user document: $e');
+//     return false;
+//   }
+// }
+

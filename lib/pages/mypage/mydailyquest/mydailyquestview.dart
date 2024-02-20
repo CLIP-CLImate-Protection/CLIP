@@ -5,7 +5,7 @@ import 'mydailyquestcontroller.dart';
 class MyDailyQuestView extends StatefulWidget {
   const MyDailyQuestView({Key? key}) : super(key: key);
 
-  static const String url = 'mydailyquest';
+  static const String url = '/mydailyquest';
 
   @override
   _DailyQuestPageState createState() => _DailyQuestPageState();

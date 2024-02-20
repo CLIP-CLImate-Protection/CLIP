@@ -82,25 +82,7 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                 Row(
                   children: [
                     Text(
-                      '총',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Inter',
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      '$completedQuestCount',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Inter',
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text(
-                      '개',
+                      '총 $completedQuestCount회',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -110,44 +92,43 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: Column(
-                      children:
-                          List.generate(userCompletedQuests.length, (index) {
-                        return Card(
-                          margin:
-                              EdgeInsets.only(left: 30, right: 30, bottom: 10),
-                          elevation: 5,
-                          child: InkWell(
-                            onTap: () {
-                              controller
-                                  .getDateQuestList(userCompletedQuests[index]);
-                            },
-                            child: Container(
-                              width: 310,
-                              height: 49,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  userCompletedQuests[
-                                      index], // 유저가 완료한 퀘스트 이름(임의)
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Istok Web',
-                                    color: Colors.black,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: List.generate(userCompletedQuests.length, (index) {
+                          return Padding(
+                            padding: EdgeInsets.fromLTRB(15, 5, 35, 5),
+                            child: Center(
+                              child: Card(
+                                elevation: 5,
+                                child: Container(
+                                  width: 260,
+                                  height: 49,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      userCompletedQuests[index], // 유저가 완료한 퀘스트 이름(임의)
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Istok Web',
+                                        color: Colors.black,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                      ),
                     ),
                   ),
                 ),

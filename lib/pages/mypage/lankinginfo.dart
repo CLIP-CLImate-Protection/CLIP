@@ -40,13 +40,22 @@ class _LankingPageState extends State<LankingInfo> {
       ),
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/lankinginfo.png'),
-            fit: BoxFit.cover,
+        color: Colors.white, // 이미지 외의 여백의 색상을 흰색으로 지정
+        child: Center(
+          child: AspectRatio(
+            aspectRatio: 16 / 9, // 이미지의 종횡비를 유지
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/lankinginfo.png'),
+                  fit: BoxFit.contain, // 이미지가 완전히 표시될 수 있도록 설정
+                ),
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 }
+

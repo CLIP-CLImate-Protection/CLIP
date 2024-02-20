@@ -145,7 +145,7 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                         String nickname = nicknameController.text;
                         String address = addressController.text;
 
-                        bool isSuccess = await createNewUserDocument(currentUserUID, nickname);
+                        bool isSuccess = await getUserInfo(nickname, currentUserUID, address);
                         //bool isSuccess = await createNewUserDocument(currentUserUID, profileUrl, nickname, address);
                         //백엔드 메서드 인자 4개로 바꿀 수 있는지 확인, 이미지 url 받는 거 구현하기.
 

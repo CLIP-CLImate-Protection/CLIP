@@ -1,7 +1,10 @@
+
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 String currentUserUID = '';
 String currentUserAddress = '';
@@ -19,6 +22,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
   final bool _bottomSheetVisible = false;
   final nicknameController = TextEditingController();
   final addressController = TextEditingController();
+
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -58,13 +63,26 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                     radius: 60,
                     backgroundColor: Colors.white,
                     child: IconButton(
-                      icon: const Icon(
+                      icon: _image != null
+                          ? Image.file(
+                        _image!,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      )
+                          : const Icon(
                         Icons.add,
                         size: 40,
                         color: Colors.grey,
                       ),
-                      onPressed: () {
-                        //이미지 받기
+                      onPressed: () async {
+                        final picker = ImagePicker();
+                        final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                        if (pickedFile != null) {
+                          setState(() {
+                            _image = File(pickedFile.path);
+                          });
+                        }
                       },
                     ),
                   ),
@@ -189,34 +207,4 @@ void showSnackBar() {
     colorText: Colors.black,
   );
 }
-
-// Future<bool> createNewUserDocument(String uid, String profileUrl, String nickname, String address) async {
-//   try {
-//     print('Creating new user document: $uid');
-//
-//     await FirebaseFirestore.instance
-//         .collection('Users')
-//         .doc(uid)
-//         .set({
-//       'address': address,
-//       'friend': [],
-//       'level': 1,
-//       'nickname': nickname,
-//       'point': 0,
-//       'totalQuest': 0,
-//       'profileUrl': profileUrl
-//     });
-//
-//     String currentDate = DateTime.now().toString();
-//     FirebaseFirestore.instance.collection('Users').doc(uid).collection('grass').doc(currentDate).set({
-//       'cover': 0,
-//       'daily': [],
-//       'main': [],
-//     });
-//     return true;
-//   } catch (e) {
-//     print('Error creating new user document: $e');
-//     return false;
-//   }
-// }
 

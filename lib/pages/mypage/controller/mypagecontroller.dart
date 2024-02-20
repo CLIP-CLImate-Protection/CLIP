@@ -23,12 +23,6 @@ class MyPageController extends GetxController {
     print(user.value.level);
   }
 
-  Future<void> getQuestDateList() async {
-    List<Map<String, dynamic>> jsonData =
-        await getUserQuestData(UserService.instance.uid);
-    // print(jsonData);
-  }
-
   Rx<User> user = User().obs;
 
   // User<User> transformJson(List<Map<String, dynamic>> jsonList) {

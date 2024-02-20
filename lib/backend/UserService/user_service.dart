@@ -335,9 +335,12 @@ Future<List<Map<String, dynamic>>> getUserQuestList(
     List<MapEntry<String, dynamic>> questEntries = questList.entries.toList();
 
     for (var entry in questEntries) {
-      Map<String, dynamic> questInfo = {entry.key: entry.value};
-      result.add(questInfo);
+      if (entry.key == 'main' || entry.key == 'daily') {
+        Map<String, dynamic> questInfo = {entry.key: entry.value};
+        result.add(questInfo);
+      }
     }
+    print('특정 날짜에 유저한 퀘스트 내역');
     print(result);
     return result;
   } catch (e) {

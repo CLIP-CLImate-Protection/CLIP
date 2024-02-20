@@ -14,8 +14,7 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MyPageController _controller = MyPageController();
-    _controller.getQuestDateList();
+    //final MyPageController _controller = MyPageController();
 
     print(DateFormat('yyyy-mm-dd').format(DateTime.now()).toString());
     return Scaffold(

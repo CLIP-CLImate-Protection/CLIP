@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 Widget TitleBox(String title) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       IconButton(
         icon: const Icon(Icons.arrow_back, color: Color(0xFFAEBDB2)),
@@ -25,7 +26,8 @@ Widget TitleBox(String title) {
   );
 }
 
-Widget CommentBox() {
+Widget CommentBox(String? description) {
+  print('description: $description');
   return Container(
     width: 326,
     height: 95,
@@ -34,24 +36,26 @@ Widget CommentBox() {
       color: const Color(0xFFA4D1B1),
       borderRadius: BorderRadius.circular(15),
     ),
-    child: const Text(
-      '설명 문구를 입력하세요',
-      textAlign: TextAlign.center, // 설명 문구 가운데 정렬
-      style: TextStyle(
-        fontFamily: 'Istok Web',
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
+    child: Center(
+      child: Text(
+        description!,
+        textAlign: TextAlign.center, // 설명 문구 가운데 정렬
+        style: const TextStyle(
+          fontFamily: 'Istok Web',
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
       ),
     ),
   );
 }
 
-Widget UploadBox(_getImage, _image, String comment, String option, controller) {
+Widget UploadBox(getImage, image, String comment, String option, controller) {
   return Container(
     width: 326,
-    height: 500,
-    margin: const EdgeInsets.only(top: 30), // 설명문구 네모칸 아래에 30만큼의 여백 추가
+    height: 400,
+    //  margin: const EdgeInsets.only(top: 30), // 설명문구 네모칸 아래에 30만큼의 여백 추가
     decoration: BoxDecoration(
       color: Colors.white, // 흰색 배경
       borderRadius: BorderRadius.circular(15), // 네 모서리 라운드 처리

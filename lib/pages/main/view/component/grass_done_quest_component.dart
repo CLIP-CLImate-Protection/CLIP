@@ -59,7 +59,7 @@ class GrassDoneQuestComponent extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    model.type == 'event'
+                    model.questType == 'event'
                         ? SvgPicture.asset('assets/icons/event_apple.svg', width: 20, height: 20)
                         : Icon(
                             FontAwesomeIcons.coins,

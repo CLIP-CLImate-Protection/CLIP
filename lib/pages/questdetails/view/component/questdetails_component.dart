@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/main/view/navigation.dart';
 import 'package:frontend/pages/questdetails/controller/questdetails_controller.dart';
 import 'package:get/get.dart';
 
@@ -112,6 +113,7 @@ Widget SubmitButton() {
     child: ElevatedButton(
       onPressed: () {
         // 제출하기 버튼 누를 때 수행할 동작 추가
+        Get.offAllNamed(Navigation.url);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFFFAE474), // 버튼 배경색

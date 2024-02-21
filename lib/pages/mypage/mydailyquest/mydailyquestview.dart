@@ -87,7 +87,7 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                 Row(
                   children: [
                     Text(
-                      '총 $completedQuestCount회',
+                      '총 $completedQuestCount일',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -102,13 +102,16 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
-                      children: List.generate(userCompletedQuests.length, (index) {
+                      children:
+                          List.generate(userCompletedQuests.length, (index) {
                         return Card(
-                          margin: const EdgeInsets.only(left: 30, right: 30, bottom: 10),
+                          margin: const EdgeInsets.only(
+                              left: 30, right: 30, bottom: 10),
                           elevation: 5,
                           child: InkWell(
                             onTap: () {
-                              controller.getDateQuestList(userCompletedQuests[index]);
+                              controller
+                                  .getDateQuestList(userCompletedQuests[index]);
                             },
                             child: Container(
                               width: 310,
@@ -119,7 +122,8 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                               ),
                               child: Center(
                                 child: Text(
-                                  userCompletedQuests[index], // 유저가 완료한 퀘스트 이름(임의)
+                                  userCompletedQuests[
+                                      index], // 유저가 완료한 퀘스트 이름(임의)
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,

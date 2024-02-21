@@ -88,10 +88,11 @@ class _UploadTextPageState extends State<UploadTextPage> {
               // TitleBox(widget.model.questName!),
               const SizedBox(height: 20),
               CommentBox(widget.model.questDescription!),
-              const SizedBox(height: 30), // 추가된 네모칸과의 간격 조
+              const SizedBox(height: 40), // 추가된 네모칸과의 간격 조
               UploadBox(_getImage, _image, '환경과 관련된 책/영상/다큐 등의 감상문을 입력하세요 (최대 200자)', 'text', _descriptionController),
-              const SizedBox(height: 20),
-              SubmitButton()
+              const SizedBox(height: 40),
+              SubmitButton(),
+              const SizedBox(height: 60),
             ],
           ),
         ),

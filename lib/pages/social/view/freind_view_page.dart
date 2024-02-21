@@ -176,7 +176,7 @@ class FriendViewPage extends StatelessWidget {
                           onTap: () {
                             showQuestAlertDialog(context, '잔디', '잔디를 클릭하면 해당 날짜의 퀘스트를 확인할 수 있습니다.');
                           },
-                          child: Image.asset('assets/images/my_grass.png', width: 318, height: 238)),
+                          child: Image.asset('assets/images/clip_grass.png', width: 318, height: 238)),
                       const SizedBox(height: 25),
                       Container(
                         width: 305,

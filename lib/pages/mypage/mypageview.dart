@@ -52,21 +52,16 @@ class MyPage extends StatelessWidget {
                         CircleAvatar(
                           radius: 40,
                           backgroundColor: Colors.grey[300],
-                          backgroundImage:
-                              MyPageController.instance.user.value.profileUrl !=
-                                      'profileUrl'
-                                  ? NetworkImage(MyPageController
-                                      .instance.user.value.profileUrl!)
-                                  : null,
-                          child:
-                              MyPageController.instance.user.value.profileUrl ==
-                                      'profileUrl'
-                                  ? Icon(
-                                      Icons.person,
-                                      size: 60,
-                                      color: Colors.grey[600],
-                                    )
-                                  : null,
+                          backgroundImage: MyPageController.instance.user.value.profileUrl != 'profileUrl'
+                              ? NetworkImage(MyPageController.instance.user.value.profileUrl!)
+                              : null,
+                          child: MyPageController.instance.user.value.profileUrl == 'profileUrl'
+                              ? Icon(
+                                  Icons.person,
+                                  size: 60,
+                                  color: Colors.grey[600],
+                                )
+                              : null,
                         ),
                         const SizedBox(width: 20),
                         Column(
@@ -161,13 +156,13 @@ class MyPage extends StatelessWidget {
                     const SizedBox(height: 5),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => LankingInfo());
+                        Get.to(() => const LankingInfo());
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '다음 랭킹까지 남은 게이지(남은게이지 퍼센트)', //퍼센트 파이어베이스 처리 //아직 미구현
+                            '다음 랭킹까지 남은 게이지 (40%)', //퍼센트 파이어베이스 처리 //아직 미구현
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.normal,
@@ -187,7 +182,7 @@ class MyPage extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          Get.to(() => MyDailyQuestView());
+                          Get.to(() => const MyDailyQuestView());
                         },
                         child: const Center(
                           child: Text(
@@ -201,7 +196,7 @@ class MyPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 110),
+                    const SizedBox(height: 170),
                     GestureDetector(
                       onTap: () {
                         showDialog(
@@ -215,7 +210,7 @@ class MyPage extends StatelessWidget {
                         child: Text(
                           '로그아웃',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 15,
                             fontWeight: FontWeight.normal,
                             color: Colors.black,
                             decoration: TextDecoration.underline,
@@ -223,7 +218,7 @@ class MyPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 20),
                     Container(
                       width: 347,
                       height: 48,
@@ -248,10 +243,10 @@ class MyPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
             ],
           ),
         ),

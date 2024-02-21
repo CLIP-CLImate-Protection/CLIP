@@ -38,8 +38,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 Future<bool> userExistsInDB(String uid) async {
   try {
     print('DB check: $uid');
-    CollectionReference usersCollection =
-        FirebaseFirestore.instance.collection('Users');
+    CollectionReference usersCollection = FirebaseFirestore.instance.collection('Users');
     DocumentSnapshot documentSnapshot = await usersCollection.doc(uid).get();
     print(documentSnapshot.exists);
     return documentSnapshot.exists;
@@ -56,22 +55,12 @@ Future<bool> createNewUserDocument(String uid, String date) async {
     //     FirebaseFirestore.instance.collection('Users');
     // await usersCollection.doc(uid);
 
-    await FirebaseFirestore.instance.collection('Users').doc(uid).set({
-      'address': 'address',
-      'friend': [],
-      'level': 1,
-      'nickname': 'nickname',
-      'point': 0,
-      'totalQuest': 0,
-      'profileUrl': 'profileUrl'
-    });
-
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('Users')
         .doc(uid)
-        .collection('grass')
-        .doc(date)
-        .set({
+        .set({'address': 'address', 'friend': [], 'level': 1, 'nickname': 'nickname', 'point': 0, 'totalQuest': 0, 'profileUrl': 'profileUrl'});
+
+    FirebaseFirestore.instance.collection('Users').doc(uid).collection('grass').doc(date).set({
       'cover': 0,
       'daily': [],
       'main': [],
@@ -99,8 +88,7 @@ Future<String> googleSignOut() async {
 }
 
 //파라미터에 String url 추가
-Future<bool> getUserInfo(
-    String nickname, String uid, String address, String profileUrl) async {
+Future<bool> getUserInfo(String nickname, String uid, String address, String profileUrl) async {
   try {
     await _firestore.collection('Users').doc(uid).update({
       'nickname': nickname,
@@ -116,14 +104,8 @@ Future<bool> getUserInfo(
   }
 }
 
-Future<Map<String, List<String>>> getUserGrassInfo(
-    String uid, String date) async {
-  DocumentSnapshot documentSnapshot = await _firestore
-      .collection('Users')
-      .doc(uid)
-      .collection('grass')
-      .doc(date)
-      .get();
+Future<Map<String, List<String>>> getUserGrassInfo(String uid, String date) async {
+  DocumentSnapshot documentSnapshot = await _firestore.collection('Users').doc(uid).collection('grass').doc(date).get();
 
   List<String> daily = documentSnapshot['daily'];
   print('daily: $daily');
@@ -180,8 +162,7 @@ Future<int> getUserGrassList(String uid, String date) async {
     // DateTime startDate = DateTime(int.parse(year), int.parse(month), 1);
     // DateTime endDate = DateTime(int.parse(year), int.parse(month) + 1, 1);
 
-    CollectionReference grassCollection =
-        _firestore.collection('Users').doc(uid).collection('grass');
+    CollectionReference grassCollection = _firestore.collection('Users').doc(uid).collection('grass');
     QuerySnapshot querySnapshot = await grassCollection.where('date').get();
 
     for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
@@ -201,8 +182,7 @@ Future<int> getUserGrassList(String uid, String date) async {
 
 Future<int> getUserPoint(String uid) async {
   try {
-    DocumentSnapshot documentSnapshot =
-        await _firestore.collection('Users').doc(uid).get();
+    DocumentSnapshot documentSnapshot = await _firestore.collection('Users').doc(uid).get();
     int point = documentSnapshot['point'];
     return point;
   } catch (e) {
@@ -215,20 +195,16 @@ Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
   try {
     print("getUserAllInfo");
     print(uid);
-    DocumentSnapshot documentSnapshot =
-        await _firestore.collection('Users').doc(uid).get();
-    List<String> friend =
-        (documentSnapshot.data() != null && documentSnapshot['friend'] != null)
-            ? List<String>.from(documentSnapshot['friend'])
-            : [];
+    DocumentSnapshot documentSnapshot = await _firestore.collection('Users').doc(uid).get();
+    List<String> friend = (documentSnapshot.data() != null && documentSnapshot['friend'] != null) ? List<String>.from(documentSnapshot['friend']) : [];
     int level = documentSnapshot['level'];
     String nickname = documentSnapshot['nickname'];
     int point = documentSnapshot['point'];
     int totalQuest = documentSnapshot['totalQuest'];
     String profileUrl = documentSnapshot['profileUrl'];
     String address = documentSnapshot['address'];
-    String totalLank = documentSnapshot['totalLank'];
-    String weeklyLank = documentSnapshot['weeklyLank'];
+    int totalLank = documentSnapshot['totalLank'];
+    int weeklyLank = documentSnapshot['weeklyLank'];
 
     Map<String, dynamic> userInfo = {
       'friend': friend,
@@ -272,16 +248,12 @@ Future<String> updateUserLevel(String uid, int level) async {
 
 Future<String> updateUserTotalQuest(String uid) async {
   try {
-    DocumentSnapshot userSnapshot =
-        await _firestore.collection('Users').doc(uid).get();
+    DocumentSnapshot userSnapshot = await _firestore.collection('Users').doc(uid).get();
     int currentTotalQuest = userSnapshot['totalQuest'] ?? 0;
 
     int newTotalQuest = currentTotalQuest + 1;
 
-    await _firestore
-        .collection('Users')
-        .doc(uid)
-        .update({'totalQuest': newTotalQuest});
+    await _firestore.collection('Users').doc(uid).update({'totalQuest': newTotalQuest});
 
     print(newTotalQuest);
     return 'Successfully updated user total quest';
@@ -293,10 +265,7 @@ Future<String> updateUserTotalQuest(String uid) async {
 
 Future<String> updateUserProfileUrl(String uid, String profileUrl) async {
   try {
-    await _firestore
-        .collection('Users')
-        .doc(uid)
-        .update({'profileUrl': profileUrl});
+    await _firestore.collection('Users').doc(uid).update({'profileUrl': profileUrl});
     return 'Successfully updated user profile url';
   } catch (e) {
     print('Error updating user profile url: $e');
@@ -304,16 +273,13 @@ Future<String> updateUserProfileUrl(String uid, String profileUrl) async {
   }
 }
 
-Future<String> updateUserGrass(
-    String uid, String date, String type, String name) async {
+Future<String> updateUserGrass(String uid, String date, String type, String name) async {
   try {
-    DocumentReference documentReference =
-        _firestore.collection('Users').doc(uid).collection('grass').doc(date);
+    DocumentReference documentReference = _firestore.collection('Users').doc(uid).collection('grass').doc(date);
     DocumentSnapshot documentSnapshot = await documentReference.get();
 
     if (documentSnapshot.exists) {
-      Map<String, dynamic> data =
-          documentSnapshot.data() as Map<String, dynamic>;
+      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
       if (data.containsKey(type)) {
         await documentReference.update({
           type: FieldValue.arrayUnion([name])
@@ -332,17 +298,10 @@ Future<String> updateUserGrass(
   }
 }
 
-Future<List<Map<String, dynamic>>> getUserQuestList(
-    String uid, String date) async {
+Future<List<Map<String, dynamic>>> getUserQuestList(String uid, String date) async {
   try {
-    DocumentSnapshot questSnapshot = await _firestore
-        .collection('Users')
-        .doc(uid)
-        .collection('grass')
-        .doc(date)
-        .get();
-    Map<String, dynamic> questList =
-        questSnapshot.data() as Map<String, dynamic>;
+    DocumentSnapshot questSnapshot = await _firestore.collection('Users').doc(uid).collection('grass').doc(date).get();
+    Map<String, dynamic> questList = questSnapshot.data() as Map<String, dynamic>;
 
     List<Map<String, dynamic>> result = [];
 
@@ -365,8 +324,7 @@ Future<List<Map<String, dynamic>>> getUserQuestList(
 
 Future<List<Map<String, dynamic>>> getUserQuestData(String uid) async {
   try {
-    QuerySnapshot questSnapshot =
-        await _firestore.collection('Users').doc(uid).collection('grass').get();
+    QuerySnapshot questSnapshot = await _firestore.collection('Users').doc(uid).collection('grass').get();
     List<Map<String, dynamic>> result = [];
     for (var doc in questSnapshot.docs) {
       Map<String, dynamic> questInfo = {

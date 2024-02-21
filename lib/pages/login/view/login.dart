@@ -55,16 +55,16 @@ class LoginPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   '', // 로고 이미지 경로
-                  //   width: 24,
-                  //   height: 24,
-                  // ),
-                  SizedBox(width: 10),
-                  Text(
+                  Image.asset(
+                    'assets/images/clip_logo.png', // 로고 이미지 경로
+                    width: 40,
+                    height: 40,
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
                     'CLIP',
                     style: TextStyle(
                       fontFamily: 'Kantumruy',

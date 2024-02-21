@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/common.dart';
-import 'package:frontend/pages/mypage/mydailyquest/my_quest_list_view_page.dart';
-import 'package:get/get.dart';
 
 import '../controller/mydailyquestcontroller.dart';
 
@@ -88,27 +86,9 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    const Text(
-                      '총',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Inter',
-                        color: Colors.black,
-                      ),
-                    ),
                     Text(
-                      '$completedQuestCount',
+                      '총 $completedQuestCount회',
                       style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Inter',
-                        color: Colors.black,
-                      ),
-                    ),
-                    const Text(
-                      '개',
-                      style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Inter',
@@ -118,6 +98,7 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                   ],
                 ),
                 const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
@@ -128,8 +109,6 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                           child: InkWell(
                             onTap: () {
                               controller.getDateQuestList(userCompletedQuests[index]);
-
-                              Get.to(() => const MyQuestListViewPage());
                             },
                             child: Container(
                               width: 310,

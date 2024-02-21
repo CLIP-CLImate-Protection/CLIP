@@ -1,13 +1,17 @@
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:frontend/backend/UserService/user_service.dart';
+import 'package:frontend/service/user_service.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 String currentUserUID = '';
 String currentUserAddress = '';
+File? _image;
+String? _imageUrl;
+String? profileUrl;
 
 class MemberInfoForm extends StatefulWidget {
   static const String url = '/memberinfo';
@@ -22,8 +26,6 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
   final bool _bottomSheetVisible = false;
   final nicknameController = TextEditingController();
   final addressController = TextEditingController();
-
-  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -65,23 +67,26 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                     child: IconButton(
                       icon: _image != null
                           ? Image.file(
-                        _image!,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      )
+                              _image!,
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            )
                           : const Icon(
-                        Icons.add,
-                        size: 40,
-                        color: Colors.grey,
-                      ),
+                              Icons.add,
+                              size: 40,
+                              color: Colors.grey,
+                            ),
                       onPressed: () async {
                         final picker = ImagePicker();
-                        final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                        final pickedFile =
+                            await picker.getImage(source: ImageSource.gallery);
                         if (pickedFile != null) {
                           setState(() {
                             _image = File(pickedFile.path);
                           });
+                          profileUrl = await _uploadImageToFirebaseStorage();
+                          print(profileUrl);
                         }
                       },
                     ),
@@ -113,7 +118,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: '닉네임을 입력하세요',
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                            hintStyle:
+                                TextStyle(color: Colors.white.withOpacity(0.5)),
                             border: InputBorder.none,
                           ),
                         ),
@@ -142,7 +148,8 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             hintText: '서울시는 구까지, 그 외는 시까지 입력하세요',
-                            hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+                            hintStyle:
+                                TextStyle(color: Colors.white.withOpacity(0.5)),
                             border: InputBorder.none,
                           ),
                           keyboardType: TextInputType.text,
@@ -162,8 +169,9 @@ class _MemberInfoFormState extends State<MemberInfoForm> {
                       onPressed: () async {
                         String nickname = nicknameController.text;
                         String address = addressController.text;
-
-                        bool isSuccess = await getUserInfo(nickname, currentUserUID, address);
+                        String profile = profileUrl.toString();
+                        bool isSuccess = await getUserInfo(nickname,
+                            UserService.instance.uid, address, profile);
                         //bool isSuccess = await createNewUserDocument(currentUserUID, profileUrl, nickname, address);
                         //백엔드 메서드 인자 4개로 바꿀 수 있는지 확인, 이미지 url 받는 거 구현하기.
 
@@ -208,3 +216,23 @@ void showSnackBar() {
   );
 }
 
+Future<String?> _uploadImageToFirebaseStorage() async {
+  if (_image == null) return null;
+
+  try {
+    // Upload image to Firebase Storage
+    final firebase_storage.Reference storageRef = firebase_storage
+        .FirebaseStorage.instance
+        .ref()
+        .child('profile')
+        .child(DateTime.now().toString() + '.jpg');
+    await storageRef.putFile(_image!);
+
+    // Get download URL of the uploaded image
+    final String downloadURL = await storageRef.getDownloadURL();
+    _imageUrl = downloadURL;
+    return _imageUrl!;
+  } catch (error) {
+    print('Error uploading image: $error');
+  }
+}

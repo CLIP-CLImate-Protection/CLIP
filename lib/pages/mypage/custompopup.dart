@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/fastAPI/models/User.dart';
+import 'package:frontend/pages/login/view/login.dart';
+import 'package:frontend/service/user_service.dart';
+import 'package:get/get.dart';
 
 class CustomPopup extends StatelessWidget {
   @override
@@ -47,8 +51,13 @@ class CustomPopup extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    //로그아웃 기능 연동
+                    UserService.instance.logout();
+
+                    // Get.snackbar(
+                    //     'User ID: ${UserService.instance.uid}', '로그아웃 되었습니다.');
+                    //Get.toNamed(LoginPage.url);
                     Navigator.pop(context, true);
+                    Get.offAllNamed(LoginPage.url);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFF278740),

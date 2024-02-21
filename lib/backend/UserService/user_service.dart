@@ -98,12 +98,14 @@ Future<String> googleSignOut() async {
   return 'logout';
 }
 
-//파라미터에 String ulr 추가
-Future<bool> getUserInfo(String nickname, String uid, String address) async {
+//파라미터에 String url 추가
+Future<bool> getUserInfo(
+    String nickname, String uid, String address, String profileUrl) async {
   try {
     await _firestore.collection('Users').doc(uid).update({
       'nickname': nickname,
       'address': address,
+      'profileUrl': profileUrl,
       // Any other fields you want to update can be added here
     });
     reloadData();
@@ -225,6 +227,8 @@ Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
     int totalQuest = documentSnapshot['totalQuest'];
     String profileUrl = documentSnapshot['profileUrl'];
     String address = documentSnapshot['address'];
+    String totalLank = documentSnapshot['totalLank'];
+    String weeklyLank = documentSnapshot['weeklyLank'];
 
     Map<String, dynamic> userInfo = {
       'friend': friend,
@@ -234,6 +238,8 @@ Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
       'totalQuest': totalQuest,
       'profileUrl': profileUrl,
       'address': address,
+      'totalLank': totalLank,
+      'weeklyLank': weeklyLank,
     };
 
     print(userInfo);
@@ -264,12 +270,20 @@ Future<String> updateUserLevel(String uid, int level) async {
   }
 }
 
-Future<String> updateUserTotalQuest(String uid, int totalQuest) async {
+Future<String> updateUserTotalQuest(String uid) async {
   try {
+    DocumentSnapshot userSnapshot =
+        await _firestore.collection('Users').doc(uid).get();
+    int currentTotalQuest = userSnapshot['totalQuest'] ?? 0;
+
+    int newTotalQuest = currentTotalQuest + 1;
+
     await _firestore
         .collection('Users')
         .doc(uid)
-        .update({'totalQuest': totalQuest});
+        .update({'totalQuest': newTotalQuest});
+
+    print(newTotalQuest);
     return 'Successfully updated user total quest';
   } catch (e) {
     print('Error updating user total quest: $e');

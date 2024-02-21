@@ -51,6 +51,13 @@ class UserService extends GetxService {
       }
     }
   }
+
+  void logout() async {
+    googleSignOut();
+    const storage = FlutterSecureStorage();
+    await storage.delete(key: 'uid');
+    //await UserService.instance.init();
+  }
 }
 
 void reloadData() {

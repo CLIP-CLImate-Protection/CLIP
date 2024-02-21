@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:frontend/backend/UserService/user_service.dart';
+import 'package:frontend/service/user_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 
 // 클릭하면 예시 사진을 보여주는 함수
 class ExImageViewer extends StatefulWidget {
@@ -18,39 +19,35 @@ class _ExImageViewerState extends State<ExImageViewer> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                _isImageVisible = !_isImageVisible;
-              });
-            },
-            child: const Text(
-              '예시 사진',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 16,
-                fontWeight: FontWeight.w400, // Regular
-                color: Colors.white, // 텍스트 색상 변경
-              ),
-            ),
+    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      GestureDetector(
+        onTap: () {
+          setState(() {
+            _isImageVisible = !_isImageVisible;
+          });
+        },
+        child: const Text(
+          '예시 사진',
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 16,
+            fontWeight: FontWeight.w400, // Regular
+            color: Colors.white, // 텍스트 색상 변경
           ),
-          const SizedBox(height: 10),
-          _isImageVisible
-              ? Image.asset(
-            'assets/exbowl.png',
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-          )
-              : const SizedBox(height: 0), // 이미지를 보이거나 숨길 때 공간 차지하지 않도록 함
-        ]
-    );
+        ),
+      ),
+      const SizedBox(height: 10),
+      _isImageVisible
+          ? Image.asset(
+              'assets/exbowl.png',
+              width: 100,
+              height: 100,
+              fit: BoxFit.cover,
+            )
+          : const SizedBox(height: 0), // 이미지를 보이거나 숨길 때 공간 차지하지 않도록 함
+    ]);
   }
 }
-
 
 // 업로드한 이미지를 fastapi 서버로 전송하여 추론한 결과를 받는 함수
 Future<dynamic> sendDataToFastapi(File imageFile) async {
@@ -80,7 +77,6 @@ Future<dynamic> sendDataToFastapi(File imageFile) async {
     print('Failed to upload image. Error: ${response.reasonPhrase}');
   }
 }
-
 
 // 이미지를 업로드하는 함수
 class ImageUploader extends StatefulWidget {
@@ -133,14 +129,14 @@ class _ImageUploaderState extends State<ImageUploader> {
             child: Center(
               child: _image == null
                   ? const Icon(
-                Icons.add,
-                size: 40,
-                color: Color(0xFF888888),
-              )
+                      Icons.add,
+                      size: 40,
+                      color: Color(0xFF888888),
+                    )
                   : Image.file(
-                File(_image!.path),
-                //fit: BoxFit.cover,
-              ),
+                      File(_image!.path),
+                      //fit: BoxFit.cover,
+                    ),
             ),
             onTap: () async {
               setState(() {
@@ -149,7 +145,9 @@ class _ImageUploaderState extends State<ImageUploader> {
             },
           ),
         ),
-        const SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         Container(
           height: 50,
           child: FutureBuilder<List<dynamic>>(
@@ -162,6 +160,8 @@ class _ImageUploaderState extends State<ImageUploader> {
               } else {
                 // 데이터가 준비되면 출력
                 if (snapshot.data != null && snapshot.data!.isNotEmpty) {
+                  updateUserTotalQuest(UserService.instance.uid);
+
                   final item = snapshot.data![0];
                   return Column(
                     children: snapshot.data!.map((item) {
@@ -184,5 +184,4 @@ class _ImageUploaderState extends State<ImageUploader> {
       ],
     );
   }
-
 }

@@ -89,7 +89,7 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                 Row(
                   children: [
                     Text(
-                      '총 $completedQuestCount회',
+                      '총 $completedQuestCount일',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

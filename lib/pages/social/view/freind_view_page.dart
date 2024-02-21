@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../main/view/component/grass_done_quest_component.dart';
+import '../../mypage/controller/mypagecontroller.dart';
 import '../../quest/controller/quest_controller.dart';
 
 class FriendViewPage extends StatelessWidget {
@@ -21,6 +22,7 @@ class FriendViewPage extends StatelessWidget {
   String month = DateFormat('MMM').format(DateTime.now());
 
   final controller = SocialMainController.instance;
+  final mycontroller = MyPageController.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,7 +176,7 @@ class FriendViewPage extends StatelessWidget {
                           onTap: () {
                             showQuestAlertDialog(context, '잔디', '잔디를 클릭하면 해당 날짜의 퀘스트를 확인할 수 있습니다.');
                           },
-                          child: Image.asset('assets/images/my_grass.png', width: 318, height: 238)),
+                          child: Image.asset('assets/images/clip_grass.png', width: 318, height: 238)),
                       const SizedBox(height: 25),
                       Container(
                         width: 305,
@@ -219,9 +221,9 @@ class FriendViewPage extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                const Text(
-                                  '나',
-                                  style: TextStyle(
+                                Text(
+                                  levelToString(mycontroller.user.value.level),
+                                  style: const TextStyle(
                                     fontSize: 16,
                                   ),
                                 ),
@@ -230,7 +232,7 @@ class FriendViewPage extends StatelessWidget {
                                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(Common.mainColor)),
                                 ),
                                 Text(
-                                  '${model.level}',
+                                  levelToString(model.level),
                                   style: const TextStyle(
                                     fontSize: 16,
                                   ),
@@ -243,9 +245,9 @@ class FriendViewPage extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                const Text(
-                                  '나',
-                                  style: TextStyle(
+                                Text(
+                                  '${mycontroller.user.value.totalLank}',
+                                  style: const TextStyle(
                                     fontSize: 16,
                                   ),
                                 ),
@@ -267,9 +269,9 @@ class FriendViewPage extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                const Text(
-                                  '나',
-                                  style: TextStyle(
+                                Text(
+                                  '${mycontroller.user.value.weeklyLank}',
+                                  style: const TextStyle(
                                     fontSize: 16,
                                   ),
                                 ),

@@ -84,11 +84,11 @@ class _UploadImagePageState extends State<UploadImagePage> {
               // TitleBox(widget.model.questName!),
               const SizedBox(height: 20),
               CommentBox(widget.model.questDescription!),
-              const SizedBox(height: 30), // 추가된 네모칸과의 간격 조정
+              const SizedBox(height: 40), // 추가된 네모칸과의 간격 조정
               UploadBox(_getImage, _image, '음식을 다 먹고 빈 그릇을 찍어\n업로드해주세요.', 'image', _nullController),
-              const SizedBox(height: 10),
-              const ExImageViewer(),
               const SizedBox(height: 30),
+              const ExImageViewer(),
+              const SizedBox(height: 40),
               // 제출하기 버튼 추가
               SubmitButton()
             ],

@@ -2,6 +2,7 @@ import 'package:frontend/fastAPI/models/User.dart';
 import 'package:frontend/pages/login/view/login.dart';
 import 'package:frontend/pages/main/view/shop_view_page.dart';
 import 'package:frontend/pages/memberinfo/memberinfo.dart';
+import 'package:frontend/pages/mypage/mydailyquest/my_quest_list_view_page.dart';
 import 'package:frontend/pages/mypage/mypageview.dart';
 import 'package:frontend/pages/social/view/freind_view_page.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,7 @@ class CustomRouter {
     GetPage(name: ShopViewPage.url, page: () => const ShopViewPage()),
     GetPage(name: MemberInfoForm.url, page: () => const MemberInfoForm()),
     GetPage(name: FriendViewPage.url, page: () => FriendViewPage(model: User())),
-    GetPage(name: MyPage.url, page: () => MyPage()),
+    GetPage(name: MyPage.url, page: () => const MyPage()),
+    GetPage(name: MyQuestListViewPage.url, page: () => const MyQuestListViewPage()),
   ];
 }

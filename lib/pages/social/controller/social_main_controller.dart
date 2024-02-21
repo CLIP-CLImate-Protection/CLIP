@@ -15,6 +15,14 @@ class SocialMainController extends GetxController {
     getNicknameList();
   }
 
+  RxList<String> filteredList = <String>[].obs;
+
+  // Function to update the search query
+  void setSearchQuery(String value) {
+    // Update the filteredList based on the search query
+    filteredList.value = nicknameList.where((element) => element.toLowerCase().contains(value.toLowerCase()) && value.isNotEmpty).toList();
+  }
+
   RxList<User> friendList = <User>[].obs;
 
   RxList<String> nicknameList = <String>[].obs;

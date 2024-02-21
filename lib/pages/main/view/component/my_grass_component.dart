@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:frontend/common/common.dart';
 import 'package:frontend/pages/main/view/component/grass_done_quest_component.dart';
 import 'package:frontend/pages/quest/controller/quest_controller.dart';
 import 'package:get/get.dart';
@@ -24,7 +25,7 @@ class MyGrassComponent extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
                   onPressed: () {
@@ -34,6 +35,7 @@ class MyGrassComponent extends StatelessWidget {
                   icon: const Icon(FontAwesomeIcons.caretLeft),
                   color: const Color(0xFFD9D9D9),
                   iconSize: 20),
+              SizedBox(width: Common.getWidth * 0.28),
               Text(
                 month,
                 textAlign: TextAlign.center,
@@ -45,13 +47,13 @@ class MyGrassComponent extends StatelessWidget {
                   letterSpacing: -0.41,
                 ),
               ),
-              IconButton(
-                  onPressed: () {
-                    //다음 달 잔디 보여줌
-                  },
-                  icon: const Icon(FontAwesomeIcons.caretRight),
-                  color: const Color(0xFFD9D9D9),
-                  iconSize: 20),
+              // IconButton(
+              //     onPressed: () {
+              //       //다음 달 잔디 보여줌
+              //     },
+              //     icon: const Icon(FontAwesomeIcons.caretRight),
+              //     color: const Color(0xFFD9D9D9),
+              //     iconSize: 20),
             ],
           ),
           const SizedBox(

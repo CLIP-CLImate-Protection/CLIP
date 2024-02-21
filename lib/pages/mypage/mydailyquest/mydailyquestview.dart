@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/common/common.dart';
+import 'package:frontend/pages/mypage/mydailyquest/my_quest_list_view_page.dart';
+import 'package:get/get.dart';
 
 import '../controller/mydailyquestcontroller.dart';
 
 class MyDailyQuestView extends StatefulWidget {
   const MyDailyQuestView({Key? key}) : super(key: key);
 
-  static const String url = '/mydailyquest';
+  static const String url = 'mypage//mydailyquest';
 
   @override
   _DailyQuestPageState createState() => _DailyQuestPageState();
@@ -109,6 +111,8 @@ class _DailyQuestPageState extends State<MyDailyQuestView> {
                           child: InkWell(
                             onTap: () {
                               controller.getDateQuestList(userCompletedQuests[index]);
+                              print('date: ${controller.quests['date']}');
+                              Get.to(() => const MyQuestListViewPage());
                             },
                             child: Container(
                               width: 310,

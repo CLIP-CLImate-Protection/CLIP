@@ -16,6 +16,7 @@ class MyDailyQuestController extends GetxController {
         quests.add(date);
       }
     }
+
     return quests;
   }
 
@@ -24,12 +25,21 @@ class MyDailyQuestController extends GetxController {
   Map<String, dynamic> quests = {};
 
   Future<void> separateQuest() async {
+    dailyQuestList.value = [];
+    dailyQuestList.refresh();
+    mainQuestList.value = [];
+    mainQuestList.refresh();
     for (var item in quests.keys) {
       if (item == 'daily') {
-        print('daily퀘스트 추가: $item');
-        dailyQuestList.add(quests[item]);
+        print('daily퀘스트 추가: ${quests[item]}');
+        for (var i in quests[item]) {
+          dailyQuestList.add(i);
+        }
       } else if (item == 'main') {
-        mainQuestList.add(quests[item]);
+        print('main퀘스트 추가: ${quests[item]}');
+        for (var i in quests[item]) {
+          mainQuestList.add(i);
+        }
       }
     }
     mainQuestList.refresh();
@@ -50,5 +60,6 @@ class MyDailyQuestController extends GetxController {
     print('front');
     print(quests);
     print(quests['date']);
+    separateQuest();
   }
 }

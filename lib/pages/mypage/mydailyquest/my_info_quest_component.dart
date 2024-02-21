@@ -34,7 +34,7 @@ class MyInfoQuestComponent extends StatelessWidget {
         padding: const EdgeInsets.only(left: 15, right: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
               width: Common.getWidth * 0.5,

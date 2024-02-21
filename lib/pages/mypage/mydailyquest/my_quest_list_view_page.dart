@@ -6,13 +6,13 @@ import 'package:frontend/pages/mypage/mydailyquest/my_info_quest_component.dart'
 class MyQuestListViewPage extends StatelessWidget {
   const MyQuestListViewPage({super.key});
 
-  static const String url = '/mypage/mydailyquest';
+  static const String url = '/mydailyquest';
 
   @override
   Widget build(BuildContext context) {
     final controller = MyDailyQuestController.instance;
-    controller.separateQuest();
-
+    // controller.separateQuest();
+    print('date: ${controller.quests['date']}');
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 70.0,
@@ -104,20 +104,20 @@ class MyQuestListViewPage extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: [
-                      // for (int index = 0; index < controller.questList.length; index++)
-                      //   Column(
-                      //     children: [
-                      //       if (index == 0) const SizedBox(height: 10),
-                      //       QuestComponent(
-                      //         model: controller.questList[index],
-                      //       ),
-                      //       if (index != controller.questList.length - 1) const SizedBox(height: 20),
-                      //     ],
-                      //   )
+                      for (int index = 0; index < controller.mainQuestList.length; index++)
+                        Column(
+                          children: [
+                            if (index == 0) const SizedBox(height: 10),
+                            MyInfoQuestComponent(
+                              questName: controller.mainQuestList[index],
+                            ),
+                            if (index != controller.mainQuestList.length - 1) const SizedBox(height: 20),
+                          ],
+                        )
                     ],
                   ),
                 ),

@@ -227,6 +227,8 @@ Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
     int totalQuest = documentSnapshot['totalQuest'];
     String profileUrl = documentSnapshot['profileUrl'];
     String address = documentSnapshot['address'];
+    String totalLank = documentSnapshot['totalLank'];
+    String weeklyLank = documentSnapshot['weeklyLank'];
 
     Map<String, dynamic> userInfo = {
       'friend': friend,
@@ -236,6 +238,8 @@ Future<Map<String, dynamic>> getUserAllInfo(String uid) async {
       'totalQuest': totalQuest,
       'profileUrl': profileUrl,
       'address': address,
+      'totalLank': totalLank,
+      'weeklyLank': weeklyLank,
     };
 
     print(userInfo);
